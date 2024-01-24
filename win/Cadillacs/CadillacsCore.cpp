@@ -8,7 +8,7 @@ CadillacsCore::~CadillacsCore()
 {
 }
 
-void CadillacsCore::EngineStart()
+void CadillacsCore::Start()
 {
 	//MainWindow.SetTitle();
 	//MainWindow.SetScale();
@@ -18,12 +18,12 @@ void CadillacsCore::EngineStart()
 	int a = 0;
 }
 
-void CadillacsCore::EngineUpdate()
+void CadillacsCore::Update()
 {
 	int a = 0;
 }
 
-void CadillacsCore::EngineEnd()
+void CadillacsCore::End()
 {
 	int a = 0;
 }

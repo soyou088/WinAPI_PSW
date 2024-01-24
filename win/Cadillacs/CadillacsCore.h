@@ -16,9 +16,9 @@ public:
 	CadillacsCore& operator=(CadillacsCore&& _Other) noexcept = delete;
 
 protected:
-	void EngineStart() override;
-	void EngineUpdate() override;
-	void EngineEnd() override;
+	void Start() override;
+	void Update() override;
+	void End() override;
 
 private:
 
