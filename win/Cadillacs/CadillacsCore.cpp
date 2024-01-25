@@ -1,4 +1,7 @@
 #include "CadillacsCore.h"
+#include "Player.h"
+#include "TitleLevel.h"
+#include "PlayerLevel.h"
 
 CadillacsCore::CadillacsCore()
 {
@@ -8,19 +11,19 @@ CadillacsCore::~CadillacsCore()
 {
 }
 
-void CadillacsCore::Start()
+void CadillacsCore::BeginPlay()
 {
-	//MainWindow.SetTitle();
-	//MainWindow.SetScale();
+	// "Title Level" + "을 만들다가 에러가 났습니다";
 
+	CreateLevel<UTitleLevel>("TitleLevel");
+	CreateLevel<UPlayLevel>("PlayLevel");
 
-	// 이때되면 이미 윈도우 창은 만들어져있는 상태일거라고 
-	int a = 0;
+	ChangeLevel("PlayLevel");
 }
 
-void CadillacsCore::Update()
+void CadillacsCore::Tick(float _DeltaTime)
 {
-	int a = 0;
+	// 플레이어 움직여야 한다.
 }
 
 void CadillacsCore::End()
