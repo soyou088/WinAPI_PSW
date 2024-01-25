@@ -1,7 +1,6 @@
 #pragma once
 #include <EngineCore\Actor.h>
 
-// Ό³Έν :
 class Player : public AActor
 {
 public:
@@ -20,6 +19,6 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-
+	float QSkillCool = 0.0f;
 };
 

@@ -1,4 +1,5 @@
 #include "TitleLevel.h"
+#include "EngineCore\EngineCore.h"
 
 UTitleLevel::UTitleLevel()
 {

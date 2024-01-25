@@ -5,11 +5,13 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerLevel.h" />
     <ClInclude Include="TitleLevel.h" />
+    <ClInclude Include="Bullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CadillacsCore.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerLevel.cpp" />
     <ClCompile Include="TitleLevel.cpp" />
+    <ClCompile Include="Bullet.cpp" />
   </ItemGroup>
 </Project>
