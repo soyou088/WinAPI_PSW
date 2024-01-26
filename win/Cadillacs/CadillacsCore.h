@@ -2,18 +2,18 @@
 #include <EngineCore\EngineCore.h>
 
 // Ό³Έν :
-class ContentsCore : public EngineCore
+class CadillacsCore : public EngineCore
 {
 public:
 	// constrcuter destructer
-	ContentsCore();
-	~ContentsCore();
+	CadillacsCore();
+	~CadillacsCore();
 
 	// delete Function
-	ContentsCore(const ContentsCore& _Other) = delete;
-	ContentsCore(ContentsCore&& _Other) noexcept = delete;
-	ContentsCore& operator=(const ContentsCore& _Other) = delete;
-	ContentsCore& operator=(ContentsCore&& _Other) noexcept = delete;
+	CadillacsCore(const CadillacsCore& _Other) = delete;
+	CadillacsCore(CadillacsCore&& _Other) noexcept = delete;
+	CadillacsCore& operator=(const CadillacsCore& _Other) = delete;
+	CadillacsCore& operator=(CadillacsCore&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;

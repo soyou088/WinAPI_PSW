@@ -16,6 +16,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ int       nCmdShow) 
 { 
 	LeakCheck; 
-	ContentsCore NewUserCore = ContentsCore();
+	CadillacsCore NewUserCore = CadillacsCore();
 	EngineCore::EngineStart(hInstance, &NewUserCore);
 }

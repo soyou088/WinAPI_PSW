@@ -5,10 +5,6 @@
 #include <EngineBase\EngineTime.h>
 #include <vector>
 #include <list>
-#include <conio.h>
-
-
-
 
 Player::Player()
 {
@@ -20,6 +16,38 @@ Player::~Player()
 
 void Player::BeginPlay()
 {
+	AActor::BeginPlay();
+
+	// 플레이어 100, 100 => Actor
+	// 상체? 100, 100 - 50 => Renderer
+	// 하체? 100, 100 + 50 => Renderer
+
+
+	{
+		BodyRenderer = CreateImageRenderer(0);
+		BodyRenderer->SetPosition({ 0, 30 });
+		BodyRenderer->SetScale({ 80, 80 });
+	}
+
+
+	{
+		HeadRenderer = CreateImageRenderer(0);
+		HeadRenderer->SetPosition({ 0, -25 });
+		HeadRenderer->SetScale({ 60, 60 });
+	}
+	// UImageRenderer* Ptr = CreateRenderer();
+	// 플레이어 기준
+	// Ptr->SetPosition({0.0, -50.0f}); // 500, 500
+	// Ptr->SetImage("AAAA.png"); // 500, 500
+	// Ptr->SetScale();
+	// Ptr->SetImageScaleSetting(); 
+
+
+	// CreateDefaultSubObject<UStaticMeshRenderer>();
+
+	// n장 랜더할수 있게 만들어야 한다.
+	// 상체와 하체로 나뉜다고 쳐보자.
+
 	//{
 	//	EngineTime NewTime;
 	//	NewTime.TimeCheckStart();
@@ -59,7 +87,6 @@ void Player::Tick(float _DeltaTime)
 	// 0.5초에 몇픽셀씩 움직여야 하나요?
 	// 100 * 0.5
 
-
 	if (true == EngineInput::IsPress(VK_LEFT))
 	{
 		AddActorLocation(FVector::Left * 500.0f * _DeltaTime);
@@ -81,6 +108,12 @@ void Player::Tick(float _DeltaTime)
 		AddActorLocation(FVector::Down * 500.0f * _DeltaTime);
 	}
 
+	if (true == EngineInput::IsDown('T'))
+	{
+		HeadRenderer->Destroy();
+	}
+
+
 
 	// QSkillCool += 0.1f;
 	// QSkillCool += 진짜 프레임과 프레임 사이에 소모된 현실 시간이어야 한다.;
@@ -95,8 +128,4 @@ void Player::Tick(float _DeltaTime)
 		NewBullet->SetActorLocation(GetActorLocation());
 		NewBullet->SetDir(FVector::Right);
 	}
-
-	HDC WindowDC = GEngine->MainWindow.GetWindowDC();
-	FTransform Trans = GetTransform();
-	Rectangle(WindowDC, Trans.iLeft(), Trans.iTop(), Trans.iRight(), Trans.iBottom());
 }

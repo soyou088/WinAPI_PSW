@@ -3,18 +3,20 @@
 #include "TitleLevel.h"
 #include "PlayerLevel.h"
 
-ContentsCore::ContentsCore()
+CadillacsCore::CadillacsCore()
 	: EngineCore()
 {
 }
 
-ContentsCore::~ContentsCore()
+CadillacsCore::~CadillacsCore()
 {
 }
 
 // 게임시작
-void ContentsCore::BeginPlay()
+void CadillacsCore::BeginPlay()
 {
+	SetFrame(60);
+
 	// "Title Level" + "을 만들다가 에러가 났습니다";
 
 	CreateLevel<UTitleLevel>("TitleLevel");
@@ -23,11 +25,11 @@ void ContentsCore::BeginPlay()
 	ChangeLevel("PlayLevel");
 }
 
-void ContentsCore::Tick(float _DeltaTime)
+void CadillacsCore::Tick(float _DeltaTime)
 {
 	// 플레이어 움직여야 한다.
 }
 
-void ContentsCore::End()
+void CadillacsCore::End()
 {
 }
