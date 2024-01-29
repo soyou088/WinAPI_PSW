@@ -23,7 +23,8 @@ private:
 
 	UImageRenderer* HeadRenderer;
 	UImageRenderer* BodyRenderer;
-
+	UImageRenderer* HPbarRenderer;
+	UImageRenderer* HandRenderer;
 	// std::vector<UImageRenderer*>
 };
 

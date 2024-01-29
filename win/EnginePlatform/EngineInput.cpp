@@ -17,7 +17,7 @@ void EngineInput::EngineKey::KeyCheck()
 			Up = false;
 			Free = false;
 		}
-		else if(true == Down)
+		else if (true == Down)
 		{
 			// 이전까지 이 키는 눌리고 있었다.
 			Down = false;
@@ -36,7 +36,7 @@ void EngineInput::EngineKey::KeyCheck()
 			Up = true;
 			Free = false;
 		}
-		else if(true == Up)
+		else if (true == Up)
 		{
 			// 이전까지 이 키는 안눌리고 있었고 앞으로도 안눌릴거다.
 			Down = false;

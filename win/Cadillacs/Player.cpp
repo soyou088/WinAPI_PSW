@@ -22,18 +22,28 @@ void Player::BeginPlay()
 	// 상체? 100, 100 - 50 => Renderer
 	// 하체? 100, 100 + 50 => Renderer
 
+	{
+		HPbarRenderer = CreateImageRenderer(0);
+		HPbarRenderer->SetPosition({ 0, -50 });
+		HPbarRenderer->SetScale({ 50, 10 });
+	}
 
 	{
 		BodyRenderer = CreateImageRenderer(0);
 		BodyRenderer->SetPosition({ 0, 30 });
-		BodyRenderer->SetScale({ 80, 80 });
+		BodyRenderer->SetScale({ 50, 50 });
 	}
-
 
 	{
 		HeadRenderer = CreateImageRenderer(0);
-		HeadRenderer->SetPosition({ 0, -25 });
-		HeadRenderer->SetScale({ 60, 60 });
+		HeadRenderer->SetPosition({ 0, 0 });
+		HeadRenderer->SetScale({ 30, 10 });
+	}
+	
+	{
+		HandRenderer = CreateImageRenderer(0);
+		HandRenderer->SetPosition({ 0, 1 });
+		HandRenderer->SetScale({ 20, 20 });
 	}
 	// UImageRenderer* Ptr = CreateRenderer();
 	// 플레이어 기준
