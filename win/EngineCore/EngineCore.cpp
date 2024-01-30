@@ -6,12 +6,12 @@
 
 EngineCore* GEngine = nullptr;
 
-EngineCore::EngineCore() 
+EngineCore::EngineCore()
 	: MainWindow()
 {
 }
 
-EngineCore::~EngineCore() 
+EngineCore::~EngineCore()
 {
 }
 
@@ -49,7 +49,7 @@ void EngineCore::CoreTick()
 		if (CurFrameTime <= FrameTime)
 		{
 			return;
-		} 
+		}
 
 		//  0.0167         0.016666675
 		CurFrameTime -= FrameTime;
@@ -113,9 +113,9 @@ void EngineCore::EngineStart(HINSTANCE _hInstance, EngineCore* _UserCore)
 	EngineCore* Ptr = _UserCore;
 	GEngine = Ptr;
 	Ptr->MainTimer.TimeCheckStart();
-	Ptr->CoreInit(_hInstance); 
+	Ptr->CoreInit(_hInstance);
 	Ptr->BeginPlay();
-	EngineWindow::WindowMessageLoop(EngineTick, EngineEnd);
+	UEngineWindow::WindowMessageLoop(EngineTick, EngineEnd);
 }
 
 void EngineCore::CoreInit(HINSTANCE _HINSTANCE)
@@ -125,7 +125,7 @@ void EngineCore::CoreInit(HINSTANCE _HINSTANCE)
 		return;
 	}
 
-	EngineWindow::Init(_HINSTANCE);
+	UEngineWindow::Init(_HINSTANCE);
 	MainWindow.Open();
 
 	this->AllLevel;

@@ -37,15 +37,15 @@ public:
 		return Position;
 	}
 
-	float Left() 
+	float Left()
 	{
 		return Position.X - Scale.hX();
 	}
-	float Right() 
+	float Right()
 	{
 		return Position.X + Scale.hX();
 	}
-	float Top() 
+	float Top()
 	{
 		return Position.Y - Scale.hY();
 	}

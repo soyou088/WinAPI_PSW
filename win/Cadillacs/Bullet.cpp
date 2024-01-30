@@ -14,24 +14,14 @@ ABullet::~ABullet()
 void ABullet::BeginPlay()
 {
 	{
-		UImageRenderer* Renderer = CreateImageRenderer(0);
-		Renderer->SetScale({ 50, 10 });
-	}
-	{
-		UImageRenderer* Renderer = CreateImageRenderer(0);
-		//Renderer->SetPosition({ 0,-10 });
-		Renderer->SetScale({ 10, 50});
+		UImageRenderer* Renderer = CreateImageRenderer(-10);
+		Renderer->SetImageToScale("bullet.png");
 	}
 
-
-	Destroy(2.0f);
+	Destroy(5.0f);
 }
 
 void ABullet::Tick(float _DeltaTime)
 {
 	AddActorLocation(Dir * Speed * _DeltaTime);
-
-	HDC WindowDC = GEngine->MainWindow.GetWindowDC();
-	FTransform Trans = GetTransform();
-	Rectangle(WindowDC, Trans.iLeft(), Trans.iTop(), Trans.iRight(), Trans.iBottom());
 }

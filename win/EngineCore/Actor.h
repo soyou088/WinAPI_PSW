@@ -1,7 +1,7 @@
 #pragma once
 #include <EngineBase\Transform.h>
 #include "TickObject.h"
-#include "NameObject.h"
+#include <EngineBase\NameObject.h>
 #include "ImageRenderer.h"
 #include "Level.h"
 
@@ -58,6 +58,9 @@ public:
 	}
 
 	UImageRenderer* CreateImageRenderer(int Order = 0);
+
+	void Destroy(float _DestroyTime /*= 0.0f*/) override;
+	void DestroyUpdate(float _DeltaTime) override;
 
 protected:
 

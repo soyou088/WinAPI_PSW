@@ -13,9 +13,6 @@
     <ClInclude Include="TickObject.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="NameObject.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="SceneComponent.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
@@ -24,6 +21,9 @@
     </ClInclude>
     <ClInclude Include="ImageRenderer.h">
       <Filter>Object\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineResourcesManager.h">
+      <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -36,9 +36,6 @@
     <ClCompile Include="Actor.cpp">
       <Filter>Object\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="NameObject.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="TickObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
@@ -50,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="ImageRenderer.cpp">
       <Filter>Object\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineResourcesManager.cpp">
+      <Filter>Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +67,9 @@
     </Filter>
     <Filter Include="Object\Component\Renderer">
       <UniqueIdentifier>{76df3fb7-13b1-4f27-864b-d0cd91d3c698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{264304df-ff54-40ad-9113-51049a9fa6ef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

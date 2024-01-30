@@ -22,29 +22,20 @@ void Player::BeginPlay()
 	// 상체? 100, 100 - 50 => Renderer
 	// 하체? 100, 100 + 50 => Renderer
 
-	{
-		HPbarRenderer = CreateImageRenderer(0);
-		HPbarRenderer->SetPosition({ 0, -50 });
-		HPbarRenderer->SetScale({ 50, 10 });
-	}
 
 	{
 		BodyRenderer = CreateImageRenderer(0);
 		BodyRenderer->SetPosition({ 0, 30 });
-		BodyRenderer->SetScale({ 50, 50 });
+		BodyRenderer->SetImageToScale("Mustapha Cairo.png");
+		//BodyRenderer->SetScale({ 250, 250 });
 	}
 
-	{
-		HeadRenderer = CreateImageRenderer(0);
-		HeadRenderer->SetPosition({ 0, 0 });
-		HeadRenderer->SetScale({ 30, 10 });
-	}
-	
-	{
-		HandRenderer = CreateImageRenderer(0);
-		HandRenderer->SetPosition({ 0, 1 });
-		HandRenderer->SetScale({ 20, 20 });
-	}
+
+	//{
+	//	HeadRenderer = CreateImageRenderer(0);
+	//	HeadRenderer->SetPosition({ 0, -25 });
+	//	HeadRenderer->SetImageToScale("dinore_bg.png");
+	//}
 	// UImageRenderer* Ptr = CreateRenderer();
 	// 플레이어 기준
 	// Ptr->SetPosition({0.0, -50.0f}); // 500, 500
@@ -97,23 +88,23 @@ void Player::Tick(float _DeltaTime)
 	// 0.5초에 몇픽셀씩 움직여야 하나요?
 	// 100 * 0.5
 
-	if (true == EngineInput::IsPress(VK_LEFT))
+	if (true == EngineInput::IsPress('A'))
 	{
 		AddActorLocation(FVector::Left * 500.0f * _DeltaTime);
 	}
 
-	if (true == EngineInput::IsPress(VK_RIGHT))
+	if (true == EngineInput::IsPress('D'))
 	{
 		AddActorLocation(FVector::Right * 500.0f * _DeltaTime);
 	}
 
-	if (true == EngineInput::IsPress(VK_UP))
+	if (true == EngineInput::IsPress('W'))
 	{
 		AddActorLocation(FVector::Up * 500.0f * _DeltaTime);
 	}
 
 
-	if (true == EngineInput::IsPress(VK_DOWN))
+	if (true == EngineInput::IsPress('S'))
 	{
 		AddActorLocation(FVector::Down * 500.0f * _DeltaTime);
 	}
@@ -132,7 +123,7 @@ void Player::Tick(float _DeltaTime)
 	// 0.5 0.5 0.5 0.5 
 	// 2차가 지나야 
 	// 초당 2번 실행된다고 칩시다.
-	if (true == EngineInput::IsDown('Q'))
+	if (true == EngineInput::IsPress('Q'))
 	{
 		ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>();
 		NewBullet->SetActorLocation(GetActorLocation());
