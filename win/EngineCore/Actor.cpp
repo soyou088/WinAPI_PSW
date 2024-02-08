@@ -1,11 +1,11 @@
 #include "Actor.h"
 #include "ImageRenderer.h"
 
-AActor::AActor()
+AActor::AActor() 
 {
 }
 
-AActor::~AActor()
+AActor::~AActor() 
 {
 	for (UImageRenderer* ImageRenderer : Renderers)
 	{
@@ -19,6 +19,12 @@ AActor::~AActor()
 	}
 
 	Renderers.clear();
+}
+
+void AActor::Tick(float _DeltaTime)
+{
+	UTickObject::Tick(_DeltaTime);
+	DestroyUpdate(_DeltaTime);
 }
 
 UImageRenderer* AActor::CreateImageRenderer(int Order /*= 0*/)

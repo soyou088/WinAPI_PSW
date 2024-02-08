@@ -16,13 +16,13 @@
     <ClInclude Include="EngineTime.h">
       <Filter>Time</Filter>
     </ClInclude>
-    <ClInclude Include="EngineDirectory.h">
+    <ClInclude Include="EnginePath.h">
       <Filter>IO</Filter>
     </ClInclude>
     <ClInclude Include="EngineFile.h">
       <Filter>IO</Filter>
     </ClInclude>
-    <ClInclude Include="EnginePath.h">
+    <ClInclude Include="EngineDirectory.h">
       <Filter>IO</Filter>
     </ClInclude>
     <ClInclude Include="NameObject.h">
@@ -48,13 +48,13 @@
     <ClCompile Include="EngineTime.cpp">
       <Filter>Time</Filter>
     </ClCompile>
-    <ClCompile Include="EngineDirectory.cpp">
+    <ClCompile Include="EnginePath.cpp">
       <Filter>IO</Filter>
     </ClCompile>
     <ClCompile Include="EngineFile.cpp">
       <Filter>IO</Filter>
     </ClCompile>
-    <ClCompile Include="EnginePath.cpp">
+    <ClCompile Include="EngineDirectory.cpp">
       <Filter>IO</Filter>
     </ClCompile>
     <ClCompile Include="NameObject.cpp">
@@ -78,10 +78,16 @@
       <UniqueIdentifier>{d7f83226-046b-4713-9ec4-b2f570449b2b}</UniqueIdentifier>
     </Filter>
     <Filter Include="IO">
-      <UniqueIdentifier>{e0712117-5598-44c4-8d72-66728e413c8b}</UniqueIdentifier>
+      <UniqueIdentifier>{088f05d2-1bc2-45ca-b095-f9c8eb2c1f24}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object">
-      <UniqueIdentifier>{edfc1909-b067-4484-8c14-e2abda972450}</UniqueIdentifier>
+      <UniqueIdentifier>{40dd519c-dfec-4e66-90e0-bf938d9a56ca}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\포폴계획예제.txt" />
   </ItemGroup>
 </Project>

@@ -69,7 +69,10 @@
       <UniqueIdentifier>{76df3fb7-13b1-4f27-864b-d0cd91d3c698}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources">
-      <UniqueIdentifier>{264304df-ff54-40ad-9113-51049a9fa6ef}</UniqueIdentifier>
+      <UniqueIdentifier>{45c67245-afdb-466c-86ac-3ecb73df4bbc}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

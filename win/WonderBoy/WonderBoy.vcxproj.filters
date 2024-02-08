@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="PlayLevel">
+      <UniqueIdentifier>{898f8d8e-a2b2-4ba3-98e3-dee6fad0438d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayLevel\Actor">
+      <UniqueIdentifier>{46c46117-c1df-4d2f-96ec-a4c353f9c336}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BackGroundMap.h">
+      <Filter>PlayLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsHelper.h" />
+    <ClInclude Include="WonderCore.h" />
+    <ClInclude Include="Player.h">
+      <Filter>PlayLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerLevel.h">
+      <Filter>PlayLevel</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BackGroundMap.cpp">
+      <Filter>PlayLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentsHelper.cpp" />
+    <ClCompile Include="WonderCore.cpp" />
+    <ClCompile Include="Player.cpp">
+      <Filter>PlayLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerLevel.cpp">
+      <Filter>PlayLevel</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
