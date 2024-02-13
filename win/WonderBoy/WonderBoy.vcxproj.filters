@@ -7,6 +7,12 @@
     <Filter Include="PlayLevel\Actor">
       <UniqueIdentifier>{46c46117-c1df-4d2f-96ec-a4c353f9c336}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TitleLevel">
+      <UniqueIdentifier>{a10fd16a-3c0b-478f-bc5a-6a9d5d9c76a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TitleLevel\Actor">
+      <UniqueIdentifier>{0bc50f4c-ad22-419a-bec8-0910b67928b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGroundMap.h">
@@ -20,6 +26,12 @@
     <ClInclude Include="PlayerLevel.h">
       <Filter>PlayLevel</Filter>
     </ClInclude>
+    <ClInclude Include="TitleLevel.h">
+      <Filter>TitleLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleLogo.h">
+      <Filter>TitleLevel\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -32,6 +44,12 @@
     </ClCompile>
     <ClCompile Include="PlayerLevel.cpp">
       <Filter>PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleLevel.cpp">
+      <Filter>TitleLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleLogo.cpp">
+      <Filter>TitleLevel\Actor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

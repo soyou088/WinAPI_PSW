@@ -1,5 +1,6 @@
 #include "WonderCore.h"
 #include "PlayerLevel.h"
+#include "TitleLevel.h"
 #include <EngineBase\EngineDirectory.h>
 #include <EngineBase\EngineFile.h>
 #include <EngineCore\EngineResourcesManager.h>
@@ -15,7 +16,7 @@ UWonderCore::~UWonderCore()
 void UWonderCore::BeginPlay()
 {
 	// Window 크기
-	MainWindow.SetWindowScale({ 256 * 4, 240 * 4 });
+	MainWindow.SetWindowScale({ 256 * 2, 240 * 2 });
 	// Window 위치
 	MainWindow.SetWindowPosition({ 800 , 0 });
 
@@ -36,9 +37,11 @@ void UWonderCore::BeginPlay()
 	                                                            // 5개씩 2줄
 	UEngineResourcesManager::GetInst().CuttingImage("Player_R.png", 5, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Player_L.png", 5, 2);
-	//CreateLevel<UTitleLevel>("Title");
+	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Title"));
+
+	CreateLevel<UTitleLevel>("Title");
 	CreateLevel<UPlayLevel>("Player");
-	ChangeLevel("Player");
+	ChangeLevel("Title");
 
 
 }

@@ -324,17 +324,17 @@ void UWindowImage::TransCopy(UWindowImage* _CopyImage, const FTransform& _Trans,
 	// 이미지
 	HDC hdcSrc = _CopyImage->Infos[_Index].ImageDC;
 	TransparentBlt(
-		hdc, 							  // HDC hdc, // 
-		RenderLeft, 		  // int x,   // 
-		RenderTop, 		  // int y,   // 
-		RenderScaleX,		  // int cx,  // 
+		hdc, 							// HDC hdc 
+		RenderLeft, 		  // int x,    
+		RenderTop,	 		  // int y,    
+		RenderScaleX,		  // int cx,   
 		RenderScaleY,		  // int cy,  
 		hdcSrc,							// HDC hdcSrc, 
-		ImageLeft,   							// int y1, 
-		ImageTop,   							// int x1,  
-		ImageScaleX, 							// int y1, 
-		ImageScaleY, 							// int y1, 
-		_Color.Color						// DWORD rop => 이미지 그대로 고속 복사를 해라.
+		ImageLeft,   					// int y1, 
+		ImageTop,   					// int x1,  
+		ImageScaleX, 					// int y1, 
+		ImageScaleY, 					// int y1, 
+		_Color.Color					// DWORD rop => 이미지 그대로 고속 복사를 해라.
 	);
 	// 이미지의 어떤 부위를 그릴지를 정해줄수가 있다.
 }

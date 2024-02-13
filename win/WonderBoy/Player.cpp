@@ -15,16 +15,19 @@ void APlayer::BeginPlay()
 {
 	AActor::BeginPlay();
 
+
+
 	Renderer = CreateImageRenderer(WonderRenderOrder::Player);
 	Renderer->SetImage("Player_R.png");
-	Renderer->SetTransform({ {0,0}, {128, 128} });
-	Renderer->CreateAnimation("Idle_Right", "Player_R.png", 0, 0, 0.1f, true);
-	Renderer->CreateAnimation("Move_Right", "Player_R.png", 1, 5, 0.1f, true);
+	Renderer->SetTransform({ {0,0}, {150, 150} }); 
 
-	Renderer->CreateAnimation("Idle_Left", "Player_L.png", 0, 0, 0.1f, true);
-	Renderer->CreateAnimation("Move_Left", "Player_L.png", 1, 5, 0.1f, true);
+	Renderer->CreateAnimation("Idle_Right", "Player_R.png", 0, 1, 0.1f, true); // 가만히 있는 상태
+	Renderer->CreateAnimation("Move_Right", "Player_R.png", 1, 5, 0.1f, true); // 오른쪽으로 움직이는 상태
 
-	Renderer->ChangeAnimation("Idle_Right");
+	Renderer->CreateAnimation("Idle_Left", "Player_L.png", 0, 1, 0.1f, true); // 가만히 있는 상태
+	Renderer->CreateAnimation("Move_Left", "Player_L.png", 1, 5, 0.1f, true); // 왼쪽으로 움직이는 상태
+
+	Renderer->ChangeAnimation("Idle_Right"); // 가만히 있는상태
 
 
 	StateChange(EPlayState::Idle);
