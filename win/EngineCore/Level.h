@@ -5,6 +5,7 @@
 #include <list>
 
 class AActor;
+class UCollision;
 class UEngineCore;
 class UImageRenderer;
 // 설명 : U는 그냥 엔진 속해있다는 것을 의미.
@@ -13,6 +14,7 @@ class ULevel : public UNameObject
 
 	friend UEngineCore;
 	friend UImageRenderer;
+	friend UCollision;
 
 public:
 	// constrcuter destructer
@@ -62,9 +64,11 @@ public:
 	}
 
 
+
 protected:
 
 private:
+
 	std::map<int, std::list<AActor*>> AllActor;
 
 	void ActorInit(AActor* _NewActor);
@@ -73,6 +77,8 @@ private:
 	void LevelRelease(float _DeltaTime);
 
 	std::map<int, std::list<UImageRenderer*>> Renderers;
+
+	std::map<int, std::list<UCollision*>> Collisions;
 
 	FVector CameraPos = FVector::Zero;
 };

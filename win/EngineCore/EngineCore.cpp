@@ -3,7 +3,7 @@
 #include "Level.h"
 #include "EnginePlatform\EngineInput.h"
 
-
+bool UEngineCore::IsDebugValue = false;
 UEngineCore* GEngine = nullptr;
 
 UEngineCore::UEngineCore() 
@@ -62,7 +62,7 @@ void UEngineCore::CoreTick()
 		DeltaTime = 1.0f / 60.0f;
 	}
 
-	EngineInput::KeyCheckTick(DeltaTime);
+	UEngineInput::KeyCheckTick(DeltaTime);
 
 
 	// 한프레임동안 레벨이 절대로 변하지 않고
@@ -90,7 +90,7 @@ void UEngineCore::CoreTick()
 		MsgBoxAssert("엔진을 시작할 레벨이 지정되지 않았습니다 치명적인 오류입니다");
 	}
 
-
+	GEngine->Tick(DeltaTime);
 	// 레벨이 먼저 틱을 돌리고
 	CurLevel->Tick(DeltaTime);
 	// 액터와 부가적인 오브젝트들의 틱도 돌리고 => 행동하고

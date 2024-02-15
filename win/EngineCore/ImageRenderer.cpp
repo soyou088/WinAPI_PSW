@@ -4,11 +4,11 @@
 #include "Level.h"
 #include <EngineCore\EngineResourcesManager.h>
 
-UImageRenderer::UImageRenderer() 
+UImageRenderer::UImageRenderer()
 {
 }
 
-UImageRenderer::~UImageRenderer() 
+UImageRenderer::~UImageRenderer()
 {
 }
 
@@ -30,20 +30,7 @@ void UImageRenderer::SetOrder(int _Order)
 
 int UAnimationInfo::Update(float _DeltaTime)
 {
-	//UWindowImage* Image = nullptr;
-	//int Start = -1;
-	//int End = -1;
-	//int CurFrame = 0;
-	//float CurTime = 0.0f;
-	//std::vector<float> Times;
-	
-	//std::vector<int> Indexs;
-	//    CurFrame = 25
-	// 
-	// //            0  1  2  3  4  5 
-	//    Indexs => 20 21 22 23 24 25
-	
-
+	IsEnd = false;
 	CurTime -= _DeltaTime;
 
 	if (0.0f >= CurTime)
@@ -55,6 +42,7 @@ int UAnimationInfo::Update(float _DeltaTime)
 	//  6                 6
 	if (Indexs.size() <= CurFrame)
 	{
+		IsEnd = true;
 		if (true == Loop)
 		{
 			// //            0  1  2  3  4  5 
@@ -78,56 +66,14 @@ int UAnimationInfo::Update(float _DeltaTime)
 
 void UImageRenderer::Render(float _DeltaTime)
 {
-	if (nullptr == Image)
+	if (false == Text.empty())
 	{
-		MsgBoxAssert("이미지가 존재하지 않는 랜더러 입니다");
+		TextRender(_DeltaTime);
+	}
+	else {
+		ImageRender(_DeltaTime);
 	}
 
-	if (nullptr != CurAnimation)
-	{
-		Image = CurAnimation->Image;
-		InfoIndex = CurAnimation->Update(_DeltaTime);
-	}
-
-	// 위에서부터 읽어야 합니다.
-	FTransform RendererTrans = GetTransform();
-
-	// 액터인데 지금 의미가 없습니다.
-	FTransform ActorTrans = GetOwner()->GetTransform();
-
-	// 컴포넌트의 위치는 부모에게서 상대적이기 때문에.
-	// 부모의 위치를 더해줘야 한다.
-	RendererTrans.AddPosition(ActorTrans.GetPosition());
-
-	if (true == CameraEffect)
-	{
-		AActor* Actor = GetOwner();
-		ULevel* World = Actor->GetWorld();
-		FVector CameraPos = World->GetCameraPos();
-		RendererTrans.AddPosition(-CameraPos);
-	}
-
-	// TransColor 원리 특정 색상과 1비트도 차이가 나지 않는 색상은 출력을 삭제한다.
-	// TransCopy 에서만 
-	// Png일 경우에 
-
-	EWIndowImageType ImageType = Image->GetImageType();
-
-
-
-	switch (ImageType)
-	{
-	case EWIndowImageType::IMG_BMP:
-		GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, RendererTrans, InfoIndex, TransColor);
-		// bmp일때는 일반적으로 Transcopy로 투명처리를 한다.
-		break;
-	case EWIndowImageType::IMG_PNG:
-		GEngine->MainWindow.GetBackBufferImage()->AlphaCopy(Image, RendererTrans, InfoIndex, TransColor);
-		break;
-	default:
-		MsgBoxAssert("투명처리가 불가능한 이미지 입니다.");
-		break;
-	}
 }
 
 void UImageRenderer::BeginPlay()
@@ -159,6 +105,27 @@ void UImageRenderer::CreateAnimation(
 	bool _Loop /*= true*/
 )
 {
+	std::vector<int> Indexs;
+	int Size = _End - _Start;
+
+	for (int i = _Start; i <= _End; i++)
+	{
+		Indexs.push_back(i);
+	}
+
+	CreateAnimation(_AnimationName, _ImageName, Indexs, _Inter, _Loop);
+
+}
+
+
+void UImageRenderer::CreateAnimation(
+	std::string_view _AnimationName,
+	std::string_view _ImageName,
+	std::vector<int> _Indexs,
+	float _Inter,
+	bool _Loop/* = true*/
+)
+{
 	UWindowImage* FindImage = UEngineResourcesManager::GetInst().FindImg(_ImageName);
 
 	if (nullptr == FindImage)
@@ -175,43 +142,25 @@ void UImageRenderer::CreateAnimation(
 		return;
 	}
 
-	// AnimationInfos.operator[]("AAAA");
-	// "AAA"가 없으면 만들어서 리턴
-	// "AAA"가 있으면 찾아서 리턴
-
-	// UAnimationInfo Info;
-	// AnimationInfos.emplace();
-
-	// 아래의 함수는 만약에 여러분들이 Key를 넣어주면
-	// 없으면 MapNode를 내부에서 insert해버린다.
-	// 있으면 알아서 Find해서 second만 리턴해준다.
-	// AnimationInfos.operator[](Key)
-
 	UAnimationInfo& Info = AnimationInfos[UpperAniName];
 	Info.Name = UpperAniName;
 	Info.Image = FindImage;
 	Info.CurFrame = 0;
-	Info.Start = _Start;
-	Info.End = _End;
 	Info.CurTime = 0.0f;
 	Info.Loop = _Loop;
 
 	//          12         0
-	int Size = Info.End - Info.Start;
+	int Size = static_cast<int>(_Indexs.size());
 	Info.Times.reserve(Size);
-	Info.Indexs.reserve(Size);
-	for (int i = _Start; i <= _End; i++)
+	for (int i = 0; i <= Size; i++)
 	{
 		Info.Times.push_back(_Inter);
 	}
 
-	for (int i = _Start; i <= _End; i++)
-	{
-		Info.Indexs.push_back(i);
-	}
+	Info.Indexs = _Indexs;
 }
 
-void UImageRenderer::ChangeAnimation(std::string_view _AnimationName, bool _IsForce)
+void UImageRenderer::ChangeAnimation(std::string_view _AnimationName, bool _IsForce /*= false*/, int _StartIndex/* = 0*/, float _Time /*= -1.0f*/)
 {
 	std::string UpperAniName = UEngineString::ToUpper(_AnimationName);
 
@@ -229,11 +178,71 @@ void UImageRenderer::ChangeAnimation(std::string_view _AnimationName, bool _IsFo
 
 	UAnimationInfo& Info = AnimationInfos[UpperAniName];
 	CurAnimation = &Info;
-	CurAnimation->CurFrame = 0;
-	CurAnimation->CurTime = CurAnimation->Times[0];
+	CurAnimation->CurFrame = _StartIndex;
+	CurAnimation->CurTime = _Time;
+	if (0.0f >= _Time)
+	{
+		CurAnimation->CurTime = _Time;
+	}
+	CurAnimation->IsEnd = false;
 }
 
 void UImageRenderer::AnimationReset()
 {
 	CurAnimation = nullptr;
+}
+
+FTransform UImageRenderer::GetRenderTransForm()
+{
+	FTransform RendererTrans = GetActorBaseTransform();
+
+	if (true == CameraEffect)
+	{
+		AActor* Actor = GetOwner();
+		ULevel* World = Actor->GetWorld();
+		FVector CameraPos = World->GetCameraPos();
+		RendererTrans.AddPosition(-CameraPos);
+	}
+
+	return RendererTrans;
+}
+
+void UImageRenderer::TextRender(float _DeltaTime)
+{
+	FTransform RendererTrans = GetRenderTransForm();
+
+	GEngine->MainWindow.GetBackBufferImage()->TextCopy(Text, Font, Size,RendererTrans, TextColor);
+}
+
+void UImageRenderer::ImageRender(float _DeltaTime)
+{
+
+	if (nullptr == Image)
+	{
+		MsgBoxAssert("이미지가 존재하지 않는 랜더러 입니다");
+	}
+
+	if (nullptr != CurAnimation)
+	{
+		Image = CurAnimation->Image;
+		InfoIndex = CurAnimation->Update(_DeltaTime);
+	}
+
+	FTransform RendererTrans = GetRenderTransForm();
+
+	EWIndowImageType ImageType = Image->GetImageType();
+
+	switch (ImageType)
+	{
+	case EWIndowImageType::IMG_BMP:
+		GEngine->MainWindow.GetBackBufferImage()->TransCopy(Image, RendererTrans, InfoIndex, TransColor);
+		// bmp일때는 일반적으로 Transcopy로 투명처리를 한다.
+		break;
+	case EWIndowImageType::IMG_PNG:
+		GEngine->MainWindow.GetBackBufferImage()->AlphaCopy(Image, RendererTrans, InfoIndex, TransColor);
+		break;
+	default:
+		MsgBoxAssert("투명처리가 불가능한 이미지 입니다.");
+		break;
+	}
 }

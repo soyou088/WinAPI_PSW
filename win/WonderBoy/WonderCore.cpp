@@ -48,5 +48,5 @@ void UWonderCore::BeginPlay()
 
 void UWonderCore::Tick(float _DeltaTime)
 {
-	 UWonderCore::Tick(_DeltaTime);
+	UEngineCore::Tick(_DeltaTime);
 }

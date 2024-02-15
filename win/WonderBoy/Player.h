@@ -9,7 +9,11 @@
 // 설명 :
 class APlayer : public AActor
 {
+private:
+	static APlayer* MainPlayer;
 public:
+	static APlayer* GetMainPlayer();
+
 	// constrcuter destructer
 	APlayer();
 	~APlayer();
@@ -25,7 +29,6 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 	// 상태 보조 함수
-	void GravityCheck(float _DeltaTime);
 	// 각 상태마다 언제나 가장 위에 실행되어야 한다.
 	void DirCheck();
 
@@ -41,6 +44,7 @@ protected:
 	void Idle(float _DeltaTime);
 	void Jump(float _DeltaTime);
 	void Move(float _DeltaTime);
+	void Run(float _DeltaTime);
 
 	// 상태 시작 함수들
 	void IdleStart();
@@ -54,6 +58,8 @@ protected:
 
 
 private:
+	UCollision* BodyCollision = nullptr;
+
 	UImageRenderer* Renderer = nullptr;
 	float AnimationTime = 0.0f;
 	int AnimationFrame = 0;
@@ -63,7 +69,28 @@ private:
 
 	float FreeMoveSpeed = 700.0f;
 
-	float MoveSpeed = 500.0f;
-	float Gravity = 500.0f;
+	FVector MoveVector = FVector::Zero;
+	FVector MoveAcc = FVector::Right * 500.0f;
+	float MoveMaxSpeed = 500.0f;
+	void AddMoveVector(const FVector& _DirDelta);
+
+	FVector GravityAcc = FVector::Down * 2000.0f;
+	FVector GravityVector = FVector::Zero;
+
+
+	FVector JumpPower = FVector::Up * 1000;
+	FVector JumpVector = FVector::Zero;
+	// 내가 나갈 모든 방향의 합
+	FVector LastMoveVector = FVector::Zero;
+
+
+
+	void CalLastMoveVector(float _DeltaTime);
+	void CalMoveVector(float _DeltaTime);
+	void CalJumpVector(float _DeltaTime);
+	void CalGravityVector(float _DeltaTime);
+	void MoveLastMoveVector(float _DeltaTime);
+	void MoveUpdate(float _DeltaTime);
+	void GroundUp();
 };
 

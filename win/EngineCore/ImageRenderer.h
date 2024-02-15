@@ -9,11 +9,10 @@ public:
 	// 애니메이션을 구성할때 이미지는 1장
 	UWindowImage* Image = nullptr;
 	std::string Name;
-	int Start = -1;
-	int End = -1;
 	int CurFrame = 0;
 	float CurTime = 0.0f;
 	bool Loop = false;
+	bool IsEnd = false;
 	std::vector<float> Times;
 	std::vector<int> Indexs;
 
@@ -24,6 +23,7 @@ class UWindowImage;
 // 설명 :
 class UImageRenderer : public USceneComponent
 {
+public:
 
 public:
 	// constrcuter destructer
@@ -62,10 +62,18 @@ public:
 		int _Start, 
 		int _End, 
 		float _Inter, 
-		bool Loop = true
+		bool _Loop = true
 	);
 
-	void ChangeAnimation(std::string_view _AnimationName, bool _IsForce = false);
+	void CreateAnimation(
+		std::string_view _AnimationName,
+		std::string_view _ImageName,
+		std::vector<int> _Indexs,
+		float _Inter,
+		bool _Loop = true
+	);
+
+	void ChangeAnimation(std::string_view _AnimationName, bool _IsForce = false, int _StartIndex = 0, float _Time = -1.0f);
 	void AnimationReset();
 
 	void SetTransColor(Color8Bit _Color)
@@ -89,15 +97,58 @@ public:
 		TransColor.A = static_cast<char>(_Alpha * 255.0f);
 	}
 
-	UWindowImage* GetImage()
+	UWindowImage* GetImage() const
 	{
 		return Image;
 	}
 
-	void CameraEffectOff()
+	void CameraEffectOff() 
 	{
 		CameraEffect = false;
 	}
+
+	bool IsCurAnimationEnd() const
+	{
+		return CurAnimation->IsEnd;
+	}
+
+	int GetCurAnimationFrame() const
+	{
+		return CurAnimation->CurFrame;
+	}
+
+	int GetCurAnimationImageFrame() const
+	{
+		const std::vector<int>& Indexs = CurAnimation->Indexs;
+		return Indexs[CurAnimation->CurFrame];
+	}
+
+	float GetCurAnimationTime() const
+	{
+		return CurAnimation->CurTime;
+	}
+
+	void TextRender(float _DeltaTime);
+	void ImageRender(float _DeltaTime);
+
+	void SetText(std::string_view _Text)
+	{
+		Text = _Text;
+	}
+	void SetFont(std::string_view _Font)
+	{
+		Font = _Font;
+	}
+	void SetTextSize(float _Value)
+	{
+		Size = _Value;
+	}
+	void SetTextColor(Color8Bit _Color)
+	{
+		TextColor = _Color;
+	}
+
+	FTransform GetRenderTransForm();
 
 protected:
 	void BeginPlay() override;
@@ -112,5 +163,12 @@ private:
 
 	std::map<std::string, UAnimationInfo> AnimationInfos;
 	UAnimationInfo* CurAnimation = nullptr;
+
+
+	// const std::string& _Text, const std::string& _Font, float _Size, const FTransform& _Trans, Color8Bit _Color = Color8Bit::Black
+	std::string Text = "";
+	std::string Font = "궁서";
+	float Size = 10.0f;
+	Color8Bit TextColor = Color8Bit::BlackA;
 };
 
