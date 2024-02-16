@@ -60,7 +60,7 @@ void APlayer::CalJumpVector(float _DeltaTime)
 void APlayer::MoveLastMoveVector(float _DeltaTime)
 {
 	// 카메라는 x축으로만 움직여야 하니까.
-	GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
+	//GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
 	AddActorLocation(LastMoveVector *_DeltaTime);
 
 
@@ -244,8 +244,6 @@ void APlayer::StateChange(EPlayState _State)
 
 void APlayer::StateUpdate(float _DeltaTime)
 {
-	FVector curlocation = GetActorLocation();
-	GetWorld()->SetCameraPos(GetActorLocation().Half2D());
 	switch (State)
 	{
 	case EPlayState::CameraFreeMove:

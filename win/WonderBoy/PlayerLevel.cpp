@@ -23,7 +23,7 @@ void UPlayLevel::BeginPlay()
 
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");
-	Player->SetActorLocation({ 100, 100 });
+	Player->SetActorLocation({ 150, 100 });
 	
 
 	
