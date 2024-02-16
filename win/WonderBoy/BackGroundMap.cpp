@@ -10,6 +10,7 @@ ABackGroundMap::~ABackGroundMap()
 {
 }
 
+
 void ABackGroundMap::SetMapImage(std::string_view _MapImageName)
 {
 	Renderer->SetImage(_MapImageName);
@@ -17,7 +18,6 @@ void ABackGroundMap::SetMapImage(std::string_view _MapImageName)
 	FVector ImageScale = Image->GetScale();
 	Renderer->SetTransform({ ImageScale.Half2D(), ImageScale });
 }
-
 
 void ABackGroundMap::SetColMapImage(std::string_view _MapImageName)
 {
@@ -27,6 +27,7 @@ void ABackGroundMap::SetColMapImage(std::string_view _MapImageName)
 	FVector ImageScale = Image->GetScale();
 	ColRenderer->SetTransform({ ImageScale.Half2D(), ImageScale });
 }
+
 
 void ABackGroundMap::Tick(float _DeltaTime)
 {
