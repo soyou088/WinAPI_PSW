@@ -42,14 +42,14 @@
     <ClCompile Include="Player.cpp">
       <Filter>PlayLevel\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerLevel.cpp">
-      <Filter>PlayLevel</Filter>
-    </ClCompile>
     <ClCompile Include="TitleLevel.cpp">
       <Filter>TitleLevel</Filter>
     </ClCompile>
     <ClCompile Include="TitleLogo.cpp">
       <Filter>TitleLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerLevel.cpp">
+      <Filter>PlayLevel\Actor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

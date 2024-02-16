@@ -138,7 +138,7 @@ unsigned __int64 UEngineWindow::WindowMessageLoop(void(*_Update)(), void(*_End)(
 		{
 			_Update();
 		}
-	}
+ 	}
 
 	if (nullptr != _End)
 	{

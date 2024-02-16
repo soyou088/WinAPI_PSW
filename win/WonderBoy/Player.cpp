@@ -34,8 +34,6 @@ void APlayer::CalMoveVector(float _DeltaTime)
 
 	if (true == UEngineInput::IsFree(VK_LEFT) && true == UEngineInput::IsFree(VK_RIGHT))
 	{
-		//static int Count = 0;
-		//EngineDebug::OutPutDebugText(std::to_string(++Count));
 		if (0.001 <= MoveVector.Size2D())
 		{
 			MoveVector += (-MoveVector.Normalize2DReturn()) * _DeltaTime * MoveAcc;
@@ -53,17 +51,15 @@ void APlayer::CalMoveVector(float _DeltaTime)
 
 void APlayer::CalJumpVector(float _DeltaTime)
 {
-	
-
+	JumpVector += JumpPower * _DeltaTime ;
+	//JumpVector = float4::Zero;
 }
 
 void APlayer::MoveLastMoveVector(float _DeltaTime)
 {
 	// 카메라는 x축으로만 움직여야 하니까.
-	//GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
+	GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
 	AddActorLocation(LastMoveVector *_DeltaTime);
-
-
 
 }
 
@@ -74,8 +70,7 @@ void APlayer::CalLastMoveVector(float _DeltaTime)
 	LastMoveVector = LastMoveVector + MoveVector;
 	LastMoveVector = LastMoveVector + JumpVector;
 	LastMoveVector = LastMoveVector + GravityVector;
-	LastMoveVector + JumpVector;
-
+	//LastMoveVector + JumpVector;
 }
 
 void APlayer::GroundUp()
@@ -97,10 +92,10 @@ void APlayer::GroundUp()
 void APlayer::MoveUpdate(float _DeltaTime)
 {
 	CalMoveVector(_DeltaTime); // 움직임 계산 값
-	CalGravityVector(_DeltaTime); // 중력 계산 값
+	CalGravityVector(_DeltaTime);// 중력 계산 값
 	CalLastMoveVector(_DeltaTime); // 다 던한 값
 	MoveLastMoveVector(_DeltaTime); // 카메라
-	GroundUp(); // 언덕올라가는 값
+	GroundUp();
 	// 이동을 하고 났더니 내가 땅에 처박혀 있을수 있죠?
 }
 
@@ -130,13 +125,16 @@ void APlayer::BeginPlay()
 
 	Renderer = CreateImageRenderer(WonderRenderOrder::Player);
 	Renderer->SetImage("Player_R.png");
-	Renderer->SetTransform({ {0,0}, {150, 150} }); 
+	Renderer->SetTransform({ {0,0}, {200, 200} }); 
 
 	Renderer->CreateAnimation("Idle_Right", "Player_R.png", 0, 1, 0.1f, true); // 가만히 있는 상태
 	Renderer->CreateAnimation("Move_Right", "Player_R.png", 1, 5, 0.1f, true); // 오른쪽으로 움직이는 상태
 
 	Renderer->CreateAnimation("Idle_Left", "Player_L.png", 0, 1, 0.1f, true); // 가만히 있는 상태
 	Renderer->CreateAnimation("Move_Left", "Player_L.png", 1, 5, 0.1f, true); // 왼쪽으로 움직이는 상태
+
+	Renderer->CreateAnimation("Jump_Right", "Player_R.png", 5, 5, 0.1f, true); // 오른쪽으로 점프하기
+	Renderer->CreateAnimation("Jump_Left", "Player_L.png", 5, 5, 0.1f, true); // 왼쪽으로 점프하기
 
 	Renderer->ChangeAnimation("Idle_Right"); // 가만히 있는상태
 
@@ -148,10 +146,12 @@ void APlayer::CalGravityVector(float _DeltaTime)
 {
 	GravityVector += GravityAcc * _DeltaTime;
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
+
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
 		GravityVector = FVector::Zero;
 	}
+
 }
 
 void APlayer::DirCheck()
@@ -211,8 +211,10 @@ void APlayer::MoveStart()
 
 void APlayer::JumpStart()
 {
+	JumpVector = JumpPower;
 	Renderer->ChangeAnimation(GetAnimationName("Jump"));
 	DirCheck();
+
 }
 
 void APlayer::StateChange(EPlayState _State)
@@ -350,7 +352,6 @@ void APlayer::Idle(float _DeltaTime)
 		return;
 	}
 
-
 	if (
 		true == UEngineInput::IsPress(VK_LEFT) ||
 		true == UEngineInput::IsPress(VK_RIGHT)
@@ -366,6 +367,12 @@ void APlayer::Idle(float _DeltaTime)
 	{
 		StateChange(EPlayState::Jump);
 		return;
+	}
+
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
+	if (Color == Color8Bit(255, 0, 255, 0))
+	{
+		MoveVector = FVector::Zero;
 	}
 
 	MoveUpdate(_DeltaTime);
@@ -412,9 +419,10 @@ void APlayer::Move(float _DeltaTime)
 		AddActorLocation(MovePos);
 		GetWorld()->AddCameraPos(MovePos);
 	}
+	
+}
 
 	// APlayer* Player = GetWorld()->GetActorOfName("Player");
-}
 
 void APlayer::Jump(float _DeltaTime)
 {
@@ -433,9 +441,17 @@ void APlayer::Jump(float _DeltaTime)
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
+		JumpVector += JumpPower * _DeltaTime;
 		JumpVector = FVector::Zero;
 		StateChange(EPlayState::Idle);
 		return;
+	}
+	if (true != UEngineInput::IsPress(VK_SPACE))
+	{
+
+		StateChange(EPlayState::Idle);
+		//GravityVector = FVector::Zero;
+
 	}
 }
 

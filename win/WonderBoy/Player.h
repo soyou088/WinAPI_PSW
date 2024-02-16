@@ -78,7 +78,7 @@ private:
 	FVector GravityVector = FVector::Zero;
 
 
-	FVector JumpPower = FVector::Up * 1000;
+	FVector JumpPower = FVector::Up * 2500;
 	FVector JumpVector = FVector::Zero;
 	// 내가 나갈 모든 방향의 합
 	FVector LastMoveVector = FVector::Zero;
