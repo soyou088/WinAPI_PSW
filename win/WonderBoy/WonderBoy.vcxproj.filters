@@ -49,7 +49,7 @@
       <Filter>TitleLevel\Actor</Filter>
     </ClCompile>
     <ClCompile Include="PlayerLevel.cpp">
-      <Filter>PlayLevel\Actor</Filter>
+      <Filter>PlayLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

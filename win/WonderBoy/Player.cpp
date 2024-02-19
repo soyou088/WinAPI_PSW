@@ -52,7 +52,7 @@ void APlayer::CalMoveVector(float _DeltaTime)
 void APlayer::CalJumpVector(float _DeltaTime)
 {
 	JumpVector += JumpPower * _DeltaTime ;
-	//JumpVector = float4::Zero;
+	JumpVector = float4::Zero;
 }
 
 void APlayer::MoveLastMoveVector(float _DeltaTime)
@@ -70,23 +70,7 @@ void APlayer::CalLastMoveVector(float _DeltaTime)
 	LastMoveVector = LastMoveVector + MoveVector;
 	LastMoveVector = LastMoveVector + JumpVector;
 	LastMoveVector = LastMoveVector + GravityVector;
-	//LastMoveVector + JumpVector;
-}
-
-void APlayer::GroundUp()
-{
-	while (true)
-	{
-		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-		if (Color == Color8Bit(255, 0, 255, 0))
-		{
-			AddActorLocation(FVector::Up);
-		}
-		else
-		{
-			break;
-		}
-	}
+	LastMoveVector + JumpVector;
 }
 
 void APlayer::MoveUpdate(float _DeltaTime)
@@ -95,7 +79,6 @@ void APlayer::MoveUpdate(float _DeltaTime)
 	CalGravityVector(_DeltaTime);// 중력 계산 값
 	CalLastMoveVector(_DeltaTime); // 다 던한 값
 	MoveLastMoveVector(_DeltaTime); // 카메라
-	GroundUp();
 	// 이동을 하고 났더니 내가 땅에 처박혀 있을수 있죠?
 }
 
@@ -145,9 +128,9 @@ void APlayer::BeginPlay()
 void APlayer::CalGravityVector(float _DeltaTime)
 {
 	GravityVector += GravityAcc * _DeltaTime;
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() , Color8Bit::MagentaA);
 
-	if (Color == Color8Bit(255, 0, 255, 0))
+	if (Color == Color8Bit::MagentaA)
 	{
 		GravityVector = FVector::Zero;
 	}
@@ -337,6 +320,7 @@ void APlayer::FreeMove(float _DeltaTime)
 
 void APlayer::Idle(float _DeltaTime)
 {
+	MoveVector = FVector::Zero;
 	// 왼쪽 오른쪽도 안되고 있고.
 	// 여기서는 정말
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
@@ -400,6 +384,12 @@ void APlayer::Move(float _DeltaTime)
 		MovePos += FVector::Right * _DeltaTime * FreeMoveSpeed;
 	}
 
+	if (true == UEngineInput::IsDown(VK_SPACE))
+	{
+		StateChange(EPlayState::Jump);
+		return;
+	}
+
 	FVector CheckPos = GetActorLocation();
 	switch (DirState)
 	{
@@ -419,7 +409,19 @@ void APlayer::Move(float _DeltaTime)
 		AddActorLocation(MovePos);
 		GetWorld()->AddCameraPos(MovePos);
 	}
-	
+
+	while (true)
+	{
+		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
+		if (Color == Color8Bit(255, 0, 255, 0))
+		{
+			AddActorLocation(FVector::Up);
+		}
+		else
+		{
+			break;
+		}
+	}
 }
 
 	// APlayer* Player = GetWorld()->GetActorOfName("Player");
@@ -438,21 +440,16 @@ void APlayer::Jump(float _DeltaTime)
 
 	MoveUpdate(_DeltaTime);
 
+	
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
 		JumpVector += JumpPower * _DeltaTime;
 		JumpVector = FVector::Zero;
-		StateChange(EPlayState::Idle);
+ 		StateChange(EPlayState::Idle);
 		return;
 	}
-	if (true != UEngineInput::IsPress(VK_SPACE))
-	{
 
-		StateChange(EPlayState::Idle);
-		//GravityVector = FVector::Zero;
-
-	}
 }
 
 void APlayer::Run(float _DeltaTime)
@@ -465,12 +462,12 @@ void APlayer::Run(float _DeltaTime)
 		return;
 	}
 
-	if (UEngineInput::IsPress(VK_LEFT))
+	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress('Q'))
 	{
 		AddMoveVector(FVector::Left * _DeltaTime);
 	}
 
-	if (UEngineInput::IsPress(VK_RIGHT))
+	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress('Q'))
 	{
 		AddMoveVector(FVector::Right * _DeltaTime);
 	}
