@@ -36,7 +36,7 @@ void APlayer::CalMoveVector(float _DeltaTime)
 	{
 		if (0.001 <= MoveVector.Size2D())
 		{
-			MoveVector += (-MoveVector.Normalize2DReturn()) * _DeltaTime * MoveAcc;
+			MoveVector += (-MoveVector) * _DeltaTime * MoveAcc; // 감속하는 코드
 		}
 		else {
 			MoveVector = float4::Zero;
@@ -45,14 +45,8 @@ void APlayer::CalMoveVector(float _DeltaTime)
 
 	if (MoveMaxSpeed <= MoveVector.Size2D())
 	{
-		MoveVector = MoveVector.Normalize2DReturn() * MoveMaxSpeed;
+		MoveVector = FVector::Zero;
 	}
-}
-
-void APlayer::CalJumpVector(float _DeltaTime)
-{
-	JumpVector += JumpPower * _DeltaTime ;
-	JumpVector = float4::Zero;
 }
 
 void APlayer::MoveLastMoveVector(float _DeltaTime)
@@ -102,7 +96,7 @@ void APlayer::BeginPlay()
 	AActor::BeginPlay();
 
 	// 카메라 세팅
-	GetWorld()->AddCameraPos({0, 50});
+	GetWorld()->AddCameraPos({0, 60});
 	
 
 
@@ -132,7 +126,7 @@ void APlayer::CalGravityVector(float _DeltaTime)
 
 	if (Color == Color8Bit::MagentaA)
 	{
-		GravityVector = FVector::Zero;
+   		GravityVector = FVector::Zero;
 	}
 
 }
@@ -424,8 +418,6 @@ void APlayer::Move(float _DeltaTime)
 	}
 }
 
-	// APlayer* Player = GetWorld()->GetActorOfName("Player");
-
 void APlayer::Jump(float _DeltaTime)
 {
 	if (UEngineInput::IsPress(VK_LEFT))
@@ -445,8 +437,8 @@ void APlayer::Jump(float _DeltaTime)
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
 		JumpVector += JumpPower * _DeltaTime;
-		JumpVector = FVector::Zero;
- 		StateChange(EPlayState::Idle);
+	 	JumpVector = FVector::Zero;
+    	StateChange(EPlayState::Idle);
 		return;
 	}
 
