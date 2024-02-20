@@ -3,6 +3,7 @@
 
 // Ό³Έν :
 class UPlayLevel : public ULevel
+
 {
 public:
 	// constrcuter destructer

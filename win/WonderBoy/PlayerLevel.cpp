@@ -16,9 +16,8 @@ void UPlayLevel::BeginPlay()
 	ULevel::BeginPlay();
 
 	ABackGroundMap* Map = SpawnActor<ABackGroundMap>();
-	Map->SetMapImage("Stage1_1.png");
-	Map->SetColMapImage("Stage1_3_Col.png");
-
+	Map->SetMapImage("Map3.png");
+	Map->SetColMapImage("ColMap3.png");
 
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");
@@ -32,6 +31,15 @@ void UPlayLevel::BeginPlay()
 void UPlayLevel::Tick(float _DeltaTime)
 {
 	ULevel::Tick(_DeltaTime);
+
+	FVector Pos = GetCameraPos();
+
+	if (0.0f >= Pos.X)
+	{
+		Pos.X = 0.0f;
+	}
+
+	SetCameraPos(Pos);
 }
 
 void UPlayLevel::LevelStart(ULevel* _Level)

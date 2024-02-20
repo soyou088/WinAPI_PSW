@@ -28,7 +28,6 @@ void ABackGroundMap::SetColMapImage(std::string_view _MapImageName)
 	ColRenderer->SetTransform({ ImageScale.Half2D(), ImageScale });
 }
 
-
 void ABackGroundMap::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
@@ -37,6 +36,9 @@ void ABackGroundMap::Tick(float _DeltaTime)
 	{
 		SwitchDebug();
 	}
+
+
+
 }
 
 void ABackGroundMap::SwitchDebug()

@@ -19,7 +19,9 @@ public:
 	void SetMapImage(std::string_view _MapImageName);
 	void SetColMapImage(std::string_view _MapImageName);
 
+
 	void SwitchDebug();
+
 
 protected:
 	void BeginPlay() override;
@@ -27,6 +29,6 @@ protected:
 
 private:
 	UImageRenderer* Renderer = nullptr;
-	UImageRenderer * ColRenderer = nullptr;
+	UImageRenderer* ColRenderer = nullptr;
 };
 

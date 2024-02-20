@@ -52,8 +52,10 @@ void APlayer::CalMoveVector(float _DeltaTime)
 void APlayer::MoveLastMoveVector(float _DeltaTime)
 {
 	// 카메라는 x축으로만 움직여야 하니까.
+
+
 	GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
-	AddActorLocation(LastMoveVector *_DeltaTime);
+	AddActorLocation(LastMoveVector * _DeltaTime);
 
 }
 
@@ -96,13 +98,13 @@ void APlayer::BeginPlay()
 	AActor::BeginPlay();
 
 	// 카메라 세팅
-	GetWorld()->AddCameraPos({0, 60});
-	
+	GetWorld()->AddCameraPos({ 0, 540 });
+
 
 
 	Renderer = CreateImageRenderer(WonderRenderOrder::Player);
 	Renderer->SetImage("Player_R.png");
-	Renderer->SetTransform({ {0,0}, {200, 200} }); 
+	Renderer->SetTransform({ {0,0}, {200, 200} });
 
 	Renderer->CreateAnimation("Idle_Right", "Player_R.png", 0, 1, 0.1f, true); // 가만히 있는 상태
 	Renderer->CreateAnimation("Move_Right", "Player_R.png", 1, 5, 0.1f, true); // 오른쪽으로 움직이는 상태
@@ -122,11 +124,11 @@ void APlayer::BeginPlay()
 void APlayer::CalGravityVector(float _DeltaTime)
 {
 	GravityVector += GravityAcc * _DeltaTime;
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() , Color8Bit::MagentaA);
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 
 	if (Color == Color8Bit::MagentaA)
 	{
-   		GravityVector = FVector::Zero;
+		GravityVector = FVector::Zero;
 	}
 
 }
@@ -360,7 +362,7 @@ void APlayer::Move(float _DeltaTime)
 {
 	DirCheck();
 	MoveUpdate(_DeltaTime);
-	
+
 	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
 		StateChange(EPlayState::Idle);
@@ -410,12 +412,19 @@ void APlayer::Move(float _DeltaTime)
 		if (Color == Color8Bit(255, 0, 255, 0))
 		{
 			AddActorLocation(FVector::Up);
+			//FVector CameraPos = GetActorLocation();
+			//int CPos = GetActorLocation().iY();
+
+			//FVector a = { 0,CPos,0,0 };
+
+			//GetWorld()->AddCameraPos(a);
 		}
 		else
 		{
 			break;
 		}
 	}
+
 }
 
 void APlayer::Jump(float _DeltaTime)
@@ -432,13 +441,13 @@ void APlayer::Jump(float _DeltaTime)
 
 	MoveUpdate(_DeltaTime);
 
-	
+
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
 		JumpVector += JumpPower * _DeltaTime;
-	 	JumpVector = FVector::Zero;
-    	StateChange(EPlayState::Idle);
+		JumpVector = FVector::Zero;
+		StateChange(EPlayState::Idle);
 		return;
 	}
 
@@ -489,6 +498,7 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		int a = 0;
 	}
+
 
 
 

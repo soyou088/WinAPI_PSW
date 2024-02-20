@@ -8,6 +8,7 @@
 
 // Ό³Έν :
 class APlayer : public AActor
+
 {
 private:
 	static APlayer* MainPlayer;
