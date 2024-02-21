@@ -37,9 +37,10 @@ void UPlayLevel::Tick(float _DeltaTime)
 	if (0.0f >= Pos.X)
 	{
 		Pos.X = 0.0f;
-	}
 
+	}
 	SetCameraPos(Pos);
+
 }
 
 void UPlayLevel::LevelStart(ULevel* _Level)

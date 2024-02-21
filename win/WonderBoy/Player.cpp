@@ -32,31 +32,23 @@ void APlayer::CalMoveVector(float _DeltaTime)
 		MoveVector = FVector::Zero;
 	}
 
-	if (true == UEngineInput::IsFree(VK_LEFT) && true == UEngineInput::IsFree(VK_RIGHT))
-	{
-		if (0.001 <= MoveVector.Size2D())
-		{
-			MoveVector += (-MoveVector) * _DeltaTime * MoveAcc; // 감속하는 코드
-		}
-		else {
-			MoveVector = float4::Zero;
-		}
-	}
-
 	if (MoveMaxSpeed <= MoveVector.Size2D())
 	{
-		MoveVector = FVector::Zero;
+		MoveVector = MoveVector.Normalize2DReturn() * MoveMaxSpeed;
 	}
 }
 
 void APlayer::MoveLastMoveVector(float _DeltaTime)
 {
 	// 카메라는 x축으로만 움직여야 하니까.
-
-
 	GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
-	AddActorLocation(LastMoveVector * _DeltaTime);
+	/*FVector CameraPos = GetActorLocation();
+	int CPos = GetActorLocation().iY();
 
+	FVector a = { 0,CPos,0,0 };
+
+	GetWorld()->AddCameraPos(a);*/
+	AddActorLocation(LastMoveVector * _DeltaTime);
 }
 
 void APlayer::CalLastMoveVector(float _DeltaTime)
@@ -66,8 +58,25 @@ void APlayer::CalLastMoveVector(float _DeltaTime)
 	LastMoveVector = LastMoveVector + MoveVector;
 	LastMoveVector = LastMoveVector + JumpVector;
 	LastMoveVector = LastMoveVector + GravityVector;
-	LastMoveVector + JumpVector;
 }
+
+void APlayer::HillUP()
+{
+	while (true)
+	{
+		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
+		if (Color == Color8Bit(0, 0, 0, 0))
+		{
+			AddActorLocation(FVector::Up);
+		}
+		else
+		{
+			break;
+		}
+
+	}
+}
+
 
 void APlayer::MoveUpdate(float _DeltaTime)
 {
@@ -112,7 +121,7 @@ void APlayer::BeginPlay()
 	Renderer->CreateAnimation("Idle_Left", "Player_L.png", 0, 1, 0.1f, true); // 가만히 있는 상태
 	Renderer->CreateAnimation("Move_Left", "Player_L.png", 1, 5, 0.1f, true); // 왼쪽으로 움직이는 상태
 
-	Renderer->CreateAnimation("Jump_Right", "Player_R.png", 5, 5, 0.1f, true); // 오른쪽으로 점프하기
+	Renderer->CreateAnimation("Jump_Right", "Player_R.png", 5, 5, 0.1f, true    ); // 오른쪽으로 점프하기
 	Renderer->CreateAnimation("Jump_Left", "Player_L.png", 5, 5, 0.1f, true); // 왼쪽으로 점프하기
 
 	Renderer->ChangeAnimation("Idle_Right"); // 가만히 있는상태
@@ -358,6 +367,7 @@ void APlayer::Idle(float _DeltaTime)
 	MoveUpdate(_DeltaTime);
 }
 
+
 void APlayer::Move(float _DeltaTime)
 {
 	DirCheck();
@@ -365,26 +375,59 @@ void APlayer::Move(float _DeltaTime)
 
 	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
-		StateChange(EPlayState::Idle);
-		return;
+		FVector MoveDirVector = FVector::Zero;
+		switch (DirState)
+		{
+		case EActorDir::Left:
+			MoveDirVector = FVector::Right;
+			break;
+		case EActorDir::Right:
+			MoveDirVector = FVector::Left;
+			break;
+		default:
+			break;
+		}
+		if (10.0f <= abs(MoveVector.X))
+		{
+			AddMoveVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
+		}
+		else
+		{
+			MoveVector = float4::Zero;
+			StateChange(EPlayState::Idle);
+			return;
+		}
 	}
 
-	FVector MovePos = FVector::Zero;
+
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
-		MovePos += FVector::Left * _DeltaTime * FreeMoveSpeed;
+		AddMoveVector(FVector::Left * _DeltaTime);
 	}
+
 
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
-		MovePos += FVector::Right * _DeltaTime * FreeMoveSpeed;
+		AddMoveVector(FVector::Right * _DeltaTime);
 	}
 
-	if (true == UEngineInput::IsDown(VK_SPACE))
+	if (true == UEngineInput::IsPress(VK_SPACE))
 	{
 		StateChange(EPlayState::Jump);
 		return;
 	}
+
+	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress(VK_SPACE))
+	{
+		AddMoveVector(FVector::Left * _DeltaTime + JumpVector);
+	}
+
+
+	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress(VK_SPACE))
+	{
+		AddMoveVector(FVector::Right * _DeltaTime + JumpVector);
+	}
+
 
 	FVector CheckPos = GetActorLocation();
 	switch (DirState)
@@ -412,17 +455,18 @@ void APlayer::Move(float _DeltaTime)
 		if (Color == Color8Bit(255, 0, 255, 0))
 		{
 			AddActorLocation(FVector::Up);
-			//FVector CameraPos = GetActorLocation();
-			//int CPos = GetActorLocation().iY();
-
-			//FVector a = { 0,CPos,0,0 };
-
-			//GetWorld()->AddCameraPos(a);
 		}
 		else
 		{
 			break;
 		}
+
+	}
+
+	Color8Bit Colorto = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
+	if (Colorto == Color8Bit(0, 0, 0, 0))
+	{
+		HillUP();
 	}
 
 }
@@ -443,64 +487,22 @@ void APlayer::Jump(float _DeltaTime)
 
 
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-	if (Color == Color8Bit(255, 0, 255, 0))
+	if (Color == Color8Bit::MagentaA)
 	{
-		JumpVector += JumpPower * _DeltaTime;
 		JumpVector = FVector::Zero;
-		StateChange(EPlayState::Idle);
+		StateChange(EPlayState::Move);
 		return;
 	}
 
+	if (JumpMax <= JumpVector.Size2D())
+	{
+		JumpVector = JumpVector.Normalize2DReturn() * JumpMax;
+	}
 }
-
-void APlayer::Run(float _DeltaTime)
-{
-	DirCheck();
-
-	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
-	{
-		StateChange(EPlayState::Idle);
-		return;
-	}
-
-	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress('Q'))
-	{
-		AddMoveVector(FVector::Left * _DeltaTime);
-	}
-
-	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress('Q'))
-	{
-		AddMoveVector(FVector::Right * _DeltaTime);
-	}
-
-	if (true == UEngineInput::IsDown(VK_SPACE))
-	{
-		StateChange(EPlayState::Jump);
-		return;
-	}
-
-
-	MoveUpdate(_DeltaTime);
-}
-
 
 
 void APlayer::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
-
-	if (UEngineInput::IsAnykeyDown())
-	{
-		int a = 0;
-	}
-
-	if (UEngineInput::IsAnykeyUp())
-	{
-		int a = 0;
-	}
-
-
-
-
 	StateUpdate(_DeltaTime);
 }

@@ -46,6 +46,7 @@ protected:
 	void Jump(float _DeltaTime);
 	void Move(float _DeltaTime);
 	void Run(float _DeltaTime);
+	
 
 	// 상태 시작 함수들
 	void IdleStart();
@@ -81,9 +82,10 @@ private:
 
 	FVector JumpPower = FVector::Up * 800;
 	FVector JumpVector = FVector::Zero;
+	float JumpMax = 800.0f;
 	// 내가 나갈 모든 방향의 합
 	FVector LastMoveVector = FVector::Zero;
-
+	FVector MovePos = FVector::Zero;
 
 
 	void CalLastMoveVector(float _DeltaTime);
@@ -93,5 +95,6 @@ private:
 	void MoveLastMoveVector(float _DeltaTime);
 	void MoveUpdate(float _DeltaTime);
 	void GroundUp();
+	void HillUP();
 };
 
