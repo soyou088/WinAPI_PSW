@@ -46,7 +46,8 @@ protected:
 	void Jump(float _DeltaTime);
 	void Move(float _DeltaTime);
 	void Run(float _DeltaTime);
-	
+	void Death(float _DeltaTime);
+	void Col(float _DeltaTime);
 
 	// 상태 시작 함수들
 	void IdleStart();
@@ -60,7 +61,7 @@ protected:
 
 
 private:
-	UCollision* BodyCollision = nullptr;
+	UCollision* Collision = nullptr;
 
 	UImageRenderer* Renderer = nullptr;
 	float AnimationTime = 0.0f;
@@ -72,8 +73,8 @@ private:
 	float FreeMoveSpeed = 700.0f;
 
 	FVector MoveVector = FVector::Zero;
-	FVector MoveAcc = FVector::Right * 500.0f;
-	float MoveMaxSpeed = 500.0f;
+	FVector MoveAcc = FVector::Right * 1000.0f;
+	float MoveMaxSpeed = 1000.0f;
 	void AddMoveVector(const FVector& _DirDelta);
 
 	FVector GravityAcc = FVector::Down * 2000.0f;

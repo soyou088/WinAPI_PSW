@@ -1,5 +1,6 @@
 #include "PlayerLevel.h"
 #include "Player.h"
+#include "Monster.h"
 #include "BackGroundMap.h"
 #include <EngineCore\EngineCore.h>
 
@@ -15,17 +16,19 @@ void UPlayLevel::BeginPlay()
 {
 	ULevel::BeginPlay();
 
+	
+
 	ABackGroundMap* Map = SpawnActor<ABackGroundMap>();
 	Map->SetMapImage("Map3.png");
 	Map->SetColMapImage("ColMap3.png");
 
+	AMonster* Monster = SpawnActor<AMonster>();
+	Monster->SetName("Monster");
+	Monster->SetActorLocation({ 200, 873 });
+
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");
-	Player->SetActorLocation({ 150, 100 });
-	
-
-	
-
+	Player->SetActorLocation({ 150, 873 });
 }
 
 void UPlayLevel::Tick(float _DeltaTime)
@@ -40,7 +43,6 @@ void UPlayLevel::Tick(float _DeltaTime)
 
 	}
 	SetCameraPos(Pos);
-
 }
 
 void UPlayLevel::LevelStart(ULevel* _Level)

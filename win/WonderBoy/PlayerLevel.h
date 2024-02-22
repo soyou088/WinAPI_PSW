@@ -1,8 +1,10 @@
 #pragma once
 #include <EngineCore\Level.h>
+#include <EngineCore\Actor.h>
 
 // Ό³Έν :
-class UPlayLevel : public ULevel
+class UPlayLevel : public ULevel, public AActor
+
 
 {
 public:

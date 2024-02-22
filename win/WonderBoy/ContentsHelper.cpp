@@ -2,6 +2,8 @@
 
 UWindowImage* UContentsHelper::ColMapImage = nullptr;
 
+UWindowImage* UContentsHelper::ColMonsterImage = nullptr;
+
 UContentsHelper::UContentsHelper()
 {
 }

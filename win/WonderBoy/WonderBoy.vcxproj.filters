@@ -13,6 +13,9 @@
     <Filter Include="TitleLevel\Actor">
       <UniqueIdentifier>{0bc50f4c-ad22-419a-bec8-0910b67928b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayLevel\MonsterActor">
+      <UniqueIdentifier>{4abc7b40-6cb8-40e6-89b8-cc7879bb84ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGroundMap.h">
@@ -32,6 +35,9 @@
     <ClInclude Include="TitleLogo.h">
       <Filter>TitleLevel\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>PlayLevel\MonsterActor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -50,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="PlayerLevel.cpp">
       <Filter>PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>PlayLevel\MonsterActor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

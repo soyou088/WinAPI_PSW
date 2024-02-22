@@ -36,10 +36,13 @@ void APlayer::CalMoveVector(float _DeltaTime)
 	{
 		MoveVector = MoveVector.Normalize2DReturn() * MoveMaxSpeed;
 	}
+
+	// FVector CameraPos = GetActorLocation();
 }
 
 void APlayer::MoveLastMoveVector(float _DeltaTime)
 {
+	
 	// 카메라는 x축으로만 움직여야 하니까.
 	GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
 	/*FVector CameraPos = GetActorLocation();
@@ -73,7 +76,6 @@ void APlayer::HillUP()
 		{
 			break;
 		}
-
 	}
 }
 
@@ -104,28 +106,36 @@ APlayer::~APlayer()
 
 void APlayer::BeginPlay()
 {
-	AActor::BeginPlay();
+	AActor::BeginPlay(); // 부모에서 실행하는 함수를 해주는게 좋아서 했다.
+	
+	GetWorld()->AddCameraPos({ 0, 540 }); // 카메라세 팅
+	MainPlayer = this;
+	{
+		Renderer = CreateImageRenderer(WonderRenderOrder::Player);
+		Renderer->SetImage("Player_R.png");
+		Renderer->SetTransform({ {0,0}, {200, 200} });
 
-	// 카메라 세팅
-	GetWorld()->AddCameraPos({ 0, 540 });
+		Renderer->CreateAnimation("Idle_Right", "Player_R.png", 0, 1, 0.1f, true); // 가만히 있는 상태
+		Renderer->CreateAnimation("Move_Right", "Player_R.png", 1, 5, 0.1f, true); // 오른쪽으로 움직이는 상태
 
+		Renderer->CreateAnimation("Idle_Left", "Player_L.png", 0, 1, 0.1f, true); // 가만히 있는 상태
+		Renderer->CreateAnimation("Move_Left", "Player_L.png", 1, 5, 0.1f, true); // 왼쪽으로 움직이는 상태
 
+		Renderer->CreateAnimation("Jump_Right", "Player_R.png", 5, 5, 0.1f, true); // 오른쪽으로 점프하기
+		Renderer->CreateAnimation("Jump_Left", "Player_L.png", 5, 5, 0.1f, true); // 왼쪽으로 점프하기
 
-	Renderer = CreateImageRenderer(WonderRenderOrder::Player);
-	Renderer->SetImage("Player_R.png");
-	Renderer->SetTransform({ {0,0}, {200, 200} });
+		Renderer->CreateAnimation("Col-Right", "Player_R.png", 6, 6, 0.1f, true); // 오른쪽충돌
+		Renderer->CreateAnimation("Col_Left", "Player_R.png", 7, 7, 0.1f, true); // 왼쪽 충돌
+		Renderer->CreateAnimation("Death", "Death.png", 0, 1, 0.1f, true); // 죽기
 
-	Renderer->CreateAnimation("Idle_Right", "Player_R.png", 0, 1, 0.1f, true); // 가만히 있는 상태
-	Renderer->CreateAnimation("Move_Right", "Player_R.png", 1, 5, 0.1f, true); // 오른쪽으로 움직이는 상태
+		Renderer->ChangeAnimation("Idle_Right"); // 가만히 있는상태
+	}
 
-	Renderer->CreateAnimation("Idle_Left", "Player_L.png", 0, 1, 0.1f, true); // 가만히 있는 상태
-	Renderer->CreateAnimation("Move_Left", "Player_L.png", 1, 5, 0.1f, true); // 왼쪽으로 움직이는 상태
-
-	Renderer->CreateAnimation("Jump_Right", "Player_R.png", 5, 5, 0.1f, true    ); // 오른쪽으로 점프하기
-	Renderer->CreateAnimation("Jump_Left", "Player_L.png", 5, 5, 0.1f, true); // 왼쪽으로 점프하기
-
-	Renderer->ChangeAnimation("Idle_Right"); // 가만히 있는상태
-
+	{
+		Collision = CreateCollision(WonderCollisionOrder::Player);
+		Collision->SetScale({ 10, 100 });
+		Collision->SetColType(ECollisionType::Rect);
+	}
 
 	StateChange(EPlayState::Idle);
 }
@@ -204,6 +214,8 @@ void APlayer::JumpStart()
 	DirCheck();
 
 }
+
+
 
 void APlayer::StateChange(EPlayState _State)
 {
@@ -462,13 +474,6 @@ void APlayer::Move(float _DeltaTime)
 		}
 
 	}
-
-	Color8Bit Colorto = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-	if (Colorto == Color8Bit(0, 0, 0, 0))
-	{
-		HillUP();
-	}
-
 }
 
 void APlayer::Jump(float _DeltaTime)
@@ -498,6 +503,16 @@ void APlayer::Jump(float _DeltaTime)
 	{
 		JumpVector = JumpVector.Normalize2DReturn() * JumpMax;
 	}
+}
+
+void APlayer::Col(float _DeltaTime)
+{
+
+}
+
+void APlayer::Death(float _DeltaTime)
+{
+
 }
 
 

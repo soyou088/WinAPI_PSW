@@ -7,6 +7,13 @@ enum WonderRenderOrder
 {
 	Map,
 	Monster,
+	Player,
+};
+
+enum class WonderCollisionOrder
+{
+	PlayerBullet,
+	Monster,
 	Player
 };
 
@@ -34,6 +41,7 @@ class UContentsHelper
 public:
 	static class APlayer* MainPlayer;
 	static UWindowImage* ColMapImage;
+	static UWindowImage* ColMonsterImage;
 	static FVector GetMousePos();
 
 private:

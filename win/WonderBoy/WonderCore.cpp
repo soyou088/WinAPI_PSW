@@ -37,6 +37,9 @@ void UWonderCore::BeginPlay()
 	                                                            // 5°³¾¿ 2ÁÙ
 	UEngineResourcesManager::GetInst().CuttingImage("Player_R.png", 5, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Player_L.png", 5, 2);
+	UEngineResourcesManager::GetInst().CuttingImage("Monster1.png", 3, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Death.png", 2, 1);
+
 	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Title"));
 
 	CreateLevel<UTitleLevel>("Title");
