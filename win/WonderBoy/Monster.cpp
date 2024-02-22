@@ -23,8 +23,7 @@ void AMonster::BeginPlay()
 		Renderer->SetTransform({ {0,0}, {200, 200} });
 
 		Renderer->CreateAnimation("Idle_Monster", "Monster1.png", 0, 1, 1.0f, true); // 움직이는 상태
-
-		Renderer->ChangeAnimation("Idle_Monster"); // 가만히 있는상태
+		// Renderer->ChangeAnimation("Idle_Monster"); // 가만히 있는상태
 	}
 
 	{

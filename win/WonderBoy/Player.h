@@ -35,6 +35,8 @@ protected:
 
 	std::string GetAnimationName(std::string _Name);
 
+	void SetPlayerCameraPos();
+
 	// 상태 주요 업데이트
 	void StateChange(EPlayState _State);
 	void StateUpdate(float _DeltaTime);

@@ -102,7 +102,8 @@ public:
 		return Image;
 	}
 
-	void CameraEffectOff() 
+	void 
+		EffectOff() 
 	{
 		CameraEffect = false;
 	}
