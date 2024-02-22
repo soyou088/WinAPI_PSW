@@ -520,4 +520,17 @@ void APlayer::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	StateUpdate(_DeltaTime);
+
+	std::vector<UCollision*> Result;
+	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Monster, Result))
+	{
+		AActor* MCol = Result[0]->GetOwner();
+		MCol->Destroy(0.0f);
+	}
+
+	APlayer* Player = APlayer::GetMainPlayer();
+	if (nullptr == Player)
+	{
+		MsgBoxAssert("플레이어가 존재하지 않습니다.");
+	}
 }

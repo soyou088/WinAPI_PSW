@@ -26,7 +26,7 @@ private:
 	UCollision* Collision;
 
 
-	float MoveVector = 10.0f;
+	float MoveVector = 50.0f;
 	void AddMoveVector();
 
 	void Destroy();

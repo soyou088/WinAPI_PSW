@@ -35,7 +35,7 @@ void UCollision::BeginPlay()
 }
 
 // true 충돌한 객체가 있다.
-bool UCollision::CollisionCheck(int _Order, std::vector<UCollision*>& _Result)
+bool UCollision::CollisionCheck(int _Order, std::vector<UCollision*>& _Result) // 대상 비교하기
 {
 	// 나랑 특정개수의 콜리전이랑 충돌해야 한다.
 	AActor* Owner = GetOwner();
