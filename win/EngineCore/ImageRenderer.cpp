@@ -37,12 +37,20 @@ int UAnimationInfo::Update(float _DeltaTime)
 	{
 		CurTime = Times[CurFrame];
 		++CurFrame;
+
+		if (1 == Indexs.size())
+		{
+			IsEnd = true;
+		}
 	}
 
 	//  6                 6
 	if (Indexs.size() <= CurFrame)
 	{
-		IsEnd = true;
+		if (1 < Indexs.size())
+		{
+			IsEnd = true;
+		}
 		if (true == Loop)
 		{
 			// //            0  1  2  3  4  5 
@@ -179,8 +187,8 @@ void UImageRenderer::ChangeAnimation(std::string_view _AnimationName, bool _IsFo
 	UAnimationInfo& Info = AnimationInfos[UpperAniName];
 	CurAnimation = &Info;
 	CurAnimation->CurFrame = _StartIndex;
-	CurAnimation->CurTime = _Time;
-	if (0.0f >= _Time)
+	CurAnimation->CurTime = CurAnimation->Times[_StartIndex];
+	if (0.0f < _Time)
 	{
 		CurAnimation->CurTime = _Time;
 	}
@@ -201,6 +209,7 @@ FTransform UImageRenderer::GetRenderTransForm()
 		AActor* Actor = GetOwner();
 		ULevel* World = Actor->GetWorld();
 		FVector CameraPos = World->GetCameraPos();
+		CameraPos *= CameraRatio;
 		RendererTrans.AddPosition(-CameraPos);
 	}
 
@@ -211,7 +220,18 @@ void UImageRenderer::TextRender(float _DeltaTime)
 {
 	FTransform RendererTrans = GetRenderTransForm();
 
-	GEngine->MainWindow.GetBackBufferImage()->TextCopy(Text, Font, Size,RendererTrans, TextColor);
+	switch (TextEffect)
+	{
+	case 1:
+		GEngine->MainWindow.GetBackBufferImage()->TextCopy(Text, Font, Size, RendererTrans, TextColor, TextColor2);
+		break;
+	case 2:
+		GEngine->MainWindow.GetBackBufferImage()->TextCopyBold(Text, Font, Size, RendererTrans, TextColor);
+		break;
+	default:
+		GEngine->MainWindow.GetBackBufferImage()->TextCopy(Text, Font, Size, RendererTrans, TextColor);
+		break;
+	}
 }
 
 void UImageRenderer::ImageRender(float _DeltaTime)
@@ -239,7 +259,14 @@ void UImageRenderer::ImageRender(float _DeltaTime)
 		// bmp일때는 일반적으로 Transcopy로 투명처리를 한다.
 		break;
 	case EWIndowImageType::IMG_PNG:
-		GEngine->MainWindow.GetBackBufferImage()->AlphaCopy(Image, RendererTrans, InfoIndex, TransColor);
+		if (0.0f == Angle)
+		{
+			GEngine->MainWindow.GetBackBufferImage()->AlphaCopy(Image, RendererTrans, InfoIndex, TransColor);
+		}
+		else 
+		{
+			GEngine->MainWindow.GetBackBufferImage()->PlgCopy(Image, RendererTrans, InfoIndex, Angle * UEngineMath::DToR);
+		}
 		break;
 	default:
 		MsgBoxAssert("투명처리가 불가능한 이미지 입니다.");

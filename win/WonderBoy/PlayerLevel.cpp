@@ -20,7 +20,7 @@ void UPlayLevel::BeginPlay()
 
 	ABackGroundMap* Map = SpawnActor<ABackGroundMap>();
 	Map->SetMapImage("Map3.png");
-	Map->SetColMapImage("ColMap3.png");
+	Map->SetColMapImage("map1_Col.png");
 
 	AMonster* Monster = SpawnActor<AMonster>();
 	Monster->SetName("Monster");

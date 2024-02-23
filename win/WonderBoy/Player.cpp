@@ -26,7 +26,6 @@ void APlayer::CalMoveVector(float _DeltaTime)
 	}
 	CheckPos.Y -= 30;
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::MagentaA);
-
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
 		MoveVector = FVector::Zero;
@@ -42,19 +41,8 @@ void APlayer::CalMoveVector(float _DeltaTime)
 void APlayer::MoveLastMoveVector(float _DeltaTime)
 {
 	// 카메라는 x축으로만 움직여야 하니까.
+	//PMoveVector = GetActorLocation();
 	GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
-	FVector CameraPos = GetActorLocation();
-	//if (CameraPos.X >)
-	//{
-
-	//}
-
-
-	//int CPos = GetActorLocation().iY();
-
-	//FVector a = { 0,CPos,0,0 };
-
-	//GetWorld()->AddCameraPos(a);
 	AddActorLocation(LastMoveVector * _DeltaTime);
 }
 
@@ -67,15 +55,37 @@ void APlayer::CalLastMoveVector(float _DeltaTime)
 	LastMoveVector = LastMoveVector + GravityVector;
 }
 
-void APlayer::HillUP()
+//void APlayer::HillUP(Color8Bit _Color)
+//{
+//	_Color = Color8Bit::MagentaA;
+//	while (true)
+//	{
+//		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
+//		if (Color == Color8Bit::GreenA || Color == Color8Bit::MagentaA)
+//		{
+//			AddActorLocation(FVector::Up);
+//		}
+//
+//
+//		else
+//		{
+//			break;
+//		}
+//	}
+//}
+
+void APlayer::HillUP(Color8Bit _Color)
 {
+	_Color = Color8Bit::GreenA;
 	while (true)
 	{
 		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-		if (Color == Color8Bit(0, 0, 0, 0))
+		if (Color == Color8Bit::GreenA || Color == Color8Bit::MagentaA)
 		{
 			AddActorLocation(FVector::Up);
 		}
+
+
 		else
 		{
 			break;
@@ -90,7 +100,8 @@ void APlayer::MoveUpdate(float _DeltaTime)
 	CalGravityVector(_DeltaTime);// 중력 계산 값
 	CalLastMoveVector(_DeltaTime); // 다 던한 값
 	MoveLastMoveVector(_DeltaTime); // 카메라
-	// 이동을 하고 났더니 내가 땅에 처박혀 있을수 있죠?
+	HillUP(Color8Bit::GreenA);
+	// 이동을 하고 났더니 내가 땅에 처박혀 있을수 있죠
 }
 
 APlayer* APlayer::MainPlayer = nullptr;
@@ -130,11 +141,11 @@ void APlayer::BeginPlay()
 
 		Renderer->CreateAnimation("Col-Right", "Player_R.png", 6, 6, 0.1f, true); // 오른쪽충돌
 		Renderer->CreateAnimation("Col_Left", "Player_R.png", 7, 7, 0.1f, true); // 왼쪽 충돌
+		
 		Renderer->CreateAnimation("Death", "Death.png", 0, 1, 0.1f, true); // 죽기
 
 		Renderer->ChangeAnimation("Idle_Right"); // 가만히 있는상태
 	}
-
 	{
 		Collision = CreateCollision(WonderCollisionOrder::Player);
 		Collision->SetScale({ 10, 100 });
@@ -465,19 +476,27 @@ void APlayer::Move(float _DeltaTime)
 		GetWorld()->AddCameraPos(MovePos);
 	}
 
-	while (true)
+	/*while (true)
 	{
 		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 		if (Color == Color8Bit(255, 0, 255, 0))
 		{
+
 			AddActorLocation(FVector::Up);
+	
+		}
+		if (Color == Color8Bit::GreenA)
+		{
+			HillUP();
 		}
 		else
 		{
 			break;
 		}
+	}*/
 
-	}
+	HillUP(Color8Bit::GreenA);
+
 }
 
 void APlayer::Jump(float _DeltaTime)
@@ -529,7 +548,8 @@ void APlayer::Tick(float _DeltaTime)
 	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Monster, Result))
 	{
 		AActor* MCol = Result[0]->GetOwner();
-		MCol->Destroy(0.0f);
+		Renderer->ChangeAnimation("Death"); 
+
 	}
 
 	APlayer* Player = APlayer::GetMainPlayer();

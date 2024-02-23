@@ -74,6 +74,9 @@ private:
 
 	float FreeMoveSpeed = 700.0f;
 
+	FVector PGravityAcc = FVector::Up * 2000.0f;
+	FVector PMoveVector = FVector::Zero;
+
 	FVector MoveVector = FVector::Zero;
 	FVector MoveAcc = FVector::Right * 1000.0f;
 	float MoveMaxSpeed = 1000.0f;
@@ -98,6 +101,6 @@ private:
 	void MoveLastMoveVector(float _DeltaTime);
 	void MoveUpdate(float _DeltaTime);
 	void GroundUp();
-	void HillUP();
+	void HillUP(Color8Bit _Color);
 };
 

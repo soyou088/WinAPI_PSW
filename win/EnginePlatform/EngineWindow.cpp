@@ -131,6 +131,11 @@ unsigned __int64 UEngineWindow::WindowMessageLoop(void(*_Update)(), void(*_End)(
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+
+			if (false == WindowLive)
+			{
+				break;
+			}
 		}
 
 		// 메세지 루프의 데드타임이라는 곳에서 실행됩니다.
@@ -138,7 +143,7 @@ unsigned __int64 UEngineWindow::WindowMessageLoop(void(*_Update)(), void(*_End)(
 		{
 			_Update();
 		}
- 	}
+	}
 
 	if (nullptr != _End)
 	{
