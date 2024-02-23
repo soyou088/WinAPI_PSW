@@ -44,10 +44,10 @@ void APlayer::MoveLastMoveVector(float _DeltaTime)
 	// 카메라는 x축으로만 움직여야 하니까.
 	GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
 	FVector CameraPos = GetActorLocation();
-	if (CameraPos.X >)
-	{
+	//if (CameraPos.X >)
+	//{
 
-	}
+	//}
 
 
 	//int CPos = GetActorLocation().iY();
@@ -525,12 +525,12 @@ void APlayer::Tick(float _DeltaTime)
 	AActor::Tick(_DeltaTime);
 	StateUpdate(_DeltaTime);
 
-	//std::vector<UCollision*> Result;
-	//if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Monster, Result))
-	//{
-	//	AActor* MCol = Result[0]->GetOwner();
-	//	MCol->Destroy(0.0f);
-	//}
+	std::vector<UCollision*> Result;
+	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Monster, Result))
+	{
+		AActor* MCol = Result[0]->GetOwner();
+		MCol->Destroy(0.0f);
+	}
 
 	APlayer* Player = APlayer::GetMainPlayer();
 	if (nullptr == Player)

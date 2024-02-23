@@ -22,8 +22,8 @@ void AMonster::BeginPlay()
 		Renderer->SetImage("Monster1.png");
 		Renderer->SetTransform({ {0,0}, {200, 200} });
 
-		Renderer->CreateAnimation("Idle_Monster", "Monster1.png", 0, 1, 1.0f, true); // 움직이는 상태
-		// Renderer->ChangeAnimation("Idle_Monster"); // 가만히 있는상태
+		Renderer->CreateAnimation("Move_Monster", "Monster1.png", 0, 1, 1.0f, true); // 움직이는 상태
+		Renderer->ChangeAnimation("Move_Monster"); 
 	}
 
 	{
@@ -31,7 +31,6 @@ void AMonster::BeginPlay()
 		Collision->SetScale({ 10, 100 });
 		Collision->SetColType(ECollisionType::Rect);
 	}
-
 }
 
 void AMonster::HillDown()
