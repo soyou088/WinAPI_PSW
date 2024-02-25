@@ -18,22 +18,21 @@ void AMonster::BeginPlay()
 
 	
 	{
-		snail = CreateImageRenderer(WonderRenderOrder::Monster);
-		snail->SetImage("Monster1.png");
-		snail->SetTransform({ {200, 873 }, {200, 200} });
+		Snail = CreateImageRenderer(WonderRenderOrder::Monster);
+		Snail->SetImage("Monster1.png");
+		Snail->SetTransform({ {200, 873 }, {200, 200} });
 
-		snail->CreateAnimation("Move_Monster", "Monster1.png", 0, 1, 1.0f, true); // 움직이는 상태
-		snail->ChangeAnimation("Move_Monster");
+		Snail->CreateAnimation("Move_Monster", "Monster1.png", 0, 1, 1.0f, true); // 움직이는 상태
+		Snail->ChangeAnimation("Move_Monster");
 	}
 	
 	{
-		//Renderer = CreateImageRenderer(WonderRenderOrder::Monster);
-		//Renderer->SetImage("Monster1.png");
-		//Renderer->SetTransform({ {200, 873 }, {200, 200} });
+		//Bee = CreateImageRenderer(WonderRenderOrder::Monster);
+		//Bee->SetImage("Monster2.png");
+		//Bee->SetTransform({ {200, 873 }, {200, 200} });
 
-		//Renderer->CreateAnimation("Move_Monster", "Monster1.png", 0, 1, 1.0f, true); // 움직이는 상태
-		//Renderer->ChangeAnimation("Move_Monster");
-
+		//Bee->CreateAnimation("Move_Bee", "Monster2.png", 0, 1, 1.0f, true); // 움직이는 상태
+		//Bee->ChangeAnimation("Move_Bee");
 	}
 
 

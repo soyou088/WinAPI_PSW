@@ -22,7 +22,13 @@ protected:
 
 private:
 
-	UImageRenderer* snail = nullptr;
+	UImageRenderer* Snail = nullptr;
+	UImageRenderer* Bee = nullptr;
+	UImageRenderer* Snake = nullptr;
+	UImageRenderer* Stone = nullptr;
+	UImageRenderer* frog = nullptr;
+	UImageRenderer* bonfire = nullptr;
+
 	UCollision* Collision;
 
 
