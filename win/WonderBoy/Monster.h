@@ -22,7 +22,7 @@ protected:
 
 private:
 
-	UImageRenderer* Renderer = nullptr;
+	UImageRenderer* snail = nullptr;
 	UCollision* Collision;
 
 

@@ -55,36 +55,21 @@ void APlayer::CalLastMoveVector(float _DeltaTime)
 	LastMoveVector = LastMoveVector + GravityVector;
 }
 
-//void APlayer::HillUP(Color8Bit _Color)
-//{
-//	_Color = Color8Bit::MagentaA;
-//	while (true)
-//	{
-//		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-//		if (Color == Color8Bit::GreenA || Color == Color8Bit::MagentaA)
-//		{
-//			AddActorLocation(FVector::Up);
-//		}
-//
-//
-//		else
-//		{
-//			break;
-//		}
-//	}
-//}
+
 
 void APlayer::HillUP(Color8Bit _Color)
 {
-	_Color = Color8Bit::GreenA;
+
+	// Green 일때 FVector UP한다.
 	while (true)
 	{
-		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-		if (Color == Color8Bit::GreenA || Color == Color8Bit::MagentaA)
+		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 1, Color8Bit::MagentaA);
+		if (Color == _Color)//|| Color == Color8Bit::MagentaA)
 		{
 			AddActorLocation(FVector::Up);
-		}
 
+			// 카메라도 같이 올라간다.
+		}
 
 		else
 		{
@@ -93,14 +78,26 @@ void APlayer::HillUP(Color8Bit _Color)
 	}
 }
 
+void APlayer::ColorJump()
+{
+
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
+	if (Color == Color8Bit(100,0,0,0) || Color == Color8Bit::MagentaA)
+	{
+		JumpVector = FVector::Zero;
+ 		StateChange(EPlayState::Move);
+		return;
+	}
+}
+
 
 void APlayer::MoveUpdate(float _DeltaTime)
 {
 	CalMoveVector(_DeltaTime); // 움직임 계산 값
-	CalGravityVector(_DeltaTime);// 중력 계산 값
+	CalGravityVector(_DeltaTime);// 중력 계산 값	
 	CalLastMoveVector(_DeltaTime); // 다 던한 값
 	MoveLastMoveVector(_DeltaTime); // 카메라
-	HillUP(Color8Bit::GreenA);
+	//HillUP(Color8Bit(100,0,0,0));
 	// 이동을 하고 났더니 내가 땅에 처박혀 있을수 있죠
 }
 
@@ -160,7 +157,7 @@ void APlayer::CalGravityVector(float _DeltaTime)
 	GravityVector += GravityAcc * _DeltaTime;
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 
-	if (Color == Color8Bit::MagentaA)
+	if (Color == Color8Bit::MagentaA || Color == Color8Bit(100,0,0,0))
 	{
 		GravityVector = FVector::Zero;
 	}
@@ -476,26 +473,7 @@ void APlayer::Move(float _DeltaTime)
 		GetWorld()->AddCameraPos(MovePos);
 	}
 
-	/*while (true)
-	{
-		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-		if (Color == Color8Bit(255, 0, 255, 0))
-		{
-
-			AddActorLocation(FVector::Up);
-	
-		}
-		if (Color == Color8Bit::GreenA)
-		{
-			HillUP();
-		}
-		else
-		{
-			break;
-		}
-	}*/
-
-	HillUP(Color8Bit::GreenA);
+	HillUP(Color8Bit(100, 0, 0, 0));
 
 }
 
@@ -512,15 +490,9 @@ void APlayer::Jump(float _DeltaTime)
 	}
 
 	MoveUpdate(_DeltaTime);
+	ColorJump();
 
 
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-	if (Color == Color8Bit::MagentaA)
-	{
-		JumpVector = FVector::Zero;
-		StateChange(EPlayState::Move);
-		return;
-	}
 
 	if (JumpMax <= JumpVector.Size2D())
 	{

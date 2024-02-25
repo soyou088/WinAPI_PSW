@@ -50,6 +50,8 @@ protected:
 	void Run(float _DeltaTime);
 	void Death(float _DeltaTime);
 	void Col(float _DeltaTime);
+	
+	
 
 	// 상태 시작 함수들
 	void IdleStart();
@@ -74,7 +76,7 @@ private:
 
 	float FreeMoveSpeed = 700.0f;
 
-	FVector PGravityAcc = FVector::Up * 2000.0f;
+	FVector PGravityAcc = FVector::Up * 1000.0f;
 	FVector PMoveVector = FVector::Zero;
 
 	FVector MoveVector = FVector::Zero;
@@ -101,6 +103,7 @@ private:
 	void MoveLastMoveVector(float _DeltaTime);
 	void MoveUpdate(float _DeltaTime);
 	void GroundUp();
+	void ColorJump();
 	void HillUP(Color8Bit _Color);
 };
 

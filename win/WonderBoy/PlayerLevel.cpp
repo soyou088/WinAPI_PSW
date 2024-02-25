@@ -20,15 +20,16 @@ void UPlayLevel::BeginPlay()
 
 	ABackGroundMap* Map = SpawnActor<ABackGroundMap>();
 	Map->SetMapImage("Map3.png");
-	Map->SetColMapImage("map1_Col.png");
+	Map->SetColMapImage("map1_Col_2.png");
 
 	AMonster* Monster = SpawnActor<AMonster>();
 	Monster->SetName("Monster");
-	Monster->SetActorLocation({ 200, 873 });
+	//Monster->SetActorLocation({ 200, 873 });
 
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");
-	Player->SetActorLocation({ 150, 873 });
+	//Player->SetActorLocation({ 150, 873 });
+	Player -> SetActorLocation({150, 200});
 }
 
 void UPlayLevel::Tick(float _DeltaTime)

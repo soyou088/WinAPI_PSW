@@ -18,13 +18,26 @@ void AMonster::BeginPlay()
 
 	
 	{
-		Renderer = CreateImageRenderer(WonderRenderOrder::Monster);
-		Renderer->SetImage("Monster1.png");
-		Renderer->SetTransform({ {0,0}, {200, 200} });
+		snail = CreateImageRenderer(WonderRenderOrder::Monster);
+		snail->SetImage("Monster1.png");
+		snail->SetTransform({ {200, 873 }, {200, 200} });
 
-		Renderer->CreateAnimation("Move_Monster", "Monster1.png", 0, 1, 1.0f, true); // 움직이는 상태
-		Renderer->ChangeAnimation("Move_Monster"); 
+		snail->CreateAnimation("Move_Monster", "Monster1.png", 0, 1, 1.0f, true); // 움직이는 상태
+		snail->ChangeAnimation("Move_Monster");
 	}
+	
+	{
+		//Renderer = CreateImageRenderer(WonderRenderOrder::Monster);
+		//Renderer->SetImage("Monster1.png");
+		//Renderer->SetTransform({ {200, 873 }, {200, 200} });
+
+		//Renderer->CreateAnimation("Move_Monster", "Monster1.png", 0, 1, 1.0f, true); // 움직이는 상태
+		//Renderer->ChangeAnimation("Move_Monster");
+
+	}
+
+
+
 
 	{
 		Collision = CreateCollision(WonderCollisionOrder::Monster);
