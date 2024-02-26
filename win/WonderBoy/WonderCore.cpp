@@ -34,11 +34,15 @@ void UWonderCore::BeginPlay()
 	{
 		UEngineResourcesManager::GetInst().LoadImg(File.GetFullPath());
 	}
-	                                                            // 5개씩 2줄
+	                                               // 이미지 자르기 5개씩 2줄
 	UEngineResourcesManager::GetInst().CuttingImage("Player_R.png", 5, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Player_L.png", 5, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Monster1.png", 3, 1);
-	UEngineResourcesManager::GetInst().CuttingImage("Death.png", 2, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Bee.png", 3, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Snake.png", 4, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Bonfire.png", 3, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Stone.png", 3, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Death.png", 4, 1);
 
 	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Title"));
 

@@ -27,13 +27,31 @@ void AMonster::BeginPlay()
 	}
 	
 	{
-		//Bee = CreateImageRenderer(WonderRenderOrder::Monster);
-		//Bee->SetImage("Monster2.png");
-		//Bee->SetTransform({ {200, 873 }, {200, 200} });
+		Bee = CreateImageRenderer(WonderRenderOrder::Monster);
+		Bee->SetImage("Bee.png");
+		Bee->SetTransform({ {200, 873 }, {400, 400} });
 
-		//Bee->CreateAnimation("Move_Bee", "Monster2.png", 0, 1, 1.0f, true); // 움직이는 상태
-		//Bee->ChangeAnimation("Move_Bee");
+		Bee->CreateAnimation("Move_Bee", "Bee.png", 0, 1, 1.0f, true); // 움직이는 상태
+		Bee->ChangeAnimation("Move_Bee");
 	}
+
+	{
+		Bee = CreateImageRenderer(WonderRenderOrder::Monster);
+		Bee->SetImage("Snake.png");
+		Bee->SetTransform({ {200, 873 }, {400, 400} });
+
+		Bee->CreateAnimation("Move_Snake", "Snake.png", 0, 1, 1.0f, true); // 움직이는 상태
+		Bee->ChangeAnimation("Move_Snake");
+	}
+
+	//{
+	//	Bee = CreateImageRenderer(WonderRenderOrder::Monster);
+	//	Bee->SetImage("Stone.png");
+	//	Bee->SetTransform({ {200, 873 }, {400, 400} });
+
+	//	Bee->CreateAnimation("Move_Stone", "Stone.png", 0, 1, 1.0f, true); // 움직이는 상태
+	//	Bee->ChangeAnimation("Move_Stone");
+	//}
 
 
 
