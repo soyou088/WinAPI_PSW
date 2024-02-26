@@ -79,9 +79,9 @@ private:
 	FVector PGravityAcc = FVector::Up * 1000.0f;
 	FVector PMoveVector = FVector::Zero;
 
-	FVector MoveAcc = FVector::Right * 1000.0f;
+	FVector MoveAcc = FVector::Right * 100.0f;
 	FVector MoveVector = FVector::Zero;
-	float MoveMaxSpeed = 1000.0f;
+	float MoveMaxSpeed = 500.0f;
 	void AddMoveVector(const FVector& _DirDelta);
 
 	FVector GravityAcc = FVector::Down * 2000.0f;
