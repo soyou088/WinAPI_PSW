@@ -26,8 +26,8 @@ private:
 	UImageRenderer* Bee = nullptr;
 	UImageRenderer* Snake = nullptr;
 	UImageRenderer* Stone = nullptr;
-	UImageRenderer* frog = nullptr;
-	UImageRenderer* bonfire = nullptr;
+	UImageRenderer* Frog = nullptr;
+	UImageRenderer* Bonfire = nullptr;
 
 	UCollision* Collision;
 

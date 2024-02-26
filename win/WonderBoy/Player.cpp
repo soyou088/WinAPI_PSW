@@ -67,8 +67,7 @@ void APlayer::HillUP(Color8Bit _Color)
 		if (Color == _Color)//|| Color == Color8Bit::MagentaA)
 		{
 			AddActorLocation(FVector::Up);
-
-			// 카메라도 같이 올라간다.
+			GetWorld()->AddCameraPos(FVector::Up);
 		}
 
 		else
@@ -97,7 +96,7 @@ void APlayer::MoveUpdate(float _DeltaTime)
 	CalGravityVector(_DeltaTime);// 중력 계산 값	
 	CalLastMoveVector(_DeltaTime); // 다 던한 값
 	MoveLastMoveVector(_DeltaTime); // 카메라
-	//HillUP(Color8Bit(100,0,0,0));
+	HillUP(Color8Bit(100,0,0,0));
 	// 이동을 하고 났더니 내가 땅에 처박혀 있을수 있죠
 }
 
