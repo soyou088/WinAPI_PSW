@@ -50,7 +50,7 @@ protected:
 	void Run(float _DeltaTime);
 	void Death(float _DeltaTime);
 	void Col(float _DeltaTime);
-	
+	void Bullet();
 	
 
 	// 상태 시작 함수들
@@ -66,6 +66,7 @@ protected:
 
 private:
 	UCollision* Collision = nullptr;
+	UCollision* BCollision = nullptr;
 
 	UImageRenderer* Renderer = nullptr;
 	float AnimationTime = 0.0f;
@@ -79,13 +80,16 @@ private:
 	FVector PGravityAcc = FVector::Up * 1000.0f;
 	FVector PMoveVector = FVector::Zero;
 
-	FVector MoveVector = FVector::Zero;
 	FVector MoveAcc = FVector::Right * 1000.0f;
+	FVector MoveVector = FVector::Zero;
 	float MoveMaxSpeed = 1000.0f;
 	void AddMoveVector(const FVector& _DirDelta);
 
 	FVector GravityAcc = FVector::Down * 2000.0f;
 	FVector GravityVector = FVector::Zero;
+
+	FVector BulletAcc = FVector::Right * 1000.0f;
+	FVector BulletVector = FVector::Zero;
 
 
 	FVector JumpPower = FVector::Up * 800;

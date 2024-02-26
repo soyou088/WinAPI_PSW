@@ -10,7 +10,6 @@ ABackGroundMap::~ABackGroundMap()
 {
 }
 
-
 void ABackGroundMap::SetMapImage(std::string_view _MapImageName)
 {
 	Renderer->SetImage(_MapImageName);
@@ -36,9 +35,6 @@ void ABackGroundMap::Tick(float _DeltaTime)
 	{
 		SwitchDebug();
 	}
-
-
-
 }
 
 void ABackGroundMap::SwitchDebug()

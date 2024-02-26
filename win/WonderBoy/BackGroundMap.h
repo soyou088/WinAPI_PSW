@@ -30,5 +30,6 @@ protected:
 private:
 	UImageRenderer* Renderer = nullptr;
 	UImageRenderer* ColRenderer = nullptr;
+	UImageRenderer* Object = nullptr;
 };
 
