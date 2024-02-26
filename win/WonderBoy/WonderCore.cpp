@@ -46,6 +46,8 @@ void UWonderCore::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Angel.png", 2, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Spring.png", 2, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Death.png", 4, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Bullet.png", 4, 1);
+
 
 	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Title"));
 

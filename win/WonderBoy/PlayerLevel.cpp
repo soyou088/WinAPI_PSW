@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Monster.h"
 #include "BackGroundMap.h"
+#include "BulletActor.h"
 #include <EngineCore\EngineCore.h>
 
 UPlayLevel::UPlayLevel()
@@ -15,7 +16,6 @@ UPlayLevel::~UPlayLevel()
 void UPlayLevel::BeginPlay()
 {
 	ULevel::BeginPlay();
-
 	
 
 	ABackGroundMap* Map = SpawnActor<ABackGroundMap>();
@@ -28,8 +28,17 @@ void UPlayLevel::BeginPlay()
 
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");
-	//Player->SetActorLocation({ 150, 873 });
-	Player -> SetActorLocation({150, 200});
+	Player->SetActorLocation({ 150, 573 });
+	//Player->SetActorLocation({150, 200});
+
+	FVector BPos = Player->GetActorLocation();
+	ABulletActor* Bullet = SpawnActor<ABulletActor>();
+	Bullet->SetName("Bullet");
+	Bullet->SetActorLocation(BPos);
+
+	int a = 0;
+
+
 }
 
 void UPlayLevel::Tick(float _DeltaTime)

@@ -16,6 +16,9 @@
     <Filter Include="PlayLevel\MonsterActor">
       <UniqueIdentifier>{4abc7b40-6cb8-40e6-89b8-cc7879bb84ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayLevel\BulletActor">
+      <UniqueIdentifier>{8b545868-2765-416f-b7fc-3385a18a0380}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGroundMap.h">
@@ -38,6 +41,9 @@
     <ClInclude Include="Monster.h">
       <Filter>PlayLevel\MonsterActor</Filter>
     </ClInclude>
+    <ClInclude Include="BulletActor.h">
+      <Filter>PlayLevel\BulletActor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -59,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>PlayLevel\MonsterActor</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletActor.cpp">
+      <Filter>PlayLevel\BulletActor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

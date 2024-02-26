@@ -66,7 +66,6 @@ protected:
 
 private:
 	UCollision* Collision = nullptr;
-	UCollision* BCollision = nullptr;
 
 	UImageRenderer* Renderer = nullptr;
 	float AnimationTime = 0.0f;
@@ -87,10 +86,6 @@ private:
 
 	FVector GravityAcc = FVector::Down * 2000.0f;
 	FVector GravityVector = FVector::Zero;
-
-	FVector BulletAcc = FVector::Right * 1000.0f;
-	FVector BulletVector = FVector::Zero;
-
 
 	FVector JumpPower = FVector::Up * 800;
 	FVector JumpVector = FVector::Zero;

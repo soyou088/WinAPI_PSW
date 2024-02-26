@@ -23,6 +23,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BulletActor.h" />
     <ClInclude Include="ContentsHelper.h">
       <SubType>
       </SubType>
@@ -57,6 +58,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BulletActor.cpp" />
     <ClCompile Include="ContentsHelper.cpp">
       <SubType>
       </SubType>

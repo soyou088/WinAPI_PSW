@@ -89,38 +89,6 @@ void APlayer::ColorJump()
 	}
 }
 
-void APlayer::Bullet()
-{
-
-	BulletVector = BulletAcc;
-	FVector GetPos = GetActorLocation();
-
-
-
-	GetActorLocation().X - 1; // Left 왼쪽을 볼때 나간다
-	GetActorLocation().X + 1; // Right 오른쪽을 볼때 나간다
-
-
-
-	// 일단 여기서 렌더 할 필요가 있을까 ?
-	// 미리 렌더를 해놓고 bullet을 실행 했을때 보이면 되는건가 ? 생각해보자
-	// bullet의 Actor는 어떻게 움직여야 할까 ?
-	// 플레이어가 왼쪽을 볼때 GetActorLocation().X -1 에서 bullet이 나간다.
-	// Bullet의 AddBulletPos(FVector::Right)
-	// 
-	// 플레이어가 오른쪽을 볼때 GetActorLocation().X +1 에서 bullet이 나간다.
-	// Bullet의 AddBulletPos(FVector::Left) 
-	// 
-	// 이렇게 움직인다.	
-
-	// UCollision* CreateCollision(int _Order = 0);
-	// UImageRenderer* CreateImageRenderer(int _Order = 0);
-	// 이걸 쓰면 될까 ?
-	// 
-	// Gravity를 체크 해야한다. 중력을 받아야 한다.
-	// 이미지 회전
-
-}
 
 
 void APlayer::MoveUpdate(float _DeltaTime)
@@ -183,12 +151,7 @@ void APlayer::BeginPlay()
 		Collision->SetScale({ 10, 100 });
 		Collision->SetColType(ECollisionType::Rect);
 	}
-	{
-		// Bullet Collision
-		BCollision = CreateCollision(WonderCollisionOrder::PlayerBullet);
-		BCollision->SetScale({ 10,10 });
-		BCollision->SetColType(ECollisionType::Rect);
-	}
+
 
 	StateChange(EPlayState::Idle);
 }
@@ -494,12 +457,6 @@ void APlayer::Move(float _DeltaTime)
 	}
 
 
-	if (UEngineInput::IsPress('Q'))
-	{
-		Bullet();
-	}
-
-
 	FVector CheckPos = GetActorLocation();
 	switch (DirState)
 	{
@@ -534,11 +491,6 @@ void APlayer::Jump(float _DeltaTime)
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
 		AddMoveVector(FVector::Right * _DeltaTime);
-	}
-
-	if (UEngineInput::IsPress('Q'))
-	{
-		Bullet();
 	}
 
 	MoveUpdate(_DeltaTime);
