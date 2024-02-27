@@ -32,6 +32,7 @@ enum class EPlayState
 	Idle,
 	Move,
 	Jump,
+	Attack,
 };
 
 

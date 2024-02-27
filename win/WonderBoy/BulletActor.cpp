@@ -1,7 +1,7 @@
 #include "BulletActor.h"
+#include "ContentsHelper.h"
 #include <EnginePlatform\EngineInput.h>
 #include <EngineBase\EngineDebug.h>
-#include "ContentsHelper.h"
 
 
 
@@ -19,19 +19,36 @@ void ABulletActor::BeginPlay()
 		// Bullet Collision
 		BRenderer = CreateImageRenderer(WonderRenderOrder::PlayerBullet);
 		BRenderer->SetImage("Bullet.png");
-		BRenderer->SetTransform({ {0,0}, {200, 200} });
+		BRenderer->SetTransform({ {0,0}, {100, 100} });
 
 
 		BRenderer->CreateAnimation("Bullet", "Bullet.png", 0, 3, 0.1f, true);
 		BCollision = CreateCollision(WonderCollisionOrder::PlayerBullet);
 		BCollision->SetScale({ 10,10 });
 		BCollision->SetColType(ECollisionType::Rect);
+
+		BRenderer->ChangeAnimation("Bullet");
 	}
 }
 
 void ABulletActor::Tick(float _DeltaTime)
 {
 	Move(_DeltaTime);
+
+	ABulletActor* Bullet = nullptr;
+
+	if (true == UEngineInput::IsPress(VK_RIGHT))
+	{
+		FVector BulletDir = FVector::Right;
+
+		FVector BulletDirNormal = BulletDir.Normalize2DReturn();
+	}
+	else
+	{
+		FVector BulletDir = FVector::Left;
+
+		FVector BulletDirNormal = BulletDir.Normalize2DReturn();
+	}
 }
 
 void ABulletActor::Move(float _DeltaTime)
@@ -39,7 +56,6 @@ void ABulletActor::Move(float _DeltaTime)
 	AddActorLocation(BulletAcc * _DeltaTime);
 	CalGravityVector(_DeltaTime);
 	AddActorLocation(GravityVector * _DeltaTime);
-
 }
 
 void ABulletActor::CalGravityVector(float _DeltaTime)
@@ -50,7 +66,6 @@ void ABulletActor::CalGravityVector(float _DeltaTime)
 	if (Color == Color8Bit::MagentaA || Color == Color8Bit(100, 0, 0, 0))
 	{
 		GravityVector = FVector::Zero;
-		Destroy();
+		//Destroy();
 	}
-
 }

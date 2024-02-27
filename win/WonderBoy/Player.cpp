@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "BulletActor.h"
 #include <EnginePlatform\EngineInput.h>
 #include <EngineBase\EngineDebug.h>
 #include "ContentsHelper.h"
@@ -87,6 +88,24 @@ void APlayer::ColorJump()
  		StateChange(EPlayState::Move);
 		return;
 	}
+}
+
+void APlayer::Bullet()
+{
+	FVector BPos = GetActorLocation();
+	ABulletActor* Bullet = GetWorld()->SpawnActor<ABulletActor>();
+	Bullet->SetName("Bullet");
+	Bullet->SetActorLocation(BPos);
+	return;
+
+}
+
+void APlayer::Attack(float _DeltaTime)
+{
+	DirCheck();
+	MoveUpdate(_DeltaTime);
+	StateChange(EPlayState::Idle);
+	return;
 }
 
 
@@ -228,9 +247,14 @@ void APlayer::JumpStart()
 	JumpVector = JumpPower;
 	Renderer->ChangeAnimation(GetAnimationName("Jump"));
 	DirCheck();
-
 }
 
+void APlayer::AttackStart()
+{
+	//Renderer->ChangeAnimation(GetAnimationName("Attack"));
+	DirCheck();
+	Bullet();
+}
 
 
 void APlayer::StateChange(EPlayState _State)
@@ -249,6 +273,9 @@ void APlayer::StateChange(EPlayState _State)
 			break;
 		case EPlayState::Jump:
 			JumpStart();
+			break;
+		case EPlayState::Attack:
+			AttackStart();
 			break;
 		default:
 			break;
@@ -278,6 +305,9 @@ void APlayer::StateUpdate(float _DeltaTime)
 		break;
 	case EPlayState::Jump:
 		Jump(_DeltaTime);
+		break;
+	case EPlayState::Attack:
+		Attack(_DeltaTime);
 		break;
 	default:
 		break;
@@ -386,6 +416,14 @@ void APlayer::Idle(float _DeltaTime)
 		return;
 	}
 
+	if (true == UEngineInput::IsDown('Q'))
+	{
+		StateChange(EPlayState::Attack);
+		return;
+	}
+
+
+
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
@@ -454,6 +492,12 @@ void APlayer::Move(float _DeltaTime)
 	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress(VK_SPACE))
 	{
 		AddMoveVector(FVector::Right * _DeltaTime + JumpVector);
+	}
+
+	if (true == UEngineInput::IsPress('Q'))
+	{
+		Attack(_DeltaTime);
+		return;
 	}
 
 

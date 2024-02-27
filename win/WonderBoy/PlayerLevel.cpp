@@ -28,15 +28,9 @@ void UPlayLevel::BeginPlay()
 
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");
-	Player->SetActorLocation({ 150, 573 });
+	Player->SetActorLocation({ 150, 873 });
 	//Player->SetActorLocation({150, 200});
 
-	FVector BPos = Player->GetActorLocation();
-	ABulletActor* Bullet = SpawnActor<ABulletActor>();
-	Bullet->SetName("Bullet");
-	Bullet->SetActorLocation(BPos);
-
-	int a = 0;
 
 
 }
@@ -46,14 +40,18 @@ void UPlayLevel::Tick(float _DeltaTime)
 	ULevel::Tick(_DeltaTime);
 
 	FVector Pos = GetCameraPos();
+	//FVector WPos = GetWorld()->GetCameraPos();
 
 	if (0.0f >= Pos.X)
 	{
 		Pos.X = 0.0f;
 
 	}
+
+	//GetWorld()->AddCameraPos(Pos);
 	SetCameraPos(Pos);
 
+	
 
 }
 

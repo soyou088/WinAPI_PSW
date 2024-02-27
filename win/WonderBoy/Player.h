@@ -7,7 +7,7 @@
 // 플레이어가 한번에 1개의 함수만을 실행한다.
 
 // 설명 :
-class APlayer : public AActor
+class APlayer : public AActor 
 
 {
 private:
@@ -50,13 +50,15 @@ protected:
 	void Run(float _DeltaTime);
 	void Death(float _DeltaTime);
 	void Col(float _DeltaTime);
+	void Attack(float _DeltaTime);
 	void Bullet();
-	
 
 	// 상태 시작 함수들
 	void IdleStart();
 	void MoveStart();
 	void JumpStart();
+	void AttackStart();
+
 
 	EPlayState State = EPlayState::None;
 	EActorDir DirState = EActorDir::Right;

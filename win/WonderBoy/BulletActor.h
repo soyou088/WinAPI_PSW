@@ -3,7 +3,6 @@
 #include "ContentsHelper.h"
 
 
-
 // Ό³Έν : 
 class ABulletActor : public AActor
 {
@@ -30,7 +29,7 @@ private:
 	UCollision* BCollision = nullptr;
 	UImageRenderer* BRenderer = nullptr;
 
-	FVector BulletAcc = FVector::Right * 100.0f;
+	FVector BulletAcc = FVector::Right * 400.0f;
 
 	FVector GravityAcc = FVector::Down * 200.0f;
 	FVector GravityVector = FVector::Zero;
