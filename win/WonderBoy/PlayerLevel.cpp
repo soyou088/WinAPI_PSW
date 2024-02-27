@@ -53,6 +53,8 @@ void UPlayLevel::Tick(float _DeltaTime)
 
 	}
 	SetCameraPos(Pos);
+
+
 }
 
 void UPlayLevel::LevelStart(ULevel* _Level)
