@@ -41,9 +41,19 @@ void APlayer::CalMoveVector(float _DeltaTime)
 
 void APlayer::MoveLastMoveVector(float _DeltaTime)
 {
-	// 카메라는 x축으로만 움직여야 하니까.
-	GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
+	FVector CPos = GetWorld()->GetCameraPos();
+	FVector PPos = GetActorLocation();
 	AddActorLocation(LastMoveVector * _DeltaTime);
+	if (PPos.X >= CPos.X + 150)
+	{
+		GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
+	}
+
+	if (CPos.X > PPos.X)
+	{
+		return;
+	}
+
 }
 
 
@@ -100,6 +110,13 @@ void APlayer::Bullet()
 	Bullet->SetName("Bullet");
 	Bullet->SetActorLocation({ BPos.X + 5 ,BPos.Y - 30 });
 	return;
+}
+
+void APlayer::AddActorCameraPos(FVector _CameraPos)
+{
+	_CameraPos.X < 0;
+	return;
+	GetWorld()->AddCameraPos(_CameraPos);
 }
 
 void APlayer::Attack(float _DeltaTime)

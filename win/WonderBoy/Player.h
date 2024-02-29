@@ -53,6 +53,8 @@ protected:
 	void Attack(float _DeltaTime);
 	void Bullet();
 
+	void AddActorCameraPos(FVector _CameraPos);
+
 	// 상태 시작 함수들
 	void IdleStart();
 	void MoveStart();
