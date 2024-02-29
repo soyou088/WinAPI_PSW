@@ -72,7 +72,7 @@ bool UCollision::CollisionCheck(int _Order, std::vector<UCollision*>& _Result)
 	return false == _Result.empty();
 }
 
-void UCollision::DebugRender(FVector _CameraPos)
+void UCollision::DebugRender(FVector _Pos)
 {
 	FTransform ThisTransform = GetActorBaseTransform();
 	ThisTransform.AddPosition(-_CameraPos);

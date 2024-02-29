@@ -40,19 +40,13 @@ void UPlayLevel::Tick(float _DeltaTime)
 	ULevel::Tick(_DeltaTime);
 
 	FVector Pos = GetCameraPos();
-	//FVector WPos = GetWorld()->GetCameraPos();
-
+	// 시작 카메라 위치
 	if (0.0f >= Pos.X)
 	{
 		Pos.X = 0.0f;
-
 	}
 
-	//GetWorld()->AddCameraPos(Pos);
 	SetCameraPos(Pos);
-
-	
-
 }
 
 void UPlayLevel::LevelStart(ULevel* _Level)

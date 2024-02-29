@@ -83,7 +83,7 @@ private:
 
 	FVector MoveAcc = FVector::Right * 1000.0f;
 	FVector MoveVector = FVector::Zero;
-	float MoveMaxSpeed = 500.0f;
+	float MoveMaxSpeed = 1000.0f;
 	void AddMoveVector(const FVector& _DirDelta);
 
 	FVector GravityAcc = FVector::Down * 2000.0f;
@@ -95,6 +95,8 @@ private:
 	// 내가 나갈 모든 방향의 합
 	FVector LastMoveVector = FVector::Zero;
 	FVector MovePos = FVector::Zero;
+
+
 
 
 	void CalLastMoveVector(float _DeltaTime);

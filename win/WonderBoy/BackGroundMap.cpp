@@ -35,6 +35,9 @@ void ABackGroundMap::Tick(float _DeltaTime)
 	{
 		SwitchDebug();
 	}
+
+
+
 }
 
 void ABackGroundMap::SwitchDebug()
