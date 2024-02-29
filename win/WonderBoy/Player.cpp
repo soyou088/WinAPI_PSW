@@ -553,6 +553,13 @@ void APlayer::Jump(float _DeltaTime)
 	MoveUpdate(_DeltaTime);
 	ColorJump();
 
+	if (true == UEngineInput::IsDown('Q'))
+	{
+		//Attack(_DeltaTime);
+		Bullet();
+		return;
+	}
+
 	if (JumpMax <= JumpVector.Size2D())
 	{
 		JumpVector = JumpVector.Normalize2DReturn() * JumpMax;
