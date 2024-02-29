@@ -22,7 +22,7 @@ void ABulletActor::BeginPlay()
 		BRenderer->SetTransform({ {0,0}, {100, 100} });
 
 
-		BRenderer->CreateAnimation("Bullet", "Bullet.png", 0, 3, 0.1f, true);
+		BRenderer->CreateAnimation("Bullet", "Bullet.png", 0, 3, 0.03f, true);
 		BCollision = CreateCollision(WonderCollisionOrder::PlayerBullet);
 		BCollision->SetScale({ 10,10 });
 		BCollision->SetColType(ECollisionType::Rect);
@@ -30,6 +30,7 @@ void ABulletActor::BeginPlay()
 		BRenderer->ChangeAnimation("Bullet");
 	}
 }
+
 
 void ABulletActor::Tick(float _DeltaTime)
 {
@@ -66,6 +67,6 @@ void ABulletActor::CalGravityVector(float _DeltaTime)
 	if (Color == Color8Bit::MagentaA || Color == Color8Bit(100, 0, 0, 0))
 	{
 		GravityVector = FVector::Zero;
-		//Destroy();
+		Destroy();
 	}
 }

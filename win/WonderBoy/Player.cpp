@@ -95,7 +95,7 @@ void APlayer::Bullet()
 	FVector BPos = GetActorLocation();
 	ABulletActor* Bullet = GetWorld()->SpawnActor<ABulletActor>();
 	Bullet->SetName("Bullet");
-	Bullet->SetActorLocation(BPos);
+	Bullet->SetActorLocation({BPos.X +5 ,BPos.Y - 30});
 	return;
 
 }
@@ -104,7 +104,7 @@ void APlayer::Attack(float _DeltaTime)
 {
 	DirCheck();
 	MoveUpdate(_DeltaTime);
-	StateChange(EPlayState::Idle);
+	StateChange(EPlayState::Move);
 	return;
 }
 
@@ -251,7 +251,6 @@ void APlayer::JumpStart()
 
 void APlayer::AttackStart()
 {
-	//Renderer->ChangeAnimation(GetAnimationName("Attack"));
 	DirCheck();
 	Bullet();
 }
@@ -494,12 +493,26 @@ void APlayer::Move(float _DeltaTime)
 		AddMoveVector(FVector::Right * _DeltaTime + JumpVector);
 	}
 
-	if (true == UEngineInput::IsPress('Q'))
+	//if (true == UEngineInput::IsPress('Q') && UEngineInput::IsPress(VK_RIGHT))
+	//{
+	//	Attack(_DeltaTime);
+	//	//Bullet();
+	//	return;
+	//}
+
+	//if (true == UEngineInput::IsPress('Q'))
+	//{
+	//	//Attack(_DeltaTime);
+	//	Bullet();
+	//	return;
+	//}
+
+	if (true == UEngineInput::IsDown('Q'))
 	{
-		Attack(_DeltaTime);
+		//Attack(_DeltaTime);
+		Bullet();
 		return;
 	}
-
 
 	FVector CheckPos = GetActorLocation();
 	switch (DirState)
@@ -539,8 +552,6 @@ void APlayer::Jump(float _DeltaTime)
 
 	MoveUpdate(_DeltaTime);
 	ColorJump();
-
-
 
 	if (JumpMax <= JumpVector.Size2D())
 	{
