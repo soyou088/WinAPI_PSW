@@ -54,8 +54,6 @@ void APlayer::MoveLastMoveVector(float _DeltaTime)
 	{
 		AddActorLocation(LastMoveVector * _DeltaTime);
 	}
-
-		int a = 0;
 }
 
 
@@ -106,7 +104,7 @@ void APlayer::Bullet()
 	FVector BPos = GetActorLocation();
 	ABulletActor* Bullet = GetWorld()->SpawnActor<ABulletActor>();
 	Bullet->SetName("Bullet");
-	Bullet->SetActorLocation({ BPos.X + 5 ,BPos.Y - 30 });
+	Bullet->SetActorLocation({ BPos.X + 5 ,BPos.Y - 60 });
 	return;
 }
 

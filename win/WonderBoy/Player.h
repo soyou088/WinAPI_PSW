@@ -78,10 +78,7 @@ private:
 
 	float FreeMoveSpeed = 700.0f;
 
-	FVector PGravityAcc = FVector::Up * 1000.0f;
-	FVector PMoveVector = FVector::Zero;
-
-	FVector MoveAcc = FVector::Right * 50.0f;
+	FVector MoveAcc = FVector::Right * 500.0f;
 	FVector MoveVector = FVector::Zero;
 	float MoveMaxSpeed = 600.0f;
 	void AddMoveVector(const FVector& _DirDelta);
@@ -96,6 +93,7 @@ private:
 	FVector JumpPower = FVector::Up * 600;
 	FVector JumpVector = FVector::Zero;
 	float JumpMax = 800.0f;
+
 	// 내가 나갈 모든 방향의 합
 	FVector LastMoveVector = FVector::Zero;
 	FVector MovePos = FVector::Zero;
