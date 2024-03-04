@@ -56,6 +56,7 @@ protected:
 	// 상태 시작 함수들
 	void IdleStart();
 	void MoveStart();
+	void RunStart();
 	void JumpStart();
 	void AttackStart();
 
@@ -83,12 +84,12 @@ private:
 
 	FVector MoveAcc = FVector::Right * 200.0f;
 	FVector MoveVector = FVector::Zero;
-	float MoveMaxSpeed = 700.0f;
+	float MoveMaxSpeed = 600.0f;
 	void AddMoveVector(const FVector& _DirDelta);
 
 	FVector RunAcc = FVector::Right * 300.0f;
 	FVector RunVector = FVector::Zero;
-	float RunMaxSpeed = 700.0f;
+	float RunMaxSpeed = 500.0f;
 
 	FVector GravityAcc = FVector::Down * 2000.0f;
 	FVector GravityVector = FVector::Zero;

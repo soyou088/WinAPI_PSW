@@ -20,13 +20,10 @@ protected:
 	void BeginPlay();
 	void Tick(float _DeltaTime) override;
 
-	void BeeMove();
-
 
 private:
 
 	UImageRenderer* Snail = nullptr;
-	UImageRenderer* Bee = nullptr;
 	UImageRenderer* Snake = nullptr;
 	UImageRenderer* Stone = nullptr;
 	UImageRenderer* Frog = nullptr;
@@ -34,14 +31,13 @@ private:
 
 	UCollision* Collision;
 
+	FVector MoveVector = FVector::Left * 500.0f;
 
 
-	float MoveVector = 50.0f;
-	void AddMoveVector();
-
+	void AddMoveVector(float _DeltaTime);
 	void Destroy();
 	void MoveUpdate(float _DeltaTime);
 	void HillDown();
-	void MoveFront();
+	void MoveFront(float _DeltaTime);
 };
 

@@ -44,6 +44,9 @@
     <ClInclude Include="BulletActor.h">
       <Filter>PlayLevel\BulletActor</Filter>
     </ClInclude>
+    <ClInclude Include="Bee.h">
+      <Filter>PlayLevel\MonsterActor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -68,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="BulletActor.cpp">
       <Filter>PlayLevel\BulletActor</Filter>
+    </ClCompile>
+    <ClCompile Include="Bee.cpp">
+      <Filter>PlayLevel\MonsterActor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

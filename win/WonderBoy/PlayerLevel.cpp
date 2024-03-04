@@ -1,6 +1,7 @@
 #include "PlayerLevel.h"
 #include "Player.h"
 #include "Monster.h"
+#include "Bee.h"
 #include "BackGroundMap.h"
 #include "BulletActor.h"
 #include <EngineCore\EngineCore.h>
@@ -25,6 +26,11 @@ void UPlayLevel::BeginPlay()
 	AMonster* Monster = SpawnActor<AMonster>();
 	Monster->SetName("Monster");
 	//Monster->SetActorLocation({ 200, 873 });
+	
+	ABee* Bee = SpawnActor<ABee>();
+	Bee->SetName("Bee");
+
+
 
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");

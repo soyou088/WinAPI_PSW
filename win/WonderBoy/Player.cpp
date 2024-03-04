@@ -63,8 +63,9 @@ void APlayer::MoveLastMoveVector(float _DeltaTime)
 {
 	FVector CPos = GetWorld()->GetCameraPos();
 	FVector PPos = GetActorLocation();
+
 	AddActorLocation(LastMoveVector * _DeltaTime);
-	if (PPos.X >= CPos.X + 150)
+	if (PPos.X >= CPos.X + 150 && 0 < LastMoveVector.X)
 	{
 		GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
 	}
@@ -189,6 +190,9 @@ void APlayer::BeginPlay()
 		Renderer->CreateAnimation("Idle_Right", "Player_1_R.png", 0, 2, 0.1f, true); // 가만히 있는 상태
 		Renderer->CreateAnimation("Move_Right", "Player_1_R.png", 0, 4, 0.1f, true); // 오른쪽으로 움직이는 상태
 
+		Renderer->CreateAnimation("Run_Right", "Player_1_R.png", 0, 4, 0.1f, true); // 오른쪽으로 움직이는 상태
+		Renderer->CreateAnimation("Run_Left", "Player_1_L.png", 0, 4, 0.1f, true); // 왼쪽으로 움직이는 상태
+
 		Renderer->CreateAnimation("Idle_Left", "Player_1_L.png", 0, 2, 0.1f, true); // 가만히 있는 상태
 		Renderer->CreateAnimation("Move_Left", "Player_1_L.png", 0, 4, 0.1f, true); // 왼쪽으로 움직이는 상태
 
@@ -292,6 +296,14 @@ void APlayer::JumpStart()
 	DirCheck();
 }
 
+void APlayer::RunStart()
+{
+	RunVector += RunAcc;
+	Renderer->ChangeAnimation(GetAnimationName("Run"));
+	DirCheck();
+}
+
+
 void APlayer::AttackStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Bullet"));
@@ -313,6 +325,9 @@ void APlayer::StateChange(EPlayState _State)
 			break;
 		case EPlayState::Move:
 			MoveStart();
+			break;
+		case EPlayState::Run:
+			RunStart();
 			break;
 		case EPlayState::Jump:
 			JumpStart();
@@ -496,7 +511,7 @@ void APlayer::Move(float _DeltaTime)
 		default:
 			break;
 		}
-		if (10.0f <= abs(MoveVector.X))
+		if (70.0f <= abs(MoveVector.X))
 		{
 			AddMoveVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
 		}
@@ -540,7 +555,12 @@ void APlayer::Move(float _DeltaTime)
 	if (true == UEngineInput::IsDown('Q'))
 	{
 		Bullet();
-		Run(_DeltaTime);
+		return;
+	}
+
+	if (true == UEngineInput::IsPress('Q') && UEngineInput::IsPress(VK_RIGHT))
+	{
+		StateChange(EPlayState::Run);
 		return;
 	}
 

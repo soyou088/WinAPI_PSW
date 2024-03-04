@@ -27,15 +27,6 @@ void AMonster::BeginPlay()
 	}
 	
 	{
-		Bee = CreateImageRenderer(WonderRenderOrder::Monster);
-		Bee->SetImage("Bee.png");
-		Bee->SetTransform({ {200, 873 }, {400, 400} });
-
-		Bee->CreateAnimation("Move_Bee", "Bee.png", 0, 1, 1.0f, true); // 움직이는 상태
-		Bee->ChangeAnimation("Move_Bee");
-	}
-
-	{
 		Snake = CreateImageRenderer(WonderRenderOrder::Monster);
 		Snake->SetImage("Snake.png");
 		Snake->SetTransform({ {200, 873 }, {400, 400} });
@@ -78,25 +69,20 @@ void AMonster::HillDown()
 
 	}
 }
-void AMonster::AddMoveVector()
+void AMonster::AddMoveVector(float _DeltaTime)
 {
-	MoveVector;
+	MoveVector += MoveVector * _DeltaTime;
 }
 
-void AMonster::MoveFront()
+void AMonster::MoveFront(float _DeltaTime)
 {
+	// MoveUpdate(_DeltaTime);
 	AddActorLocation(FVector::Left);
-}
-
-void AMonster::BeeMove()
-{
-	// 벌만 앞으로 오면서 위아래로 왔다리 갔다리
-	
 }
 
 void AMonster::MoveUpdate(float _DeltaTime)
 {
-
+	MoveVector += MoveVector * _DeltaTime;
 }
 
 void AMonster::Destroy()
@@ -106,5 +92,6 @@ void AMonster::Destroy()
 
 void AMonster::Tick(float _DeltaTime)
 {
+	MoveUpdate(_DeltaTime);
 	AddActorLocation(FVector::Left * _DeltaTime);
 }
