@@ -20,6 +20,9 @@ protected:
 	void BeginPlay();
 	void Tick(float _DeltaTime) override;
 
+	void BeeMove();
+
+
 private:
 
 	UImageRenderer* Snail = nullptr;
@@ -40,6 +43,5 @@ private:
 	void MoveUpdate(float _DeltaTime);
 	void HillDown();
 	void MoveFront();
-	void MoveUp();
 };
 

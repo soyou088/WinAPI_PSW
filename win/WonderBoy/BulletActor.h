@@ -29,9 +29,9 @@ private:
 	UCollision* BCollision = nullptr;
 	UImageRenderer* BRenderer = nullptr;
 
-	FVector BulletAcc = FVector::Right * 800.0f;
+	FVector BulletAcc = FVector::Right * 700.0f;
 
-	FVector GravityAcc = FVector::Down * 800.0f;
+	FVector GravityAcc = FVector::Down * 700.0f;
 	FVector GravityVector = FVector::Zero;
 
 	void Move(float _DeltaTime);

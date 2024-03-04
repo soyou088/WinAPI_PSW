@@ -36,23 +36,22 @@ void AMonster::BeginPlay()
 	}
 
 	{
-		Bee = CreateImageRenderer(WonderRenderOrder::Monster);
-		Bee->SetImage("Snake.png");
-		Bee->SetTransform({ {200, 873 }, {400, 400} });
+		Snake = CreateImageRenderer(WonderRenderOrder::Monster);
+		Snake->SetImage("Snake.png");
+		Snake->SetTransform({ {200, 873 }, {400, 400} });
 
-		Bee->CreateAnimation("Move_Snake", "Snake.png", 0, 1, 1.0f, true); // 움직이는 상태
-		Bee->ChangeAnimation("Move_Snake");
+		Snake->CreateAnimation("Move_Snake", "Snake.png", 0, 1, 1.0f, true); // 움직이는 상태
+		Snake->ChangeAnimation("Move_Snake");
 	}
 
 	//{
-	//	Bee = CreateImageRenderer(WonderRenderOrder::Monster);
-	//	Bee->SetImage("Stone.png");
-	//	Bee->SetTransform({ {200, 873 }, {400, 400} });
+	//	Frog = CreateImageRenderer(WonderRenderOrder::Monster);
+	//	Frog->SetImage("Frog.png");
+	//	Frog->SetTransform({ {200, 873 }, {400, 400} });
 
-	//	Bee->CreateAnimation("Move_Stone", "Stone.png", 0, 1, 1.0f, true); // 움직이는 상태
-	//	Bee->ChangeAnimation("Move_Stone");
+	//	Frog->CreateAnimation("Move_Frog", "Frog.png", 0, 1, 1.0f, true); // 움직이는 상태
+	//	Frog->ChangeAnimation("Move_Frog");
 	//}
-
 
 
 
@@ -89,6 +88,12 @@ void AMonster::MoveFront()
 	AddActorLocation(FVector::Left);
 }
 
+void AMonster::BeeMove()
+{
+	// 벌만 앞으로 오면서 위아래로 왔다리 갔다리
+	
+}
+
 void AMonster::MoveUpdate(float _DeltaTime)
 {
 
@@ -101,8 +106,5 @@ void AMonster::Destroy()
 
 void AMonster::Tick(float _DeltaTime)
 {
-
-
-	//MoveFront();
 	AddActorLocation(FVector::Left * _DeltaTime);
 }

@@ -61,4 +61,8 @@ void UWonderCore::BeginPlay()
 void UWonderCore::Tick(float _DeltaTime)
 {
 	UEngineCore::Tick(_DeltaTime);
+	if (true == UEngineInput::IsDown(VK_F2))
+	{
+		GEngine->EngineDebugSwitch();
+	}
 }

@@ -19,7 +19,7 @@ void ABulletActor::BeginPlay()
 		// Bullet Collision
 		BRenderer = CreateImageRenderer(WonderRenderOrder::PlayerBullet);
 		BRenderer->SetImage("Bullet.png");
-		BRenderer->SetTransform({ {0,0}, {100, 100} });
+		BRenderer->SetTransform({ {0,0}, {130, 130} });
 
 
 		BRenderer->CreateAnimation("Bullet", "Bullet.png", 0, 3, 0.03f, true);

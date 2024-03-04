@@ -35,8 +35,6 @@ protected:
 
 	std::string GetAnimationName(std::string _Name);
 
-	void SetPlayerCameraPos();
-
 	// 상태 주요 업데이트
 	void StateChange(EPlayState _State);
 	void StateUpdate(float _DeltaTime);
@@ -83,10 +81,14 @@ private:
 	FVector PGravityAcc = FVector::Up * 1000.0f;
 	FVector PMoveVector = FVector::Zero;
 
-	FVector MoveAcc = FVector::Right * 1000.0f;
+	FVector MoveAcc = FVector::Right * 200.0f;
 	FVector MoveVector = FVector::Zero;
-	float MoveMaxSpeed = 1000.0f;
+	float MoveMaxSpeed = 700.0f;
 	void AddMoveVector(const FVector& _DirDelta);
+
+	FVector RunAcc = FVector::Right * 300.0f;
+	FVector RunVector = FVector::Zero;
+	float RunMaxSpeed = 700.0f;
 
 	FVector GravityAcc = FVector::Down * 2000.0f;
 	FVector GravityVector = FVector::Zero;
@@ -103,11 +105,9 @@ private:
 
 	void CalLastMoveVector(float _DeltaTime);
 	void CalMoveVector(float _DeltaTime);
-	void CalJumpVector(float _DeltaTime);
 	void CalGravityVector(float _DeltaTime);
 	void MoveLastMoveVector(float _DeltaTime);
 	void MoveUpdate(float _DeltaTime);
-	void GroundUp();
 	void ColorJump();
 	void HillUP(Color8Bit _Color);
 };

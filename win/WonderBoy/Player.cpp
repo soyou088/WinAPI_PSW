@@ -2,7 +2,9 @@
 #include "BulletActor.h"
 #include <EnginePlatform\EngineInput.h>
 #include <EngineBase\EngineDebug.h>
+#include <EngineCore/EngineDebug.h>
 #include "ContentsHelper.h"
+
 
 
 
@@ -36,6 +38,24 @@ void APlayer::CalMoveVector(float _DeltaTime)
 	{
 		MoveVector = MoveVector.Normalize2DReturn() * MoveMaxSpeed;
 	}
+
+	// MoveMaxSpeed가 MoveVector.Size2D보다 크면  MoveVector가 Normalize2d에 1짜리로 만들어서 곱한다.
+	// MoveMaxSpeed가 
+	// Run 은 Move보다 빠르다. MoveMaxVector보다 크다.
+	// MoveMaxSpeed < RunMaxSpeed
+	// MoveMaxSpeed가 가장 빠르다고 가정했을때,
+	// 그냥 MoveVector가 MoveAcc를 더해도 MoveMax까지 가면 안되는건데 그럴 수가 없으니,
+	// RunMax를 정해서 MoveVector는 MoveMaxVector 까지만
+	// Run은 RunMaxVector까지 도달하게 해야한다.
+	// 지금은 q를 누르면 Max가 된다.
+	// 
+
+
+	if (RunMaxSpeed <= MoveVector.Size2D())
+	{
+		RunVector = MoveVector.Normalize2DReturn() * RunMaxSpeed;
+	}
+
 
 }
 
@@ -326,6 +346,9 @@ void APlayer::StateUpdate(float _DeltaTime)
 	case EPlayState::Move:
 		Move(_DeltaTime);
 		break;
+	case EPlayState::Run:
+		Run(_DeltaTime);
+		break;
 	case EPlayState::Jump:
 		Jump(_DeltaTime);
 		break;
@@ -344,7 +367,6 @@ void APlayer::CameraFreeMove(float _DeltaTime)
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		GetWorld()->AddCameraPos(FVector::Left * _DeltaTime * 500.0f);
-		// AddActorLocation(FVector::Left * _DeltaTime * 500.0f);
 	}
 
 	if (UEngineInput::IsPress(VK_RIGHT))
@@ -355,13 +377,11 @@ void APlayer::CameraFreeMove(float _DeltaTime)
 	if (UEngineInput::IsPress(VK_UP))
 	{
 		GetWorld()->AddCameraPos(FVector::Up * _DeltaTime * 500.0f);
-		// AddActorLocation(FVector::Up * _DeltaTime * 500.0f);
 	}
 
 	if (UEngineInput::IsPress(VK_DOWN))
 	{
 		GetWorld()->AddCameraPos(FVector::Down * _DeltaTime * 500.0f);
-		// AddActorLocation(FVector::Down * _DeltaTime * 500.0f);
 	}
 
 	if (UEngineInput::IsDown('2'))
@@ -519,8 +539,8 @@ void APlayer::Move(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('Q'))
 	{
-		//Attack(_DeltaTime);
 		Bullet();
+		Run(_DeltaTime);
 		return;
 	}
 
@@ -548,6 +568,39 @@ void APlayer::Move(float _DeltaTime)
 
 }
 
+void APlayer::Run(float _DeltaTime)
+{
+	DirCheck();
+
+	RunVector += MoveVector + RunAcc;
+
+	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
+	{
+		StateChange(EPlayState::Idle);
+		return;
+	}
+
+	if (UEngineInput::IsPress(VK_LEFT))
+	{
+		AddMoveVector(FVector::Left + RunVector);
+	}
+
+	if (UEngineInput::IsPress(VK_RIGHT))
+	{
+		AddMoveVector(FVector::Right + RunVector);
+	}
+
+	if (true == UEngineInput::IsDown(VK_SPACE))
+	{
+		StateChange(EPlayState::Jump);
+		return;
+	}
+
+	MoveUpdate(_DeltaTime);
+
+	StateChange(EPlayState::Move);
+}
+
 void APlayer::Jump(float _DeltaTime)
 {
 	if (UEngineInput::IsPress(VK_LEFT))
@@ -563,7 +616,6 @@ void APlayer::Jump(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('Q'))
 	{
-		//Attack(_DeltaTime);
 		Bullet();
 		return;
 	}
@@ -608,5 +660,8 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		MsgBoxAssert("플레이어가 존재하지 않습니다.");
 	}
+
+	FVector PlayerPos = GetActorLocation();
+	UEngineDebug::DebugTextPrint("X : " + std::to_string(PlayerPos.X) + ", Y : " + std::to_string(PlayerPos.Y), 30.0f);
 }
 

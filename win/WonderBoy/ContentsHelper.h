@@ -31,6 +31,7 @@ enum class EPlayState
 	FreeMove,
 	Idle,
 	Move,
+	Run,
 	Jump,
 	Attack,
 };
