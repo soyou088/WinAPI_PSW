@@ -38,25 +38,6 @@ void APlayer::CalMoveVector(float _DeltaTime)
 	{
 		MoveVector = MoveVector.Normalize2DReturn() * MoveMaxSpeed;
 	}
-
-	// MoveMaxSpeed가 MoveVector.Size2D보다 크면  MoveVector가 Normalize2d에 1짜리로 만들어서 곱한다.
-	// MoveMaxSpeed가 
-	// Run 은 Move보다 빠르다. MoveMaxVector보다 크다.
-	// MoveMaxSpeed < RunMaxSpeed
-	// MoveMaxSpeed가 가장 빠르다고 가정했을때,
-	// 그냥 MoveVector가 MoveAcc를 더해도 MoveMax까지 가면 안되는건데 그럴 수가 없으니,
-	// RunMax를 정해서 MoveVector는 MoveMaxVector 까지만
-	// Run은 RunMaxVector까지 도달하게 해야한다.
-	// 지금은 q를 누르면 Max가 된다.
-	// 
-
-
-	if (RunMaxSpeed <= MoveVector.Size2D())
-	{
-		RunVector = MoveVector.Normalize2DReturn() * RunMaxSpeed;
-	}
-
-
 }
 
 void APlayer::MoveLastMoveVector(float _DeltaTime)
@@ -64,17 +45,17 @@ void APlayer::MoveLastMoveVector(float _DeltaTime)
 	FVector CPos = GetWorld()->GetCameraPos();
 	FVector PPos = GetActorLocation();
 
-	AddActorLocation(LastMoveVector * _DeltaTime);
 	if (PPos.X >= CPos.X + 150 && 0 < LastMoveVector.X)
 	{
 		GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
 	}
 
-	if (CPos.X > PPos.X)
+	if (PPos.X > CPos.X)
 	{
-		return;
+		AddActorLocation(LastMoveVector * _DeltaTime);
 	}
 
+		int a = 0;
 }
 
 
@@ -92,7 +73,6 @@ void APlayer::CalLastMoveVector(float _DeltaTime)
 
 void APlayer::HillUP(Color8Bit _Color)
 {
-
 	// _Color 일때 FVector UP한다.
 	while (true)
 	{
@@ -108,13 +88,10 @@ void APlayer::HillUP(Color8Bit _Color)
 			break;
 		}
 	}
-
-
 }
 
 void APlayer::ColorJump()
 {
-
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 	if (Color == Color8Bit(100,0,0,0) || Color == Color8Bit::MagentaA)
 	{
@@ -131,13 +108,6 @@ void APlayer::Bullet()
 	Bullet->SetName("Bullet");
 	Bullet->SetActorLocation({ BPos.X + 5 ,BPos.Y - 30 });
 	return;
-}
-
-void APlayer::AddActorCameraPos(FVector _CameraPos)
-{
-	_CameraPos.X < 0;
-	return;
-	GetWorld()->AddCameraPos(_CameraPos);
 }
 
 void APlayer::Attack(float _DeltaTime)
@@ -584,6 +554,7 @@ void APlayer::Move(float _DeltaTime)
 		GetWorld()->AddCameraPos(MovePos);
 	}
 
+
 	HillUP(Color8Bit(100, 0, 0, 0));
 
 }
@@ -682,6 +653,9 @@ void APlayer::Tick(float _DeltaTime)
 	}
 
 	FVector PlayerPos = GetActorLocation();
+
 	UEngineDebug::DebugTextPrint("X : " + std::to_string(PlayerPos.X) + ", Y : " + std::to_string(PlayerPos.Y), 30.0f);
+
 }
+
 

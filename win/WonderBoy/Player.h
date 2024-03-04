@@ -51,7 +51,6 @@ protected:
 	void Attack(float _DeltaTime);
 	void Bullet();
 
-	void AddActorCameraPos(FVector _CameraPos);
 
 	// 상태 시작 함수들
 	void IdleStart();
@@ -82,7 +81,7 @@ private:
 	FVector PGravityAcc = FVector::Up * 1000.0f;
 	FVector PMoveVector = FVector::Zero;
 
-	FVector MoveAcc = FVector::Right * 200.0f;
+	FVector MoveAcc = FVector::Right * 50.0f;
 	FVector MoveVector = FVector::Zero;
 	float MoveMaxSpeed = 600.0f;
 	void AddMoveVector(const FVector& _DirDelta);

@@ -34,7 +34,9 @@ enum class EPlayState
 	Run,
 	Jump,
 	Attack,
+	Destroy,
 };
+
 
 
 

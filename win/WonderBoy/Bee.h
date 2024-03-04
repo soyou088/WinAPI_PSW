@@ -18,16 +18,32 @@ public:
 	ABee& operator=(ABee&& _Other) noexcept = delete;
 
 protected:
+
+
+	void StateChange(EPlayState _State);
+	void StateUpdate(float _DeltaTime);
+
 	void BeginPlay();
 	void Tick(float _DeltaTime) override;
+	
+	void MoveStart();
+	void DestroyStart();
 
-	void Move();
+	void Move(float _DeltaTime);
 
+	std::string GetAnimationName(std::string _Name);
+	EPlayState State = EPlayState::None;
+	EActorDir DirState = EActorDir::Right;
+	std::string CurAnimationName = "None";
 private:
-	UImageRenderer* Bee = nullptr;
+	UImageRenderer* Render = nullptr;
 
 	UCollision* Collision;
 
+	FVector MoveVector = FVector::Left * 50.0f;
+	FVector DownMove = FVector::Down* 130.0f;
 	
+
+	void Destroy();
 };
 
