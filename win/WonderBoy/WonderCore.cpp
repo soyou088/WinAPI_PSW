@@ -34,7 +34,7 @@ void UWonderCore::BeginPlay()
 	{
 		UEngineResourcesManager::GetInst().LoadImg(File.GetFullPath());
 	}
-	                                               // 이미지 자르기 5개씩 2줄
+	                                               // 이미지 자르기 6개씩 2줄
 	UEngineResourcesManager::GetInst().CuttingImage("Player_1_R.png", 6, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Player_1_L.png", 6, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Monster1.png", 3, 1);

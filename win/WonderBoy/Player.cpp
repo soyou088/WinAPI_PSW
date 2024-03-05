@@ -44,16 +44,25 @@ void APlayer::MoveLastMoveVector(float _DeltaTime)
 {
 	FVector CPos = GetWorld()->GetCameraPos();
 	FVector PPos = GetActorLocation();
+	
 
 	if (PPos.X >= CPos.X + 150 && 0 < LastMoveVector.X)
 	{
 		GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
+
 	}
 
 	if (PPos.X > CPos.X)
 	{
 		AddActorLocation(LastMoveVector * _DeltaTime);
 	}
+	
+	if (12000 < PPos.X && PPos.X< 14200)
+	{
+		GetWorld()->AddCameraPos(LastMoveVector * _DeltaTime);
+	}
+
+
 }
 
 
@@ -69,6 +78,7 @@ void APlayer::CalLastMoveVector(float _DeltaTime)
 
 
 
+
 void APlayer::HillUP(Color8Bit _Color)
 {
 	// _Color 일때 FVector UP한다.
@@ -76,7 +86,7 @@ void APlayer::HillUP(Color8Bit _Color)
 	{
 
 		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 1, Color8Bit::MagentaA);
-		if (Color == _Color)//|| Color == Color8Bit::MagentaA)
+		if (Color == _Color)
 		{
 			AddActorLocation(FVector::Up);
 			GetWorld()->AddCameraPos(FVector::Up);
@@ -94,13 +104,18 @@ void APlayer::ColorJump()
 	if (Color == Color8Bit(100,0,0,0) || Color == Color8Bit::MagentaA)
 	{
 		JumpVector = FVector::Zero;
- 		StateChange(EPlayState::Move);
+  		StateChange(EPlayState::Move);	
 		return;
+	}
+	if (Color == Color8Bit(100, 0, 0, 0))
+	{
+		GetWorld()->AddCameraPos(FVector::Up);
 	}
 }
 
 void APlayer::Bullet()
 {
+	
 	FVector BPos = GetActorLocation();
 	ABulletActor* Bullet = GetWorld()->SpawnActor<ABulletActor>();
 	Bullet->SetName("Bullet");
@@ -112,10 +127,12 @@ void APlayer::Attack(float _DeltaTime)
 {
 	DirCheck();
 	MoveUpdate(_DeltaTime);
-	StateChange(EPlayState::Move);
-	return;
+	if (Renderer->IsCurAnimationEnd() == true)
+	{
+		StateChange(EPlayState::Move);
+		return;
+	}
 }
-
 
 
 void APlayer::MoveUpdate(float _DeltaTime)
@@ -125,8 +142,6 @@ void APlayer::MoveUpdate(float _DeltaTime)
 	CalLastMoveVector(_DeltaTime); // 다 던한 값
 	MoveLastMoveVector(_DeltaTime); // 카메라
 	HillUP(Color8Bit(100,0,0,0));
-
-	// 이동을 하고 났더니 내가 땅에 처박혀 있을수 있죠
 }
 
 APlayer* APlayer::MainPlayer = nullptr;
@@ -156,25 +171,24 @@ void APlayer::BeginPlay()
 		Renderer->SetTransform({ {0,0}, {350, 350} });
 
 		Renderer->CreateAnimation("Idle_Right", "Player_1_R.png", 0, 2, 0.1f, true); // 가만히 있는 상태
-		Renderer->CreateAnimation("Move_Right", "Player_1_R.png", 0, 4, 0.1f, true); // 오른쪽으로 움직이는 상태
-
-		Renderer->CreateAnimation("Run_Right", "Player_1_R.png", 0, 4, 0.1f, true); // 오른쪽으로 움직이는 상태
-		Renderer->CreateAnimation("Run_Left", "Player_1_L.png", 0, 4, 0.1f, true); // 왼쪽으로 움직이는 상태
-
+		Renderer->CreateAnimation("Move_Right", "Player_1_R.png", 0, 4, 0.05f, true); // 오른쪽으로 움직이는 상태
+		
 		Renderer->CreateAnimation("Idle_Left", "Player_1_L.png", 0, 2, 0.1f, true); // 가만히 있는 상태
-		Renderer->CreateAnimation("Move_Left", "Player_1_L.png", 0, 4, 0.1f, true); // 왼쪽으로 움직이는 상태
+		Renderer->CreateAnimation("Move_Left", "Player_1_L.png", 0, 4, 0.05f, true); // 왼쪽으로 움직이는 상태
+
+		Renderer->CreateAnimation("Run_Right", "Player_1_R.png", 0, 4, 0.05f, true); // 오른쪽으로 달리는 상태
+		Renderer->CreateAnimation("Run_Left", "Player_1_L.png", 0, 4, 0.05f, true); // 왼쪽으로 달리는 상태
 
 		Renderer->CreateAnimation("Jump_Right", "Player_1_R.png", 5, 5, 0.1f, true); // 오른쪽으로 점프하기
 		Renderer->CreateAnimation("Jump_Left", "Player_1_L.png", 5, 5, 0.1f, true); // 왼쪽으로 점프하기
 
-		Renderer->CreateAnimation("Col-Right", "Player_1_R.png", 6, 6, 0.1f, true); // 오른쪽충돌
-		Renderer->CreateAnimation("Col_Left", "Player_1_R.png", 7, 7, 0.1f, true); // 왼쪽 충돌
+		Renderer->CreateAnimation("Col_Right", "Player_1_R.png", 9, 9, 0.1f, true); // 오른쪽충돌
+		Renderer->CreateAnimation("Col_Left", "Player_1_R.png", 9, 9, 0.1f, true); // 왼쪽 충돌
 		
 		Renderer->CreateAnimation("Bullet_Right", "Player_1_R.png", 7, 8, 0.1f, true); // 오른쪽 공격
 		Renderer->CreateAnimation("Bullet_Left", "Player_1_L.png", 7, 8, 0.1f, true); // 왼쪽 공격
 
 		Renderer->CreateAnimation("Death", "Death.png", 0, 1, 0.1f, true); // 죽기
-
 		
 		Renderer->ChangeAnimation("Idle_Right");	
 	}
@@ -560,6 +574,7 @@ void APlayer::Move(float _DeltaTime)
 void APlayer::Run(float _DeltaTime)
 {
 	DirCheck();
+	MoveUpdate(_DeltaTime);
 
 	RunVector += MoveVector + RunAcc;
 
