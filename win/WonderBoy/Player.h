@@ -50,7 +50,9 @@ protected:
 	void Col(float _DeltaTime);
 	void Attack(float _DeltaTime);
 	void Bullet();
-
+	void Skate();
+	void SkateJump();
+	void Skatebrake();
 
 	// 상태 시작 함수들
 	void IdleStart();
@@ -90,7 +92,7 @@ private:
 	FVector GravityAcc = FVector::Down * 2000.0f;
 	FVector GravityVector = FVector::Zero;
 
-	FVector JumpPower = FVector::Up * 600;
+	FVector JumpPower = FVector::Up * 800;
 	FVector JumpVector = FVector::Zero;
 	float JumpMax = 800.0f;
 
@@ -99,6 +101,7 @@ private:
 	FVector MovePos = FVector::Zero;
 
 
+	FVector SkateMove = FVector::Right;
 
 
 	void CalLastMoveVector(float _DeltaTime);

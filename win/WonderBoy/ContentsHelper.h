@@ -35,6 +35,9 @@ enum class EPlayState
 	Jump,
 	Attack,
 	Destroy,
+	Skate,
+	SkateJump,
+	Skatebrake,
 };
 
 

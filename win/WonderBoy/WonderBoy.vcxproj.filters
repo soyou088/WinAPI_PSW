@@ -47,6 +47,9 @@
     <ClInclude Include="Bee.h">
       <Filter>PlayLevel\MonsterActor</Filter>
     </ClInclude>
+    <ClInclude Include="Skate.h">
+      <Filter>PlayLevel\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -74,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="Bee.cpp">
       <Filter>PlayLevel\MonsterActor</Filter>
+    </ClCompile>
+    <ClCompile Include="Skate.cpp">
+      <Filter>PlayLevel\Actor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

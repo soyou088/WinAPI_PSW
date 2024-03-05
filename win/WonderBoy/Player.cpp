@@ -66,7 +66,6 @@ void APlayer::MoveLastMoveVector(float _DeltaTime)
 }
 
 
-
 void APlayer::CalLastMoveVector(float _DeltaTime)
 {
 	// 제로로 만들어서 초기화 시킨다.
@@ -75,9 +74,6 @@ void APlayer::CalLastMoveVector(float _DeltaTime)
 	LastMoveVector = LastMoveVector + JumpVector;
 	LastMoveVector = LastMoveVector + GravityVector;
 }
-
-
-
 
 void APlayer::HillUP(Color8Bit _Color)
 {
@@ -115,12 +111,26 @@ void APlayer::ColorJump()
 
 void APlayer::Bullet()
 {
-	
 	FVector BPos = GetActorLocation();
 	ABulletActor* Bullet = GetWorld()->SpawnActor<ABulletActor>();
 	Bullet->SetName("Bullet");
 	Bullet->SetActorLocation({ BPos.X + 5 ,BPos.Y - 60 });
 	return;
+}
+
+void APlayer::Skate()
+{
+
+}
+
+void APlayer::SkateJump()
+{
+
+}
+
+void APlayer::Skatebrake()
+{
+
 }
 
 void APlayer::Attack(float _DeltaTime)
@@ -293,6 +303,24 @@ void APlayer::AttackStart()
 	DirCheck();
 }
 
+void APlayer::SkateStart()
+{
+	Renderer->ChangeAnimation(GetAnimationName("Skate"));
+	DirCheck();
+}
+
+void APlayer::SkateJumpStart()
+{
+	Renderer->ChangeAnimation(GetAnimationName("SkateJump"));
+	DirCheck();
+}
+
+void APlayer::SkatebrakeStart()
+{
+	Renderer->ChangeAnimation(GetAnimationName("Skatebrake"));
+	DirCheck();
+}
+
 
 void APlayer::StateChange(EPlayState _State)
 {
@@ -316,6 +344,15 @@ void APlayer::StateChange(EPlayState _State)
 			break;
 		case EPlayState::Attack:
 			AttackStart();
+			break;
+		case EPlayState::Skate:
+			SkateStart();
+			break;
+		case EPlayState::SkateJump:
+			SkateJumpStart();
+			break;
+		case EPlayState::Skatebrake:
+			SkatebrakeStart();
 			break;
 		default:
 			break;
@@ -351,6 +388,15 @@ void APlayer::StateUpdate(float _DeltaTime)
 		break;
 	case EPlayState::Attack:
 		Attack(_DeltaTime);
+		break;
+	case EPlayState::Skate:
+		Skate();
+		break;
+	case EPlayState::SkateJump:
+		SkateJump();
+		break;
+	case EPlayState::Skatebrake:
+		Skatebrake();
 		break;
 	default:
 		break;
@@ -564,6 +610,11 @@ void APlayer::Move(float _DeltaTime)
 	{
 		AddActorLocation(MovePos);
 		GetWorld()->AddCameraPos(MovePos);
+	}
+
+	if (true == UEngineInput::IsPress('S'))
+	{
+		StateChange(EPlayState::Skate);
 	}
 
 
