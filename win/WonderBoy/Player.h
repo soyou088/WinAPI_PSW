@@ -60,10 +60,12 @@ protected:
 	void IdleStart();
 	void MoveStart();
 	void RunStart();
-	void SkateStart();
 	void JumpStart();
 	void AttackStart();
 
+	void SkateStart();
+	void SkateJumpStart();
+	void SkateBrakeStart();
 
 	EPlayState State = EPlayState::None;
 	EActorDir DirState = EActorDir::Right;

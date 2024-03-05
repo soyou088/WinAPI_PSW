@@ -9,177 +9,6 @@
 
 
 
-void APlayer::AddMoveVector(const FVector& _DirDelta)
-{
-	MoveVector += _DirDelta * MoveAcc;
-}
-
-void APlayer::CalMoveVector(float _DeltaTime)
-{
-	FVector CheckPos = GetActorLocation();
-	switch (DirState)
-	{
-	case EActorDir::Left:
-		CheckPos.X -= 30;
-		break;
-	case EActorDir::Right:
-		CheckPos.X += 30;
-		break;
-	default:
-		break;
-	}
-	CheckPos.Y -= 30;
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::MagentaA);
-	if (Color == Color8Bit(255, 0, 255, 0))
-	{
-		MoveVector = FVector::Zero;
-	}
-
-	if (MoveMaxSpeed <= MoveVector.Size2D())
-	{
-		MoveVector = MoveVector.Normalize2DReturn() * MoveMaxSpeed;
-	}
-}
-
-void APlayer::MoveLastMoveVector(float _DeltaTime)
-{
-	FVector CPos = GetWorld()->GetCameraPos();
-	FVector PPos = GetActorLocation();
-
-
-	if (PPos.X >= CPos.X + 150 && 0 < LastMoveVector.X)
-	{
-		GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
-
-	}
-
-	if (PPos.X > CPos.X)
-	{
-		AddActorLocation(LastMoveVector * _DeltaTime);
-	}
-
-	if (12000 < PPos.X && PPos.X < 14200)
-	{
-		GetWorld()->AddCameraPos(LastMoveVector * _DeltaTime);
-	}
-
-
-}
-
-
-void APlayer::CalLastMoveVector(float _DeltaTime)
-{
-	// 제로로 만들어서 초기화 시킨다.
-	LastMoveVector = FVector::Zero;
-	LastMoveVector = LastMoveVector + MoveVector;
-	LastMoveVector = LastMoveVector + JumpVector;
-	LastMoveVector = LastMoveVector + GravityVector;
-}
-
-void APlayer::HillUP(Color8Bit _Color)
-{
-	// _Color 일때 FVector UP한다.
-	while (true)
-	{
-
-		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 1, Color8Bit::MagentaA);
-		if (Color == _Color)
-		{
-			AddActorLocation(FVector::Up);
-			GetWorld()->AddCameraPos(FVector::Up);
-		}
-		else
-		{
-			break;
-		}
-	}
-}
-
-void APlayer::ColorJump()
-{
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-	if (Color == Color8Bit(100, 0, 0, 0) || Color == Color8Bit::MagentaA)
-	{
-		JumpVector = FVector::Zero;
-		StateChange(EPlayState::Move);
-		return;
-	}
-	if (Color == Color8Bit(100, 0, 0, 0))
-	{
-		GetWorld()->AddCameraPos(FVector::Up);
-	}
-}
-
-void APlayer::Bullet()
-{
-	FVector BPos = GetActorLocation();
-	ABulletActor* Bullet = GetWorld()->SpawnActor<ABulletActor>();
-	Bullet->SetName("Bullet");
-	Bullet->SetActorLocation({ BPos.X + 5 ,BPos.Y - 60 });
-	return;
-}
-
-void APlayer::SkateMove(float _DeltaTime)
-{
-	Renderer->ChangeAnimation("Skate_Right");
-	SkateMoveVector += SkateMoveVector * _DeltaTime;
-
-	if (UEngineInput::IsPress(VK_LEFT))
-	{
-		AddMoveVector(FVector::Left * _DeltaTime);
-	}
-
-
-	if (UEngineInput::IsPress(VK_RIGHT))
-	{
-		AddMoveVector(FVector::Right * _DeltaTime);
-	}
-
-	if (true == UEngineInput::IsPress(VK_SPACE))
-	{
-		StateChange(EPlayState::SkateJump);
-		return;
-	}
-}
-
-void APlayer::SkateJump(float _DeltaTime)
-{
-	Renderer->ChangeAnimation("SkateJump");
-}
-
-void APlayer::SkateBrake(float _DeltaTime)
-{
-}
-
-
-
-void APlayer::Attack(float _DeltaTime)
-{
-	DirCheck();
-	MoveUpdate(_DeltaTime);
-	if (Renderer->IsCurAnimationEnd() == true)
-	{
-		StateChange(EPlayState::Move);
-		return;
-	}
-}
-
-
-void APlayer::MoveUpdate(float _DeltaTime)
-{
-	CalMoveVector(_DeltaTime); // 움직임 계산 값
-	CalGravityVector(_DeltaTime);// 중력 계산 값	
-	CalLastMoveVector(_DeltaTime); // 다 던한 값
-	MoveLastMoveVector(_DeltaTime); // 카메라
-	HillUP(Color8Bit(100, 0, 0, 0));
-}
-
-APlayer* APlayer::MainPlayer = nullptr;
-
-APlayer* APlayer::GetMainPlayer()
-{
-	return MainPlayer;
-}
 
 APlayer::APlayer()
 {
@@ -242,18 +71,6 @@ void APlayer::BeginPlay()
 	StateChange(EPlayState::Idle);
 }
 
-void APlayer::CalGravityVector(float _DeltaTime)
-{
-	GravityVector += GravityAcc * _DeltaTime;
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-
-	if (Color == Color8Bit::MagentaA || Color == Color8Bit(100, 0, 0, 0))
-	{
-		GravityVector = FVector::Zero;
-	}
-
-}
-
 void APlayer::DirCheck()
 {
 	EActorDir Dir = DirState;
@@ -273,8 +90,6 @@ void APlayer::DirCheck()
 		Renderer->ChangeAnimation(Name);
 	}
 }
-
-
 
 std::string APlayer::GetAnimationName(std::string _Name)
 {
@@ -297,6 +112,208 @@ std::string APlayer::GetAnimationName(std::string _Name)
 	return _Name + DirName;
 
 }
+
+void APlayer::AddMoveVector(const FVector& _DirDelta)
+{
+	MoveVector += _DirDelta * MoveAcc;
+}
+
+void APlayer::CalMoveVector(float _DeltaTime)
+{
+	FVector CheckPos = GetActorLocation();
+	switch (DirState)
+	{
+	case EActorDir::Left:
+		CheckPos.X -= 30;
+		break;
+	case EActorDir::Right:
+		CheckPos.X += 30;
+		break;
+	default:
+		break;
+	}
+	CheckPos.Y -= 30;
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::MagentaA);
+	if (Color == Color8Bit(255, 0, 255, 0))
+	{
+		MoveVector = FVector::Zero;
+	}
+
+	if (MoveMaxSpeed <= MoveVector.Size2D())
+	{
+		MoveVector = MoveVector.Normalize2DReturn() * MoveMaxSpeed;
+	}
+}
+
+void APlayer::MoveLastMoveVector(float _DeltaTime)
+{
+	FVector CPos = GetWorld()->GetCameraPos();
+	FVector PPos = GetActorLocation();
+
+
+	if (PPos.X >= CPos.X + 150 && 0 < LastMoveVector.X)
+	{
+		GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
+
+	}
+
+	if (PPos.X > CPos.X)
+	{
+		AddActorLocation(LastMoveVector * _DeltaTime);
+	}
+
+	if (12000 < PPos.X && PPos.X < 14200)
+	{
+		GetWorld()->AddCameraPos(LastMoveVector * _DeltaTime);
+	}
+}
+
+
+void APlayer::CalLastMoveVector(float _DeltaTime)
+{
+	// 제로로 만들어서 초기화 시킨다.
+	LastMoveVector = FVector::Zero;
+	LastMoveVector = LastMoveVector + MoveVector;
+	LastMoveVector = LastMoveVector + JumpVector;
+	LastMoveVector = LastMoveVector + GravityVector;
+}
+
+void APlayer::HillUP(Color8Bit _Color)
+{
+	// _Color 일때 FVector UP한다.
+	while (true)
+	{
+
+		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 1, Color8Bit::MagentaA);
+		if (Color == _Color)
+		{
+			AddActorLocation(FVector::Up);
+			GetWorld()->AddCameraPos(FVector::Up);
+		}
+		else
+		{
+			break;
+		}
+	}
+}
+
+void APlayer::ColorJump()
+{
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
+	if (Color == Color8Bit(100, 0, 0, 0) || Color == Color8Bit::MagentaA)
+	{
+		JumpVector = FVector::Zero;
+		StateChange(EPlayState::Move);
+		return;
+	}
+	if (Color == Color8Bit(100, 0, 0, 0))
+	{
+		GetWorld()->AddCameraPos(FVector::Up);
+	}
+}
+
+
+
+void APlayer::SkateMove(float _DeltaTime)
+{
+	Renderer->ChangeAnimation("Skate_Right");
+	SkateMoveVector += SkateMoveVector * _DeltaTime;
+
+	if (UEngineInput::IsPress(VK_LEFT))
+	{
+		AddMoveVector(FVector::Left * _DeltaTime);
+	}
+
+
+	if (UEngineInput::IsPress(VK_RIGHT))
+	{
+		AddMoveVector(FVector::Right * _DeltaTime);
+	}
+
+	if (true == UEngineInput::IsPress(VK_SPACE))
+	{
+		StateChange(EPlayState::SkateJump);
+		return;
+	}
+}
+
+void APlayer::SkateJump(float _DeltaTime)
+{
+	Renderer->ChangeAnimation("SkateJump");
+
+	if (UEngineInput::IsPress(VK_LEFT))
+	{
+		AddMoveVector(FVector::Left * _DeltaTime);
+	}
+
+	if (UEngineInput::IsPress(VK_RIGHT))
+	{
+		AddMoveVector(FVector::Right * _DeltaTime);
+	}
+
+
+	if (true == UEngineInput::IsDown('Q'))
+	{
+		Bullet();
+		return;
+	}
+
+	if (JumpMax <= JumpVector.Size2D())
+	{
+		JumpVector = JumpVector.Normalize2DReturn() * JumpMax;
+	}
+
+	MoveUpdate(_DeltaTime);
+	ColorJump();
+
+
+}
+
+void APlayer::SkateBrake(float _DeltaTime)
+{
+}
+
+void APlayer::Attack(float _DeltaTime)
+{
+	DirCheck();
+	MoveUpdate(_DeltaTime);
+	if (Renderer->IsCurAnimationEnd() == true)
+	{
+		StateChange(EPlayState::Move);
+		return;
+	}
+}
+
+
+void APlayer::MoveUpdate(float _DeltaTime)
+{
+	CalMoveVector(_DeltaTime); // 움직임 계산 값
+	CalGravityVector(_DeltaTime);// 중력 계산 값	
+	CalLastMoveVector(_DeltaTime); // 다 던한 값
+	MoveLastMoveVector(_DeltaTime); // 카메라
+	HillUP(Color8Bit(100, 0, 0, 0));
+}
+
+APlayer* APlayer::MainPlayer = nullptr;
+
+APlayer* APlayer::GetMainPlayer()
+{
+	return MainPlayer;
+}
+
+void APlayer::CalGravityVector(float _DeltaTime)
+{
+	GravityVector += GravityAcc * _DeltaTime;
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
+
+	if (Color == Color8Bit::MagentaA || Color == Color8Bit(100, 0, 0, 0))
+	{
+		GravityVector = FVector::Zero;
+	}
+
+}
+
+
 
 void APlayer::IdleStart()
 {
@@ -330,15 +347,24 @@ void APlayer::SkateStart()
 	DirCheck();
 }
 
+void APlayer::SkateJumpStart()
+{
+	Renderer->ChangeAnimation(GetAnimationName("SkateJump"));
+	DirCheck();
+}
+
+void APlayer::SkateBrakeStart()
+{
+	Renderer->ChangeAnimation(GetAnimationName("SkateBrake"));
+	DirCheck();
+}
+
 void APlayer::AttackStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Bullet"));
 	Bullet();
 	DirCheck();
 }
-
-
-
 
 void APlayer::StateChange(EPlayState _State)
 {
@@ -369,6 +395,32 @@ void APlayer::StateChange(EPlayState _State)
 			break;
 		}
 	}
+
+	if (State == EPlayState::SkateMove)
+	{
+		switch (_State)
+		{
+		case EPlayState::Idle:
+			IdleStart();
+			break;
+		case EPlayState::SkateMove:
+			SkateStart();
+			break;
+		case EPlayState::SkateJump:
+			SkateJumpStart();
+			break;
+		case EPlayState::SkateBrake:
+			SkateBrakeStart();
+			break;
+		case EPlayState::Attack:
+			AttackStart();
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	State = _State;
 }
 
@@ -434,6 +486,16 @@ void APlayer::StateUpdate(float _DeltaTime)
 		}
 	}
 
+}
+
+
+void APlayer::Bullet()
+{
+	FVector BPos = GetActorLocation();
+	ABulletActor* Bullet = GetWorld()->SpawnActor<ABulletActor>();
+	Bullet->SetName("Bullet");
+	Bullet->SetActorLocation({ BPos.X + 5 ,BPos.Y - 60 });
+	return;
 }
 
 void APlayer::CameraFreeMove(float _DeltaTime)
