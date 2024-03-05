@@ -116,6 +116,10 @@ std::string APlayer::GetAnimationName(std::string _Name)
 void APlayer::AddMoveVector(const FVector& _DirDelta)
 {
 	MoveVector += _DirDelta * MoveAcc;
+	if (State == EPlayState::SkateMove)
+	{
+		MoveVector += _DirDelta * SkateMoveVector;
+	}
 }
 
 void APlayer::CalMoveVector(float _DeltaTime)
@@ -168,7 +172,6 @@ void APlayer::MoveLastMoveVector(float _DeltaTime)
 	}
 }
 
-
 void APlayer::CalLastMoveVector(float _DeltaTime)
 {
 	// 제로로 만들어서 초기화 시킨다.
@@ -212,63 +215,6 @@ void APlayer::ColorJump()
 	}
 }
 
-
-
-void APlayer::SkateMove(float _DeltaTime)
-{
-	Renderer->ChangeAnimation("Skate_Right");
-	SkateMoveVector += SkateMoveVector * _DeltaTime;
-
-	if (UEngineInput::IsPress(VK_LEFT))
-	{
-		AddMoveVector(FVector::Left * _DeltaTime);
-	}
-
-
-	if (UEngineInput::IsPress(VK_RIGHT))
-	{
-		AddMoveVector(FVector::Right * _DeltaTime);
-	}
-
-	if (true == UEngineInput::IsPress(VK_SPACE))
-	{
-		StateChange(EPlayState::SkateJump);
-		return;
-	}
-}
-
-void APlayer::SkateJump(float _DeltaTime)
-{
-	Renderer->ChangeAnimation("SkateJump");
-
-	if (UEngineInput::IsPress(VK_LEFT))
-	{
-		AddMoveVector(FVector::Left * _DeltaTime);
-	}
-
-	if (UEngineInput::IsPress(VK_RIGHT))
-	{
-		AddMoveVector(FVector::Right * _DeltaTime);
-	}
-
-
-	if (true == UEngineInput::IsDown('Q'))
-	{
-		Bullet();
-		return;
-	}
-
-	if (JumpMax <= JumpVector.Size2D())
-	{
-		JumpVector = JumpVector.Normalize2DReturn() * JumpMax;
-	}
-
-	MoveUpdate(_DeltaTime);
-	ColorJump();
-
-
-}
-
 void APlayer::SkateBrake(float _DeltaTime)
 {
 }
@@ -283,7 +229,6 @@ void APlayer::Attack(float _DeltaTime)
 		return;
 	}
 }
-
 
 void APlayer::MoveUpdate(float _DeltaTime)
 {
@@ -312,8 +257,6 @@ void APlayer::CalGravityVector(float _DeltaTime)
 	}
 
 }
-
-
 
 void APlayer::IdleStart()
 {
@@ -349,6 +292,7 @@ void APlayer::SkateStart()
 
 void APlayer::SkateJumpStart()
 {
+	JumpVector = JumpPower;
 	Renderer->ChangeAnimation(GetAnimationName("SkateJump"));
 	DirCheck();
 }
@@ -391,20 +335,6 @@ void APlayer::StateChange(EPlayState _State)
 			break;
 		case EPlayState::SkateMove:
 			SkateStart();
-		default:
-			break;
-		}
-	}
-
-	if (State == EPlayState::SkateMove)
-	{
-		switch (_State)
-		{
-		case EPlayState::Idle:
-			IdleStart();
-			break;
-		case EPlayState::SkateMove:
-			SkateStart();
 			break;
 		case EPlayState::SkateJump:
 			SkateJumpStart();
@@ -412,10 +342,6 @@ void APlayer::StateChange(EPlayState _State)
 		case EPlayState::SkateBrake:
 			SkateBrakeStart();
 			break;
-		case EPlayState::Attack:
-			AttackStart();
-			break;
-
 		default:
 			break;
 		}
@@ -426,7 +352,7 @@ void APlayer::StateChange(EPlayState _State)
 
 void APlayer::StateUpdate(float _DeltaTime)
 {
-	if (State != EPlayState::SkateMove)
+	if (true != SkateCheck)
 	{
 		switch (State)
 		{
@@ -459,7 +385,7 @@ void APlayer::StateUpdate(float _DeltaTime)
 		}
 	}
 
-	if (State == EPlayState::SkateMove)
+	if (true == SkateCheck)
 	{
 		switch (State)
 		{
@@ -777,6 +703,134 @@ void APlayer::Jump(float _DeltaTime)
 	ColorJump();
 
 
+}
+
+void APlayer::SkateMove(float _DeltaTime)
+{
+
+	SkateMoveVector += SkateMoveVector * _DeltaTime;
+
+	DirCheck();
+	MoveUpdate(_DeltaTime);
+
+	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
+	{
+		FVector MoveDirVector = FVector::Zero;
+		switch (DirState)
+		{
+		case EActorDir::Left:
+			MoveDirVector = FVector::Right;
+			break;
+		case EActorDir::Right:
+			MoveDirVector = FVector::Left;
+			break;
+		default:
+			break;
+		}
+		if (70.0f <= abs(SkateMoveVector.X))
+		{
+			AddMoveVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
+		}
+		else
+		{
+			MoveVector = float4::Zero;
+			StateChange(EPlayState::SkateMove);
+			return;
+		}
+	}
+
+
+	if (UEngineInput::IsPress(VK_LEFT))
+	{
+		AddMoveVector(FVector::Left * _DeltaTime);
+	}
+
+
+	if (UEngineInput::IsPress(VK_RIGHT))
+	{
+		AddMoveVector(FVector::Right * _DeltaTime);
+	}
+
+	if (true == UEngineInput::IsPress('H'))
+	{
+		StateChange(EPlayState::SkateJump);
+		return;
+	}
+
+	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress(VK_SPACE))
+	{
+		AddMoveVector(FVector::Left * _DeltaTime + JumpVector);
+	}
+
+
+	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress(VK_SPACE))
+	{
+		AddMoveVector(FVector::Right * _DeltaTime + JumpVector);
+	}
+
+	if (true == UEngineInput::IsDown('Q'))
+	{
+		Bullet();
+		return;
+	}
+
+	FVector CheckPos = GetActorLocation();
+	switch (DirState)
+	{
+	case EActorDir::Left:
+		CheckPos.X -= 30;
+		break;
+	case EActorDir::Right:
+		CheckPos.X += 30;
+		break;
+	default:
+		break;
+	}
+	CheckPos.Y -= 30;
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::MagentaA);
+	if (Color != Color8Bit(255, 0, 255, 0))
+	{
+		AddActorLocation(MovePos);
+		GetWorld()->AddCameraPos(MovePos);
+	}
+
+	if (true == UEngineInput::IsPress('S'))
+	{
+		StateChange(EPlayState::SkateMove);
+		SkateCheck = true;
+	}
+
+
+	HillUP(Color8Bit(100, 0, 0, 0));
+
+}
+
+void APlayer::SkateJump(float _DeltaTime)
+{
+
+	if (UEngineInput::IsPress(VK_LEFT))
+	{
+		AddMoveVector(FVector::Left * _DeltaTime);
+	}
+
+	if (UEngineInput::IsPress(VK_RIGHT))
+	{
+		AddMoveVector(FVector::Right * _DeltaTime);
+	}
+
+	if (true == UEngineInput::IsDown('Q'))
+	{
+		Bullet();
+		return;
+	}
+
+	if (JumpMax <= JumpVector.Size2D())
+	{
+		JumpVector = JumpVector.Normalize2DReturn() * JumpMax;
+	}
+
+	MoveUpdate(_DeltaTime);
+	ColorJump();
 }
 
 void APlayer::Col(float _DeltaTime)

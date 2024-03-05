@@ -106,8 +106,12 @@ private:
 	FVector MovePos = FVector::Zero;
 
 
-	FVector SkateMoveVector = FVector::Right;
+	FVector SkateMoveVector = FVector::Right * 200.0f;
+	
+	//FVector SkateJumpPower = FVector::Up * 800;
+	//FVector SkateJumpVector = FVector::Zero;
 
+	bool SkateCheck = false;
 
 	void CalLastMoveVector(float _DeltaTime);
 	void CalMoveVector(float _DeltaTime);
