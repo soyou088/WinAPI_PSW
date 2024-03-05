@@ -64,7 +64,7 @@ void ABulletActor::CalGravityVector(float _DeltaTime)
 	GravityVector += GravityAcc * _DeltaTime;
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 
-	if (Color == Color8Bit::MagentaA || Color == Color8Bit(100, 0, 0, 0))
+	if (Color == Color8Bit::MagentaA)
 	{
 		GravityVector = FVector::Zero;
 		Destroy();

@@ -113,6 +113,7 @@ private:
 
 	bool SkateCheck = false;
 
+	void CameraSet(float _DeltaTime);
 	void CalLastMoveVector(float _DeltaTime);
 	void CalMoveVector(float _DeltaTime);
 	void CalGravityVector(float _DeltaTime);

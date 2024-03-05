@@ -596,7 +596,7 @@ Color8Bit UWindowImage::GetColor(int _X, int _Y, Color8Bit _DefaultColor)
 		return _DefaultColor;
 	}
 
-	if (GetScale().iY() + 5 <= _Y)
+	if (GetScale().iY() <= _Y)
 	{
 		return _DefaultColor;
 	}

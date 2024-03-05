@@ -151,7 +151,35 @@ void APlayer::CalMoveVector(float _DeltaTime)
 
 void APlayer::MoveLastMoveVector(float _DeltaTime)
 {
+	//FVector CPos = GetWorld()->GetCameraPos();
+	//FVector PPos = GetActorLocation();
+
+
+	//if (PPos.X >= CPos.X + 150 && 0 < LastMoveVector.X)
+	//{
+	//	GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
+
+	//}
+
+	//if (PPos.X > CPos.X)
+	//{
+		AddActorLocation(LastMoveVector * _DeltaTime);
+	//}
+
+	//if (12000 < PPos.X && PPos.X < 14200)
+	//{
+	//	GetWorld()->AddCameraPos(LastMoveVector * _DeltaTime);
+	//}
+}
+
+void APlayer::CameraSet(float _DeltaTime)
+{
 	FVector CPos = GetWorld()->GetCameraPos();
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() + 300, Color8Bit::MagentaA);
+	if (Color == Color8Bit::MagentaA)
+	{
+		GetWorld()->AddCameraPos(FVector::Up);
+	}
 	FVector PPos = GetActorLocation();
 
 
@@ -160,18 +188,7 @@ void APlayer::MoveLastMoveVector(float _DeltaTime)
 		GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
 
 	}
-
-	if (PPos.X > CPos.X)
-	{
-		AddActorLocation(LastMoveVector * _DeltaTime);
-	}
-
-	if (12000 < PPos.X && PPos.X < 14200)
-	{
-		GetWorld()->AddCameraPos(LastMoveVector * _DeltaTime);
-	}
 }
-
 void APlayer::CalLastMoveVector(float _DeltaTime)
 {
 	// 제로로 만들어서 초기화 시킨다.
@@ -203,15 +220,13 @@ void APlayer::HillUP(Color8Bit _Color)
 void APlayer::ColorJump()
 {
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-	if (Color == Color8Bit(100, 0, 0, 0) || Color == Color8Bit::MagentaA)
+
+	if (Color == Color8Bit(255, 0, 255, 0))
 	{
+		GetWorld()->AddCameraPos(FVector::Up);
 		JumpVector = FVector::Zero;
 		StateChange(EPlayState::Move);
 		return;
-	}
-	if (Color == Color8Bit(100, 0, 0, 0))
-	{
-		GetWorld()->AddCameraPos(FVector::Up);
 	}
 }
 
@@ -236,7 +251,7 @@ void APlayer::MoveUpdate(float _DeltaTime)
 	CalGravityVector(_DeltaTime);// 중력 계산 값	
 	CalLastMoveVector(_DeltaTime); // 다 던한 값
 	MoveLastMoveVector(_DeltaTime); // 카메라
-	HillUP(Color8Bit(100, 0, 0, 0));
+	HillUP(Color8Bit(255, 0, 255, 0));
 }
 
 APlayer* APlayer::MainPlayer = nullptr;
@@ -251,7 +266,7 @@ void APlayer::CalGravityVector(float _DeltaTime)
 	GravityVector += GravityAcc * _DeltaTime;
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 
-	if (Color == Color8Bit::MagentaA || Color == Color8Bit(100, 0, 0, 0))
+	if (Color == Color8Bit(255, 0, 255, 0))
 	{
 		GravityVector = FVector::Zero;
 	}
@@ -534,7 +549,7 @@ void APlayer::Idle(float _DeltaTime)
 	{
 		MoveVector = FVector::Zero;
 	}
-
+	CameraSet(_DeltaTime);
 	MoveUpdate(_DeltaTime);
 }
 
@@ -637,7 +652,8 @@ void APlayer::Move(float _DeltaTime)
 	}
 
 
-	HillUP(Color8Bit(100, 0, 0, 0));
+	HillUP(Color8Bit(255, 0, 255, 0));
+	CameraSet(_DeltaTime);
 
 }
 
@@ -671,7 +687,7 @@ void APlayer::Run(float _DeltaTime)
 	}
 
 	MoveUpdate(_DeltaTime);
-
+	CameraSet(_DeltaTime);
 	StateChange(EPlayState::Move);
 }
 
@@ -700,6 +716,7 @@ void APlayer::Jump(float _DeltaTime)
 	}
 
 	MoveUpdate(_DeltaTime);
+	CameraSet(_DeltaTime);
 	ColorJump();
 
 
@@ -801,7 +818,7 @@ void APlayer::SkateMove(float _DeltaTime)
 	}
 
 
-	HillUP(Color8Bit(100, 0, 0, 0));
+	HillUP(Color8Bit(255, 0, 255, 0));
 
 }
 
