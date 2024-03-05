@@ -20,9 +20,23 @@ protected:
 
 	void BeginPlay() override;
 
-	void SkateStart();
+	std::string GetAnimationName(std::string _Name);
+
+	void SkateMoveStart();
 	void SkateJumpStart();
-	void SkatebrakeStart();
+	void SkateBrakeStart();
+
+	void DirCheck();
+
+
+	void Move();
+	void Jump();
+	void Brake();
+
+
+
+	EActorDir DirState = EActorDir::Right;
+	std::string CurAnimationName = "None";
 
 private:
 	UImageRenderer* Renderer = nullptr;

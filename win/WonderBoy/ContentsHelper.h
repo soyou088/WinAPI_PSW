@@ -9,6 +9,7 @@ enum WonderRenderOrder
 	PlayerBullet,
 	Monster,
 	Player,
+	Skate,
 };
 
 enum class WonderCollisionOrder
@@ -35,9 +36,9 @@ enum class EPlayState
 	Jump,
 	Attack,
 	Destroy,
-	Skate,
+	SkateMove,
 	SkateJump,
-	Skatebrake,
+	SkateBrake,
 };
 
 

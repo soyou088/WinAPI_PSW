@@ -46,18 +46,18 @@ protected:
 	void Jump(float _DeltaTime);
 	void Move(float _DeltaTime);
 	void Run(float _DeltaTime);
+	void Skate();
 	void Death(float _DeltaTime);
 	void Col(float _DeltaTime);
 	void Attack(float _DeltaTime);
 	void Bullet();
-	void Skate();
-	void SkateJump();
-	void Skatebrake();
+
 
 	// 상태 시작 함수들
 	void IdleStart();
 	void MoveStart();
 	void RunStart();
+	void SkateStart();
 	void JumpStart();
 	void AttackStart();
 

@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "BulletActor.h"
+#include "Skate.h"
 #include <EnginePlatform\EngineInput.h>
 #include <EngineBase\EngineDebug.h>
 #include <EngineCore/EngineDebug.h>
@@ -120,17 +121,9 @@ void APlayer::Bullet()
 
 void APlayer::Skate()
 {
-
-}
-
-void APlayer::SkateJump()
-{
-
-}
-
-void APlayer::Skatebrake()
-{
-
+	FVector SKPos = GetActorLocation();
+	ASkate* Skate = GetWorld()->SpawnActor<ASkate>();
+	Skate->SetName("Skate");
 }
 
 void APlayer::Attack(float _DeltaTime)
@@ -295,6 +288,11 @@ void APlayer::RunStart()
 	DirCheck();
 }
 
+void APlayer::SkateStart()
+{
+	Renderer->ChangeAnimation(GetAnimationName("Skate"));
+	DirCheck();
+}
 
 void APlayer::AttackStart()
 {
@@ -303,23 +301,7 @@ void APlayer::AttackStart()
 	DirCheck();
 }
 
-void APlayer::SkateStart()
-{
-	Renderer->ChangeAnimation(GetAnimationName("Skate"));
-	DirCheck();
-}
 
-void APlayer::SkateJumpStart()
-{
-	Renderer->ChangeAnimation(GetAnimationName("SkateJump"));
-	DirCheck();
-}
-
-void APlayer::SkatebrakeStart()
-{
-	Renderer->ChangeAnimation(GetAnimationName("Skatebrake"));
-	DirCheck();
-}
 
 
 void APlayer::StateChange(EPlayState _State)
@@ -345,23 +327,13 @@ void APlayer::StateChange(EPlayState _State)
 		case EPlayState::Attack:
 			AttackStart();
 			break;
-		case EPlayState::Skate:
+		case EPlayState::SkateMove:
 			SkateStart();
-			break;
-		case EPlayState::SkateJump:
-			SkateJumpStart();
-			break;
-		case EPlayState::Skatebrake:
-			SkatebrakeStart();
-			break;
 		default:
 			break;
 		}
 	}
-
 	State = _State;
-
-
 }
 
 void APlayer::StateUpdate(float _DeltaTime)
@@ -391,12 +363,6 @@ void APlayer::StateUpdate(float _DeltaTime)
 		break;
 	case EPlayState::Skate:
 		Skate();
-		break;
-	case EPlayState::SkateJump:
-		SkateJump();
-		break;
-	case EPlayState::Skatebrake:
-		Skatebrake();
 		break;
 	default:
 		break;
