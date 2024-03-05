@@ -19,9 +19,6 @@
     <Filter Include="PlayLevel\BulletActor">
       <UniqueIdentifier>{8b545868-2765-416f-b7fc-3385a18a0380}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PlayLevel\SkateActor">
-      <UniqueIdentifier>{44089d51-c405-4fd7-94ae-96a53de44a06}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGroundMap.h">
@@ -50,9 +47,6 @@
     <ClInclude Include="Bee.h">
       <Filter>PlayLevel\MonsterActor</Filter>
     </ClInclude>
-    <ClInclude Include="Skate.h">
-      <Filter>PlayLevel\SkateActor</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -80,9 +74,6 @@
     </ClCompile>
     <ClCompile Include="Bee.cpp">
       <Filter>PlayLevel\MonsterActor</Filter>
-    </ClCompile>
-    <ClCompile Include="Skate.cpp">
-      <Filter>PlayLevel\SkateActor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

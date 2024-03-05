@@ -45,7 +45,7 @@ void APlayer::MoveLastMoveVector(float _DeltaTime)
 {
 	FVector CPos = GetWorld()->GetCameraPos();
 	FVector PPos = GetActorLocation();
-	
+
 
 	if (PPos.X >= CPos.X + 150 && 0 < LastMoveVector.X)
 	{
@@ -57,8 +57,8 @@ void APlayer::MoveLastMoveVector(float _DeltaTime)
 	{
 		AddActorLocation(LastMoveVector * _DeltaTime);
 	}
-	
-	if (12000 < PPos.X && PPos.X< 14200)
+
+	if (12000 < PPos.X && PPos.X < 14200)
 	{
 		GetWorld()->AddCameraPos(LastMoveVector * _DeltaTime);
 	}
@@ -98,10 +98,10 @@ void APlayer::HillUP(Color8Bit _Color)
 void APlayer::ColorJump()
 {
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-	if (Color == Color8Bit(100,0,0,0) || Color == Color8Bit::MagentaA)
+	if (Color == Color8Bit(100, 0, 0, 0) || Color == Color8Bit::MagentaA)
 	{
 		JumpVector = FVector::Zero;
-  		StateChange(EPlayState::Move);	
+		StateChange(EPlayState::Move);
 		return;
 	}
 	if (Color == Color8Bit(100, 0, 0, 0))
@@ -119,12 +119,39 @@ void APlayer::Bullet()
 	return;
 }
 
-void APlayer::Skate()
+void APlayer::SkateMove(float _DeltaTime)
 {
-	FVector SKPos = GetActorLocation();
-	ASkate* Skate = GetWorld()->SpawnActor<ASkate>();
-	Skate->SetName("Skate");
+	Renderer->ChangeAnimation("Skate_Right");
+	SkateMoveVector += SkateMoveVector * _DeltaTime;
+
+	if (UEngineInput::IsPress(VK_LEFT))
+	{
+		AddMoveVector(FVector::Left * _DeltaTime);
+	}
+
+
+	if (UEngineInput::IsPress(VK_RIGHT))
+	{
+		AddMoveVector(FVector::Right * _DeltaTime);
+	}
+
+	if (true == UEngineInput::IsPress(VK_SPACE))
+	{
+		StateChange(EPlayState::SkateJump);
+		return;
+	}
 }
+
+void APlayer::SkateJump(float _DeltaTime)
+{
+	Renderer->ChangeAnimation("SkateJump");
+}
+
+void APlayer::SkateBrake(float _DeltaTime)
+{
+}
+
+
 
 void APlayer::Attack(float _DeltaTime)
 {
@@ -144,7 +171,7 @@ void APlayer::MoveUpdate(float _DeltaTime)
 	CalGravityVector(_DeltaTime);// 중력 계산 값	
 	CalLastMoveVector(_DeltaTime); // 다 던한 값
 	MoveLastMoveVector(_DeltaTime); // 카메라
-	HillUP(Color8Bit(100,0,0,0));
+	HillUP(Color8Bit(100, 0, 0, 0));
 }
 
 APlayer* APlayer::MainPlayer = nullptr;
@@ -165,7 +192,7 @@ APlayer::~APlayer()
 void APlayer::BeginPlay()
 {
 	AActor::BeginPlay(); // 부모에서 실행하는 함수를 해주는게 좋아서 했다.
-	
+
 	GetWorld()->AddCameraPos({ 0, 540 }); // 카메라세팅
 	MainPlayer = this;
 	{
@@ -175,7 +202,7 @@ void APlayer::BeginPlay()
 
 		Renderer->CreateAnimation("Idle_Right", "Player_1_R.png", 0, 2, 0.1f, true); // 가만히 있는 상태
 		Renderer->CreateAnimation("Move_Right", "Player_1_R.png", 0, 4, 0.05f, true); // 오른쪽으로 움직이는 상태
-		
+
 		Renderer->CreateAnimation("Idle_Left", "Player_1_L.png", 0, 2, 0.1f, true); // 가만히 있는 상태
 		Renderer->CreateAnimation("Move_Left", "Player_1_L.png", 0, 4, 0.05f, true); // 왼쪽으로 움직이는 상태
 
@@ -185,15 +212,24 @@ void APlayer::BeginPlay()
 		Renderer->CreateAnimation("Jump_Right", "Player_1_R.png", 5, 5, 0.1f, true); // 오른쪽으로 점프하기
 		Renderer->CreateAnimation("Jump_Left", "Player_1_L.png", 5, 5, 0.1f, true); // 왼쪽으로 점프하기
 
+		Renderer->CreateAnimation("Skate_Right", "Skate_R.png", 0, 1, 0.1f, true); // 오른쪽으로 보드타기
+		Renderer->CreateAnimation("Skate_Left", "Skate_L.png", 0, 1, 0.1f, true); // 왼쪽으로 보드타기
+
+		Renderer->CreateAnimation("SkateBrake_Right", "Skate_R.png", 2, 3, 0.1f, true); // 오른쪽 브레이크
+		Renderer->CreateAnimation("SkateBrake_Left", "Skate_L.png", 2, 3, 0.1f, true); // 왼쪽 브레이크
+
+		Renderer->CreateAnimation("SkateJump_Right", "Skate_R.png", 4, 4, 0.1f, true); // 오른쪽 보드 점프
+		Renderer->CreateAnimation("SkateJump_Left", "Skate_L.png", 4, 4, 0.1f, true); // 왼쪽 보드 점프
+
 		Renderer->CreateAnimation("Col_Right", "Player_1_R.png", 9, 9, 0.1f, true); // 오른쪽충돌
 		Renderer->CreateAnimation("Col_Left", "Player_1_R.png", 9, 9, 0.1f, true); // 왼쪽 충돌
-		
+
 		Renderer->CreateAnimation("Bullet_Right", "Player_1_R.png", 7, 8, 0.1f, true); // 오른쪽 공격
 		Renderer->CreateAnimation("Bullet_Left", "Player_1_L.png", 7, 8, 0.1f, true); // 왼쪽 공격
 
 		Renderer->CreateAnimation("Death", "Death.png", 0, 1, 0.1f, true); // 죽기
-		
-		Renderer->ChangeAnimation("Idle_Right");	
+
+		Renderer->ChangeAnimation("Idle_Right");
 	}
 	{
 		// Player Collision
@@ -211,7 +247,7 @@ void APlayer::CalGravityVector(float _DeltaTime)
 	GravityVector += GravityAcc * _DeltaTime;
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 
-	if (Color == Color8Bit::MagentaA || Color == Color8Bit(100,0,0,0))
+	if (Color == Color8Bit::MagentaA || Color == Color8Bit(100, 0, 0, 0))
 	{
 		GravityVector = FVector::Zero;
 	}
@@ -338,36 +374,65 @@ void APlayer::StateChange(EPlayState _State)
 
 void APlayer::StateUpdate(float _DeltaTime)
 {
-	switch (State)
+	if (State != EPlayState::SkateMove)
 	{
-	case EPlayState::CameraFreeMove:
-		CameraFreeMove(_DeltaTime);
-		break;
-	case EPlayState::FreeMove:
-		FreeMove(_DeltaTime);
-		break;
-	case EPlayState::Idle:
-		Idle(_DeltaTime);
-		break;
-	case EPlayState::Move:
-		Move(_DeltaTime);
-		break;
-	case EPlayState::Run:
-		Run(_DeltaTime);
-		break;
-	case EPlayState::Jump:
-		Jump(_DeltaTime);
-		break;
-	case EPlayState::Attack:
-		Attack(_DeltaTime);
-		break;
-	case EPlayState::Skate:
-		Skate();
-		break;
-	default:
-		break;
+		switch (State)
+		{
+		case EPlayState::CameraFreeMove:
+			CameraFreeMove(_DeltaTime);
+			break;
+		case EPlayState::FreeMove:
+			FreeMove(_DeltaTime);
+			break;
+		case EPlayState::Idle:
+			Idle(_DeltaTime);
+			break;
+		case EPlayState::Move:
+			Move(_DeltaTime);
+			break;
+		case EPlayState::Run:
+			Run(_DeltaTime);
+			break;
+		case EPlayState::Jump:
+			Jump(_DeltaTime);
+			break;
+		case EPlayState::Attack:
+			Attack(_DeltaTime);
+			break;
+		case EPlayState::SkateMove:
+			SkateMove(_DeltaTime);
+			break;
+		default:
+			break;
+		}
 	}
 
+	if (State == EPlayState::SkateMove)
+	{
+		switch (State)
+		{
+		case EPlayState::CameraFreeMove:
+			CameraFreeMove(_DeltaTime);
+			break;
+		case EPlayState::FreeMove:
+			FreeMove(_DeltaTime);
+			break;
+		case EPlayState::SkateMove:
+			SkateMove(_DeltaTime);
+			break;
+		case EPlayState::SkateJump:
+			SkateJump(_DeltaTime);
+			break;
+		case EPlayState::SkateBrake:
+			SkateBrake(_DeltaTime);
+			break;
+		case EPlayState::Attack:
+			Attack(_DeltaTime);
+			break;
+		default:
+			break;
+		}
+	}
 
 }
 
@@ -580,7 +645,7 @@ void APlayer::Move(float _DeltaTime)
 
 	if (true == UEngineInput::IsPress('S'))
 	{
-		StateChange(EPlayState::Skate);
+		StateChange(EPlayState::SkateMove);
 	}
 
 

@@ -46,11 +46,14 @@ protected:
 	void Jump(float _DeltaTime);
 	void Move(float _DeltaTime);
 	void Run(float _DeltaTime);
-	void Skate();
 	void Death(float _DeltaTime);
 	void Col(float _DeltaTime);
 	void Attack(float _DeltaTime);
 	void Bullet();
+	void SkateMove(float _DeltaTime);
+	void SkateJump(float _DeltaTime);
+	void SkateBrake(float _DeltaTime);
+
 
 
 	// 상태 시작 함수들
@@ -101,7 +104,7 @@ private:
 	FVector MovePos = FVector::Zero;
 
 
-	FVector SkateMove = FVector::Right;
+	FVector SkateMoveVector = FVector::Right;
 
 
 	void CalLastMoveVector(float _DeltaTime);

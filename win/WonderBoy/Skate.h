@@ -20,6 +20,9 @@ protected:
 
 	void BeginPlay() override;
 
+	void StateChange(EPlayState _State);
+	void StateUpdate(float _DeltaTime);
+
 	std::string GetAnimationName(std::string _Name);
 
 	void SkateMoveStart();
@@ -34,7 +37,7 @@ protected:
 	void Brake();
 
 
-
+	EPlayState State = EPlayState::None;
 	EActorDir DirState = EActorDir::Right;
 	std::string CurAnimationName = "None";
 
@@ -44,6 +47,7 @@ private:
 	FVector MoveAcc = FVector::Right * 800.0f;
 	FVector MoveVector = FVector::Right * 100.0f;
 
+	void MoveUpdate(float _DeltaTime);
 
 };
 

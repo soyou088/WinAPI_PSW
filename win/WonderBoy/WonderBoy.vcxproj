@@ -44,10 +44,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Skate.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="TitleLogo.h">
       <SubType>
       </SubType>
@@ -84,10 +80,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="PlayerLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="Skate.cpp">
       <SubType>
       </SubType>
     </ClCompile>
