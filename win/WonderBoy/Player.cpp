@@ -172,16 +172,49 @@ void APlayer::MoveLastMoveVector(float _DeltaTime)
 	//}
 }
 
+Color8Bit APlayer::MyGetColor(int _X, int _Y, Color8Bit _DefaultColor)
+{
+	// 이 함수가 완벽하지 않다.
+
+	if (0 > _X)
+	{
+		return _DefaultColor;
+	}
+
+	if (0 > _Y)
+	{
+		return _DefaultColor;
+	}
+
+	if (GetScale().iX() <= _X)
+	{
+		return _DefaultColor;
+	}
+
+	if (GetScale().iY() <= _Y)
+	{
+		return _DefaultColor;
+	}
+
+	Color8Bit Color;
+
+	Color.Color = ::GetPixel(ImageDC, _X, _Y);
+
+	return Color;
+}
+
 void APlayer::CameraSet(float _DeltaTime)
 {
 	FVector CPos = GetWorld()->GetCameraPos();
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() + 300, Color8Bit::MagentaA);
-	if (Color == Color8Bit::MagentaA)
-	{
-		GetWorld()->AddCameraPos(FVector::Up);
-	}
+		while (Color == Color8Bit::MagentaA)
+		{
+			Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() + 300, Color8Bit::MagentaA);
+			GetWorld()->AddCameraPos(FVector::Up);
+				
+		}
+	
 	FVector PPos = GetActorLocation();
-
 
 	if (PPos.X >= CPos.X + 150 && 0 < LastMoveVector.X)
 	{

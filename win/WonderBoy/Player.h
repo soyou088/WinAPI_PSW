@@ -107,6 +107,9 @@ private:
 
 
 	FVector SkateMoveVector = FVector::Right * 200.0f;
+
+
+	Color8Bit MyGetColor(int _X, int _Y, Color8Bit _DefaultColor);
 	
 	//FVector SkateJumpPower = FVector::Up * 800;
 	//FVector SkateJumpVector = FVector::Zero;
