@@ -831,6 +831,8 @@ void APlayer::SkateJump(float _DeltaTime)
 
 	MoveUpdate(_DeltaTime);
 	ColorJump();
+
+	StateChange(EPlayState::SkateMove);
 }
 
 void APlayer::Col(float _DeltaTime)
