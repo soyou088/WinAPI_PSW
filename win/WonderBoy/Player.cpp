@@ -121,15 +121,6 @@ void APlayer::AddMoveVector(const FVector& _DirDelta)
 		MoveVector += _DirDelta * SkateMoveVector;
 	}
 
-	FVector WallCheck = GetActorLocation();
-	FVector CPos = GetWorld()->GetCameraPos();
-	if (CPos.X >= WallCheck.X - 45)
-	{
-		MoveVector = FVector::Zero;
-		return;
-	}
-
-
 
 }
 
@@ -163,6 +154,7 @@ void APlayer::CalMoveVector(float _DeltaTime)
 void APlayer::MoveLastMoveVector(float _DeltaTime)
 {
 	AddActorLocation(LastMoveVector * _DeltaTime);
+
 }
 
 void APlayer::CameraSet(float _DeltaTime)
@@ -181,6 +173,14 @@ void APlayer::CameraSet(float _DeltaTime)
 	{
 		GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
 
+	}
+	
+	FVector WallCheck = GetActorLocation();
+	if (CPos.X > WallCheck.X - 45)
+	{
+		MoveVector = FVector::Zero;
+		//MoveVector += _DirDelta * MoveAcc;
+		return;
 	}
 }
 void APlayer::CalLastMoveVector(float _DeltaTime)
