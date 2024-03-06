@@ -125,5 +125,6 @@ private:
 	void ColorJump();
 	void HillUP(Color8Bit _Color);
 	void PlayerGo();
+	void WallCheck();
 };
 

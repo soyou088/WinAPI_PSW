@@ -120,6 +120,17 @@ void APlayer::AddMoveVector(const FVector& _DirDelta)
 	{
 		MoveVector += _DirDelta * SkateMoveVector;
 	}
+
+	FVector WallCheck = GetActorLocation();
+	FVector CPos = GetWorld()->GetCameraPos();
+	if (CPos.X >= WallCheck.X - 45)
+	{
+		MoveVector = FVector::Zero;
+		return;
+	}
+
+
+
 }
 
 void APlayer::CalMoveVector(float _DeltaTime)
@@ -203,6 +214,17 @@ void APlayer::PlayerGo()
 {
 	GetWorld()->AddCameraPos({ 11000,0 });
 	AddActorLocation({ 11000,0 });
+}
+
+void APlayer::WallCheck()
+{
+	FVector WallCheck = GetActorLocation();
+	FVector CPos = GetWorld()->GetCameraPos();
+	if (CPos.X >= WallCheck.X - 5)
+	{
+		return;
+	}
+
 }
 
 void APlayer::ColorJump()
@@ -879,6 +901,7 @@ void APlayer::Tick(float _DeltaTime)
 	FVector PlayerPos = GetActorLocation();
 
 	UEngineDebug::DebugTextPrint("X : " + std::to_string(PlayerPos.X) + ", Y : " + std::to_string(PlayerPos.Y), 30.0f);
+
 
 }
 
