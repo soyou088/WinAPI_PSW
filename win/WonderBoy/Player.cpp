@@ -160,9 +160,8 @@ void APlayer::CameraSet(float _DeltaTime)
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() + 300, Color8Bit(0, 0, 0, 0));
 		while (Color == Color8Bit::MagentaA)
 		{
-			Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() - 1000 , Color8Bit(0,0,0,0));
+			Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() - 10000 , Color8Bit(0,0,0,0));
 			GetWorld()->AddCameraPos(FVector::Up);
-				
 		}
 	
 	FVector PPos = GetActorLocation();
@@ -192,7 +191,6 @@ void APlayer::HillUP(Color8Bit _Color)
 		if (Color == _Color)
 		{
 			AddActorLocation(FVector::Up);
-			GetWorld()->AddCameraPos(FVector::Up);
 		}
 		else
 		{
@@ -600,7 +598,6 @@ void APlayer::Move(float _DeltaTime)
 		AddMoveVector(FVector::Left * _DeltaTime + JumpVector);
 	}
 
-
 	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress(VK_SPACE))
 	{
 		AddMoveVector(FVector::Right * _DeltaTime + JumpVector);
@@ -717,10 +714,12 @@ void APlayer::Jump(float _DeltaTime)
 void APlayer::SkateMove(float _DeltaTime)
 {
 
-	SkateMoveVector += SkateMoveVector * _DeltaTime;
+	SkateMoveVector = SkateMoveVector * _DeltaTime;
 
 	DirCheck();
-	MoveUpdate(_DeltaTime);
+	// 가만히 있어도 앞으로 가는 상태
+	// 상태는 함수
+	AddActorLocation(SkateMoveVector * _DeltaTime);
 
 	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
@@ -736,7 +735,7 @@ void APlayer::SkateMove(float _DeltaTime)
 		default:
 			break;
 		}
-		if (70.0f <= abs(SkateMoveVector.X))
+		if (10.0f <= abs(MoveVector.X))
 		{
 			AddMoveVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
 		}
@@ -747,6 +746,9 @@ void APlayer::SkateMove(float _DeltaTime)
 			return;
 		}
 	}
+
+	MoveUpdate(_DeltaTime);
+	CameraSet(_DeltaTime);
 
 
 	if (UEngineInput::IsPress(VK_LEFT))
