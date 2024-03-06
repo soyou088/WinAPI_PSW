@@ -34,7 +34,7 @@ void UPlayLevel::BeginPlay()
 
 	ABonfire* Bonfire = SpawnActor<ABonfire>();
 	Bonfire->SetName("Bonfire");
-	Bonfire->SetActorLocation({ 11234,874 });
+	Bonfire->SetActorLocation({ 11234,880 });
 
 
 	APlayer* Player = SpawnActor<APlayer>();
