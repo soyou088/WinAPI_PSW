@@ -124,5 +124,6 @@ private:
 	void MoveUpdate(float _DeltaTime);
 	void ColorJump();
 	void HillUP(Color8Bit _Color);
+	void PlayerGo();
 };
 
