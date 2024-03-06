@@ -6,8 +6,8 @@
 enum WonderRenderOrder
 {
 	Map,
-	PlayerBullet,
 	Monster,
+	PlayerBullet,
 	Player,
 	Skate,
 };

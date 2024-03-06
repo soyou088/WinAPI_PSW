@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Monster.h"
 #include "Bee.h"
+#include "Bonfire.h"
 #include "BackGroundMap.h"
 #include "BulletActor.h"
 #include <EngineCore\EngineCore.h>
@@ -31,6 +32,9 @@ void UPlayLevel::BeginPlay()
 	Bee->SetName("Bee");
 	Bee->SetActorLocation({ 200, 800 });
 
+	ABonfire* Bonfire = SpawnActor<ABonfire>();
+	Bonfire->SetName("Bonfire");
+	Bonfire->SetActorLocation({ 11234,874 });
 
 
 	APlayer* Player = SpawnActor<APlayer>();

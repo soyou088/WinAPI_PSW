@@ -47,6 +47,12 @@
     <ClInclude Include="Bee.h">
       <Filter>PlayLevel\MonsterActor</Filter>
     </ClInclude>
+    <ClInclude Include="Bonfire.h">
+      <Filter>PlayLevel\MonsterActor</Filter>
+    </ClInclude>
+    <ClInclude Include="Agg.h">
+      <Filter>PlayLevel\MonsterActor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -73,6 +79,12 @@
       <Filter>PlayLevel\BulletActor</Filter>
     </ClCompile>
     <ClCompile Include="Bee.cpp">
+      <Filter>PlayLevel\MonsterActor</Filter>
+    </ClCompile>
+    <ClCompile Include="Bonfire.cpp">
+      <Filter>PlayLevel\MonsterActor</Filter>
+    </ClCompile>
+    <ClCompile Include="Agg.cpp">
       <Filter>PlayLevel\MonsterActor</Filter>
     </ClCompile>
   </ItemGroup>
