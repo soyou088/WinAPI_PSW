@@ -13,7 +13,7 @@ void Agg::BeginPlay()
 	AActor::BeginPlay();
 
 	{
-		Render = CreateImageRenderer(WonderRenderOrder::Monster);
+		Render = CreateImageRenderer(WonderRenderOrder::Object);
 		Render->SetImage("Agg.png");
 		Render->SetTransform({ {0, 0 }, {400, 400} });
 
@@ -25,6 +25,8 @@ void Agg::BeginPlay()
 		Render->CreateAnimation("Destory_Agg", "Agg.png", 1, 1, 0.1f, true);
 	}
 }
+
+
 
 void Agg::Tick(float _DeltaTime)
 {

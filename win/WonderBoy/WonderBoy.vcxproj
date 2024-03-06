@@ -40,6 +40,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Jumpping.h" />
     <ClInclude Include="Monster.h">
       <SubType>
       </SubType>
@@ -87,6 +88,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Jumpping.cpp" />
     <ClCompile Include="Monster.cpp">
       <SubType>
       </SubType>

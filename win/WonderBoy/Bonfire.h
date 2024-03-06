@@ -27,5 +27,7 @@ protected:
 private:
 	UImageRenderer* Render = nullptr;
 
+	UCollision* Collision = nullptr;
+
 };
 

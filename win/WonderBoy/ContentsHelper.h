@@ -7,6 +7,7 @@ enum WonderRenderOrder
 {
 	Map,
 	Monster,
+	Object,
 	PlayerBullet,
 	Player,
 	Skate,

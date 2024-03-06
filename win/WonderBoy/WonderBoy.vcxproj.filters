@@ -19,6 +19,9 @@
     <Filter Include="PlayLevel\BulletActor">
       <UniqueIdentifier>{8b545868-2765-416f-b7fc-3385a18a0380}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayLevel\ObjectActor">
+      <UniqueIdentifier>{c0088058-63c4-49f7-b80b-b7473e4866ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGroundMap.h">
@@ -51,7 +54,10 @@
       <Filter>PlayLevel\MonsterActor</Filter>
     </ClInclude>
     <ClInclude Include="Agg.h">
-      <Filter>PlayLevel\MonsterActor</Filter>
+      <Filter>PlayLevel\ObjectActor</Filter>
+    </ClInclude>
+    <ClInclude Include="Jumpping.h">
+      <Filter>PlayLevel\ObjectActor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -85,7 +91,10 @@
       <Filter>PlayLevel\MonsterActor</Filter>
     </ClCompile>
     <ClCompile Include="Agg.cpp">
-      <Filter>PlayLevel\MonsterActor</Filter>
+      <Filter>PlayLevel\ObjectActor</Filter>
+    </ClCompile>
+    <ClCompile Include="Jumpping.cpp">
+      <Filter>PlayLevel\ObjectActor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

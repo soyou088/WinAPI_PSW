@@ -26,5 +26,9 @@ protected:
 	std::string CurAnimationName = "None";
 private:
 	UImageRenderer* Render = nullptr;
+
+	UCollision* Collision = nullptr;
+	
+
 };
 

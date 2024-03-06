@@ -63,7 +63,7 @@ void APlayer::BeginPlay()
 	{
 		// Player Collision
 		Collision = CreateCollision(WonderCollisionOrder::Player);
-		Collision->SetScale({ 10, 100 });
+		Collision->SetScale({ 150, 150 });
 		Collision->SetColType(ECollisionType::Rect);
 	}
 
@@ -178,7 +178,7 @@ void APlayer::CameraSet(float _DeltaTime)
 	FVector WallCheck = GetActorLocation();
 	if (CPos.X > WallCheck.X - 45)
 	{
-		MoveVector = FVector::Zero;
+		MoveVector = FVector::Right;
 		//MoveVector += _DirDelta * MoveAcc;
 		return;
 	}

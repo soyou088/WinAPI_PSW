@@ -121,7 +121,7 @@ void ABee::Move(float _DeltaTime)
 
 void ABee::Destroy()
 {
-	Destroy();
+	//Destroy();
 }
 
 
