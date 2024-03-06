@@ -157,10 +157,10 @@ void APlayer::MoveLastMoveVector(float _DeltaTime)
 void APlayer::CameraSet(float _DeltaTime)
 {
 	FVector CPos = GetWorld()->GetCameraPos();
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() + 300, Color8Bit::MagentaA);
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() + 300, Color8Bit(0, 0, 0, 0));
 		while (Color == Color8Bit::MagentaA)
 		{
-			Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() + 300, Color8Bit::MagentaA);
+			Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() - 1000 , Color8Bit(0,0,0,0));
 			GetWorld()->AddCameraPos(FVector::Up);
 				
 		}
@@ -213,7 +213,6 @@ void APlayer::ColorJump()
 
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
-		GetWorld()->AddCameraPos(FVector::Up);
 		JumpVector = FVector::Zero;
 		StateChange(EPlayState::Move);
 		return;
@@ -613,11 +612,11 @@ void APlayer::Move(float _DeltaTime)
 		return;
 	}
 
-	if (true == UEngineInput::IsPress('Q') && UEngineInput::IsPress(VK_RIGHT))
-	{
-		StateChange(EPlayState::Run);
-		return;
-	}
+	//if (true == UEngineInput::IsPress('Q') && UEngineInput::IsPress(VK_RIGHT))
+	//{
+	//	StateChange(EPlayState::Run);
+	//	return;
+	//}
 
 	FVector CheckPos = GetActorLocation();
 	switch (DirState)
