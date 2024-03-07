@@ -140,6 +140,7 @@ void APlayer::CalMoveVector(float _DeltaTime)
 		break;
 	}
 	CheckPos.Y -= 30;
+
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::MagentaA);
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
@@ -198,7 +199,6 @@ void APlayer::HillUP(Color8Bit _Color)
 	// _Color 일때 FVector UP한다.
 	while (true)
 	{
-
 		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 1, Color8Bit::MagentaA);
 		if (Color == _Color)
 		{
@@ -242,6 +242,33 @@ void APlayer::ColorJump()
 
 void APlayer::SkateBrake(float _DeltaTime)
 {
+}
+
+void APlayer::ColMonster()
+{
+	//std::vector<UCollision*> Result;
+	//if (true == Collision->CollisionCheck(WonderCollisionOrder::Player, Result))
+	//{
+
+	//}
+}
+
+void APlayer::Bullet()
+{
+	FVector BPos = GetActorLocation();
+	ABulletActor* Bullet = GetWorld()->SpawnActor<ABulletActor>();
+	Bullet->SetName("Bullet");
+	Bullet->DirState = DirState;
+	
+	if (DirState == EActorDir::Right)
+	{
+		Bullet->SetActorLocation({ BPos.X + 5 ,BPos.Y - 60 });
+	}
+	else
+	{
+		Bullet->SetActorLocation({ BPos.X - 5 ,BPos.Y - 60 });
+	}
+	return;
 }
 
 void APlayer::Attack(float _DeltaTime)
@@ -440,14 +467,7 @@ void APlayer::StateUpdate(float _DeltaTime)
 }
 
 
-void APlayer::Bullet()
-{
-	FVector BPos = GetActorLocation();
-	ABulletActor* Bullet = GetWorld()->SpawnActor<ABulletActor>();
-	Bullet->SetName("Bullet");
-	Bullet->SetActorLocation({ BPos.X + 5 ,BPos.Y - 60 });
-	return;
-}
+
 
 void APlayer::CameraFreeMove(float _DeltaTime)
 {
@@ -539,7 +559,7 @@ void APlayer::Idle(float _DeltaTime)
 	}
 
 	if (
-		true == UEngineInput::IsDown(VK_SPACE)
+		true == UEngineInput::IsDown('W')
 		)
 	{
 		StateChange(EPlayState::Jump);
@@ -571,6 +591,9 @@ void APlayer::Move(float _DeltaTime)
 {
 	DirCheck();
 	MoveUpdate(_DeltaTime);
+
+
+
 
 	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
@@ -610,18 +633,18 @@ void APlayer::Move(float _DeltaTime)
 		AddMoveVector(FVector::Right * _DeltaTime);
 	}
 
-	if (true == UEngineInput::IsPress(VK_SPACE))
+	if (true == UEngineInput::IsPress('W'))
 	{
 		StateChange(EPlayState::Jump);
 		return;
 	}
 
-	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress(VK_SPACE))
+	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress('W'))
 	{
 		AddMoveVector(FVector::Left * _DeltaTime + JumpVector);
 	}
 
-	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress(VK_SPACE))
+	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress('W'))
 	{
 		AddMoveVector(FVector::Right * _DeltaTime + JumpVector);
 	}
@@ -692,7 +715,7 @@ void APlayer::Run(float _DeltaTime)
 		AddMoveVector(FVector::Right + RunVector);
 	}
 
-	if (true == UEngineInput::IsDown(VK_SPACE))
+	if (true == UEngineInput::IsDown('W'))
 	{
 		StateChange(EPlayState::Jump);
 		return;
@@ -791,13 +814,13 @@ void APlayer::SkateMove(float _DeltaTime)
 		return;
 	}
 
-	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress(VK_SPACE))
+	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress('W'))
 	{
 		AddMoveVector(FVector::Left * _DeltaTime + JumpVector);
 	}
 
 
-	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress(VK_SPACE))
+	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress('W'))
 	{
 		AddMoveVector(FVector::Right * _DeltaTime + JumpVector);
 	}
@@ -884,6 +907,13 @@ void APlayer::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 	StateUpdate(_DeltaTime);
+	FVector PlayerPos = GetActorLocation();
+
+	if (true == UEngineInput::IsDown('I'))
+	{
+		SetActorLocation({ PlayerPos.X,GetWorld()->GetCameraPos().Y-300  });
+		GravityVector = FVector::Zero;
+	}
 
 	std::vector<UCollision*> Result;
 	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Monster, Result))
@@ -899,7 +929,7 @@ void APlayer::Tick(float _DeltaTime)
 		MsgBoxAssert("플레이어가 존재하지 않습니다.");
 	}
 
-	FVector PlayerPos = GetActorLocation();
+
 
 	UEngineDebug::DebugTextPrint("X : " + std::to_string(PlayerPos.X) + ", Y : " + std::to_string(PlayerPos.Y), 30.0f);
 

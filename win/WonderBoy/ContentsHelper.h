@@ -3,7 +3,7 @@
 #include <EngineCore\EngineCore.h>
 #include <EngineCore\ImageRenderer.h>
 
-enum WonderRenderOrder
+enum class WonderRenderOrder
 {
 	Map,
 	Monster,
@@ -15,9 +15,11 @@ enum WonderRenderOrder
 
 enum class WonderCollisionOrder
 {
-	PlayerBullet,
-	Monster,
-	Player
+	PlayerBullet, // µ¹µµ³¢
+	Object,
+	Monster, 
+	Player,
+
 };
 
 enum class EActorDir

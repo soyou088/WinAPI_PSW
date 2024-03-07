@@ -50,12 +50,30 @@ void ABulletActor::Tick(float _DeltaTime)
 
 		FVector BulletDirNormal = BulletDir.Normalize2DReturn();
 	}
+
+	//std::vector<UCollision*> Result;
+	//if (true == BCollision->CollisionCheck(WonderCollisionOrder::Monster, Result))
+	//{
+	//	Result[0]->GetOwner()
+	//	
+	//		
+	//	return;
+	//}
+
 }
 
 void ABulletActor::Move(float _DeltaTime)
 {
-	AddActorLocation(BulletAcc * _DeltaTime);
 	CalGravityVector(_DeltaTime);
+	if (DirState == EActorDir::Left)
+	{
+		AddActorLocation(-BulletAcc * _DeltaTime);
+	}
+	else
+	{
+
+		AddActorLocation(BulletAcc * _DeltaTime);
+	}
 	AddActorLocation(GravityVector * _DeltaTime);
 }
 

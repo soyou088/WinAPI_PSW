@@ -12,7 +12,6 @@ void AAgg::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	{
 		Render = CreateImageRenderer(WonderRenderOrder::Object);
 		Render->SetImage("Agg.png");
 		Render->SetTransform({ {0, 0 }, {400, 400} });
@@ -21,14 +20,14 @@ void AAgg::BeginPlay()
 		Render->ChangeAnimation("Idel_Agg");
 
 		Render->CreateAnimation("Destory_Agg", "Agg.png", 1, 1, 0.1f, true);
-	}
 
-	{
-		Collision = CreateCollision(WonderCollisionOrder::Player);
+		Collision = CreateCollision(WonderCollisionOrder::Object);
 		Collision->SetPosition({ 0,-30 });
 		Collision->SetScale({ 70, 50 });
 		Collision->SetColType(ECollisionType::Rect);
-	}
+
+
+
 }
 
 

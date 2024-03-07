@@ -16,13 +16,14 @@ public:
 	ABulletActor(ABulletActor&& _Other) noexcept = delete;
 	ABulletActor& operator=(const ABulletActor& _Other) = delete;
 	ABulletActor& operator=(ABulletActor&& _Other) noexcept = delete;
+	
+	EActorDir DirState = EActorDir::Right;
 
 protected:
 	void BeginPlay();
 	void Tick(float _DeltaTime) override;
 	void CalGravityVector(float _DeltaTime);
 
-	EActorDir DirState = EActorDir::Right;
 
 private:
 
