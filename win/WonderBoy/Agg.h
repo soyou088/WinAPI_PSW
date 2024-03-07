@@ -3,22 +3,25 @@
 #include "ContentsHelper.h"
 
 // Ό³Έν :
-class Agg : public AActor
+class AAgg : public AActor
 {
 public:
 	// constrcuter destructer
-	Agg();
-	~Agg();
+	AAgg();
+	~AAgg();
 
 	// delete Function
-	Agg(const Agg& _Other) = delete;
-	Agg(Agg&& _Other) noexcept = delete;
-	Agg& operator=(const Agg& _Other) = delete;
-	Agg& operator=(Agg&& _Other) noexcept = delete;
+	AAgg(const AAgg& _Other) = delete;
+	AAgg(AAgg&& _Other) noexcept = delete;
+	AAgg& operator=(const AAgg& _Other) = delete;
+	AAgg& operator=(AAgg&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay();
 	void Tick(float _DeltaTime) override;
+
+
+	void ColAgg();
 
 	std::string GetAnimationName(std::string _Name);
 	EPlayState State = EPlayState::None;

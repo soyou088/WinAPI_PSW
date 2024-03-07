@@ -1,14 +1,14 @@
 #include "Agg.h"
 
-Agg::Agg()
+AAgg::AAgg()
 {
 }
 
-Agg::~Agg()
+AAgg::~AAgg()
 {
 }
 
-void Agg::BeginPlay()
+void AAgg::BeginPlay()
 {
 	AActor::BeginPlay();
 
@@ -27,7 +27,13 @@ void Agg::BeginPlay()
 }
 
 
+void AAgg::ColAgg()
+{
 
-void Agg::Tick(float _DeltaTime)
+
+}
+
+void AAgg::Tick(float _DeltaTime)
 {
 }
+

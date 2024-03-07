@@ -3,6 +3,8 @@
 #include "Monster.h"
 #include "Bee.h"
 #include "Bonfire.h"
+#include "Jumpping.h"
+#include "Agg.h"
 #include "BackGroundMap.h"
 #include "BulletActor.h"
 #include <EngineCore\EngineCore.h>
@@ -36,13 +38,18 @@ void UPlayLevel::BeginPlay()
 	Bonfire->SetName("Bonfire");
 	Bonfire->SetActorLocation({ 11234,880 });
 
+	AJumpping* Jumpping = SpawnActor<AJumpping>();
+	Jumpping->SetName("Jumpping");
+	Jumpping->SetActorLocation({ 17875,890 });
+
+	AAgg* Agg = SpawnActor<AAgg>();
+	Agg->SetName("Agg");
+	Agg->SetActorLocation({ 200,875 });
 
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");
 	Player->SetActorLocation({ 150, 873 });
 	//Player->SetActorLocation({150, 200});
-
-
 
 }
 
