@@ -27,39 +27,30 @@ void AAgg::BeginPlay()
 		Collision->SetColType(ECollisionType::Rect);
 }
 
-//void AAgg::ColAgg()
-//{
-//	AddActorLocation(JumpVector * JumpPower);
-//}
-
 void AAgg::CalGravityVector(float _DeltaTime)
 {
 	GravityVector += GravityAcc * _DeltaTime;
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 
-	if (Color == Color8Bit(255, 0, 255, 0))
+	if (Color == Color8Bit::MagentaA)
 	{
 		GravityVector = FVector::Zero;
 	}
 }
 
-void AAgg::CalLastMoveVector(float _DeltaTime)
-{
-	LastMoveVector = LastMoveVector + MoveVector;
-	LastMoveVector = LastMoveVector + JumpVector;
-	LastMoveVector = LastMoveVector + GravityVector;
-}
 
-void AAgg::MoveLastMoveVector(float _DeltaTime)
+void AAgg::TestMove(float _DeltaTime)
 {
-	AddActorLocation(LastMoveVector * _DeltaTime);
-}
-
-void AAgg::MoveUpdate(float _DeltaTime)
-{
-	CalLastMoveVector(_DeltaTime);
 	CalGravityVector(_DeltaTime);
-	MoveLastMoveVector(_DeltaTime);
+	AddActorLocation(JumpVector + MoveVector * _DeltaTime);
+	if (true)
+	{
+
+	}
+	AddActorLocation(GravityVector * _DeltaTime);
+
+	int a = 0;
+
 }
 
 
@@ -71,8 +62,7 @@ void AAgg::Tick(float _DeltaTime)
 		AActor* MCol = Result[0]->GetOwner();
 		// 닿았을때 포물선을 그린다 , GetColor하고 Destroy
 		Render->ChangeAnimation("Destory_Agg");
-		MoveUpdate(_DeltaTime);
-
+		TestMove(_DeltaTime);
 	}
 }
 

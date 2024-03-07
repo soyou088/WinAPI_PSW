@@ -59,8 +59,6 @@ void ABulletActor::Tick(float _DeltaTime)
 		AActor* Ptr = BCollision->GetOwner();
 		AMonster* Monster = dynamic_cast<AMonster*>(Ptr);
 		
-		
-
 		return;
 	}
 
@@ -78,6 +76,8 @@ void ABulletActor::Move(float _DeltaTime)
 		AddActorLocation(BulletAcc * _DeltaTime);
 	}
 	AddActorLocation(GravityVector * _DeltaTime);
+
+	int a = 0;
 }
 
 void ABulletActor::CalGravityVector(float _DeltaTime)

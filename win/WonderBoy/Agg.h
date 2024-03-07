@@ -44,6 +44,7 @@ private:
 	void CalGravityVector(float _DeltaTime);
 	void CalLastMoveVector(float _DeltaTime);
 	void MoveLastMoveVector(float _DeltaTime);
+	void TestMove(float _DeltaTime);
 
 };
 
