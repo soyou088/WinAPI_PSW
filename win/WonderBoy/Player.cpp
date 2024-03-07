@@ -785,7 +785,7 @@ void APlayer::SkateMove(float _DeltaTime)
 		AddMoveVector(FVector::Right * _DeltaTime);
 	}
 
-	if (true == UEngineInput::IsPress('H'))
+	if (true == UEngineInput::IsPress('W'))
 	{
 		StateChange(EPlayState::SkateJump);
 		return;
