@@ -49,7 +49,7 @@ void ABee::BeginPlay()
 		Render->CreateAnimation("Move_Bee", "Bee.png", 0, 1, 0.1f, true); // 움직이는 상태
 		Render->ChangeAnimation("Move_Bee");
 
-		Render->CreateAnimation("Destroy_Bee", "Bee.png", 2, 2, 1.0f, true);
+		//Render->CreateAnimation("Destroy_Bee", "Bee.png", 2, 2, 1.0f, true);
 	}
 }
 

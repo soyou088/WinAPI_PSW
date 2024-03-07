@@ -63,7 +63,8 @@ void APlayer::BeginPlay()
 	{
 		// Player Collision
 		Collision = CreateCollision(WonderCollisionOrder::Player);
-		Collision->SetScale({ 150, 150 });
+		Collision->SetPosition({ 0,-50 });
+		Collision->SetScale({ 50, 90 });
 		Collision->SetColType(ECollisionType::Rect);
 	}
 

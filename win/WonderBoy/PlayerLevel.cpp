@@ -36,7 +36,7 @@ void UPlayLevel::BeginPlay()
 
 	ABonfire* Bonfire = SpawnActor<ABonfire>();
 	Bonfire->SetName("Bonfire");
-	Bonfire->SetActorLocation({ 11234,880 });
+	Bonfire->SetActorLocation({ 11234,885 });
 
 	AJumpping* Jumpping = SpawnActor<AJumpping>();
 	Jumpping->SetName("Jumpping");
