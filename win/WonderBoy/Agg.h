@@ -20,18 +20,30 @@ protected:
 	void BeginPlay();
 	void Tick(float _DeltaTime) override;
 
-
 	void ColAgg();
 
 	std::string GetAnimationName(std::string _Name);
-	EPlayState State = EPlayState::None;
+	EPlayState State = EPlayState::Jump;
 	EActorDir DirState = EActorDir::Right;
 	std::string CurAnimationName = "None";
 private:
 	UImageRenderer* Render = nullptr;
 
 	UCollision* Collision = nullptr;
+
+	FVector LastMoveVector = FVector::Zero;
 	
+	FVector MoveVector = FVector::Right * 30.0f;
+
+	FVector JumpVector = FVector::Up * 70.0f;
+
+	FVector GravityAcc = FVector::Down * 2000.0f;
+	FVector GravityVector = FVector::Zero;
+
+	void MoveUpdate(float _DeltaTime);
+	void CalGravityVector(float _DeltaTime);
+	void CalLastMoveVector(float _DeltaTime);
+	void MoveLastMoveVector(float _DeltaTime);
 
 };
 

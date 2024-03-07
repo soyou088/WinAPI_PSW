@@ -28,7 +28,6 @@ void UPlayLevel::BeginPlay()
 
 	AMonster* Monster = SpawnActor<AMonster>();
 	Monster->SetName("Monster");
-	//Monster->SetActorLocation({ 200, 873 });
 	
 	ABee* Bee = SpawnActor<ABee>();
 	Bee->SetName("Bee");
@@ -44,12 +43,11 @@ void UPlayLevel::BeginPlay()
 
 	AAgg* Agg = SpawnActor<AAgg>();
 	Agg->SetName("Agg");
-	Agg->SetActorLocation({ 200,875 });
+	Agg->SetActorLocation({ 250,875 });
 
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");
 	Player->SetActorLocation({ 150, 873 });
-	//Player->SetActorLocation({150, 200});
 
 }
 

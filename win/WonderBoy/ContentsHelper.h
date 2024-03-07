@@ -16,8 +16,8 @@ enum class WonderRenderOrder
 enum class WonderCollisionOrder
 {
 	PlayerBullet, // µ¹µµ³¢
-	Object,
 	Monster, 
+	Object,
 	Player,
 
 };

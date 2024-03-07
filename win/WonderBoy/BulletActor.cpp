@@ -1,5 +1,6 @@
 #include "BulletActor.h"
 #include "ContentsHelper.h"
+#include "Monster.h"
 #include <EnginePlatform\EngineInput.h>
 #include <EngineBase\EngineDebug.h>
 
@@ -51,14 +52,17 @@ void ABulletActor::Tick(float _DeltaTime)
 		FVector BulletDirNormal = BulletDir.Normalize2DReturn();
 	}
 
-	//std::vector<UCollision*> Result;
-	//if (true == BCollision->CollisionCheck(WonderCollisionOrder::Monster, Result))
-	//{
-	//	Result[0]->GetOwner()
-	//	
-	//		
-	//	return;
-	//}
+	std::vector<UCollision*> Result;
+	if (true == BCollision->CollisionCheck(WonderCollisionOrder::Monster, Result))
+	{
+		UCollision* BCollision = Result[0];
+		AActor* Ptr = BCollision->GetOwner();
+		AMonster* Monster = dynamic_cast<AMonster*>(Ptr);
+		
+		
+
+		return;
+	}
 
 }
 
@@ -71,7 +75,6 @@ void ABulletActor::Move(float _DeltaTime)
 	}
 	else
 	{
-
 		AddActorLocation(BulletAcc * _DeltaTime);
 	}
 	AddActorLocation(GravityVector * _DeltaTime);

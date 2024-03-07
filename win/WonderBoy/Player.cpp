@@ -307,7 +307,6 @@ void APlayer::CalGravityVector(float _DeltaTime)
 	{
 		GravityVector = FVector::Zero;
 	}
-
 }
 
 void APlayer::IdleStart()
@@ -916,9 +915,12 @@ void APlayer::Tick(float _DeltaTime)
 	}
 
 	std::vector<UCollision*> Result;
-	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Monster, Result))
+	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Object, Result))
 	{
 		AActor* MCol = Result[0]->GetOwner();
+		
+
+		
 		Renderer->ChangeAnimation("Death");
 
 	}

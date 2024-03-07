@@ -29,7 +29,7 @@ private:
 	UImageRenderer* Frog = nullptr;
 	UImageRenderer* Bonfire = nullptr;
 
-	UCollision* Collision;
+	UCollision* Collision = nullptr;
 
 	FVector MoveVector = FVector::Left * 500.0f;
 
