@@ -16,10 +16,10 @@ void AMonster::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	
+
 		Snail = CreateImageRenderer(WonderRenderOrder::Monster);
 		Snail->SetImage("Monster1.png");
-		Snail->SetTransform({ {200, 873 }, {200, 200} });
+		Snail->SetTransform({ {0,0 }, {200, 200} });
 
 		Snail->CreateAnimation("Move_Monster", "Monster1.png", 0, 1, 1.0f, true); // 움직이는 상태
 		Snail->ChangeAnimation("Move_Monster");
@@ -48,8 +48,8 @@ void AMonster::BeginPlay()
 
 	
 		Collision = CreateCollision(WonderCollisionOrder::Monster);
-		Collision->SetPosition({ 0,-30 });
-		Collision->SetScale({ 100, 100 });
+		Collision->SetPosition({ 0,-28 });
+		Collision->SetScale({ 50, 50 });
 		Collision->SetColType(ECollisionType::Rect);
 	
 }
@@ -81,14 +81,36 @@ void AMonster::MoveFront(float _DeltaTime)
 	AddActorLocation(FVector::Left);
 }
 
+void AMonster::CalGravityVector(float _DeltaTime)
+{
+	GravityVector += GravityAcc * _DeltaTime;
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 5, Color8Bit::MagentaA);
+
+	if (Color == Color8Bit::MagentaA)
+	{
+		GravityVector = FVector::Zero;
+		ColGra = true;
+	}
+}
+
+void AMonster::DesMoveUpdate(float _DeltaTime)
+{
+	CalGravityVector(_DeltaTime);
+	AddActorLocation((JumpVector + ColMoveVector) * _DeltaTime);
+	AddActorLocation(GravityVector * _DeltaTime);
+
+	if (ColSnail == true && ColGra == true)
+	{
+		Destroy();
+	}
+
+
+	int a = 0;
+}
+
 void AMonster::MoveUpdate(float _DeltaTime)
 {
 	MoveVector += MoveVector * _DeltaTime;
-}
-
-void AMonster::Destroy()
-{
-	// 무기에 닿으면 파괴된다.
 }
 
 void AMonster::Tick(float _DeltaTime)
@@ -101,5 +123,12 @@ void AMonster::Tick(float _DeltaTime)
 	{
 		AActor* MCol = Result[0]->GetOwner();
 		Snail->ChangeAnimation("Death_Monster");
+		ColSnail = true;
+	}
+
+	if (ColSnail == true)
+	{
+		DesMoveUpdate(_DeltaTime);
+
 	}
 }

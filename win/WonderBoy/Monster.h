@@ -31,13 +31,25 @@ private:
 
 	UCollision* Collision = nullptr;
 
+	FVector GravityAcc = FVector::Down * 2000.0f;
+	FVector GravityVector = FVector::Zero;
+
 	FVector MoveVector = FVector::Left * 500.0f;
 
+	FVector JumpVector = FVector::Up * 500.0f;
+
+	FVector ColMoveVector = FVector::Right * 100.0f;
+
+
+	bool ColGra = false;
+	bool ColSnail = false;
 
 	void AddMoveVector(float _DeltaTime);
-	void Destroy();
 	void MoveUpdate(float _DeltaTime);
 	void HillDown();
 	void MoveFront(float _DeltaTime);
+	void DesMoveUpdate(float _DeltaTime);
+	void CalGravityVector(float _DeltaTime);
+
 };
 
