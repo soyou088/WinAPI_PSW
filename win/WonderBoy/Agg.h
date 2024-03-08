@@ -20,7 +20,6 @@ protected:
 	void BeginPlay();
 	void Tick(float _DeltaTime) override;
 
-	void ColAgg();
 
 	std::string GetAnimationName(std::string _Name);
 	EPlayState State = EPlayState::Jump;
@@ -33,17 +32,16 @@ private:
 
 	FVector LastMoveVector = FVector::Zero;
 	
-	FVector MoveVector = FVector::Right * 30.0f;
+	FVector MoveVector = FVector::Right * 100.0f;
 
-	FVector JumpVector = FVector::Up * 70.0f;
+	FVector JumpVector = FVector::Up * 700.0f;
 
 	FVector GravityAcc = FVector::Down * 2000.0f;
 	FVector GravityVector = FVector::Zero;
 
-	void MoveUpdate(float _DeltaTime);
+	bool ColGra = false;
+	bool ColAgg = false;
 	void CalGravityVector(float _DeltaTime);
-	void CalLastMoveVector(float _DeltaTime);
-	void MoveLastMoveVector(float _DeltaTime);
 	void TestMove(float _DeltaTime);
 
 };

@@ -49,6 +49,8 @@ void UWonderCore::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Bullet_C.png", 4, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Skate_R.png", 5, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Skate_L.png", 5, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Effect.png", 1, 1);
+
 
 	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Title"));
 
