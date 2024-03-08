@@ -39,7 +39,7 @@ void UWonderCore::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Player_1_L.png", 6, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Monster1.png", 3, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Bee.png", 3, 1);
-	UEngineResourcesManager::GetInst().CuttingImage("Snake.png", 4, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Snake2.png", 14, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Bonfire_2_2.png", 3, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Stone.png", 4, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Agg.png", 2, 1);

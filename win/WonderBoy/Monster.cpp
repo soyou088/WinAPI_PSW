@@ -25,15 +25,7 @@ void AMonster::BeginPlay()
 		Snail->ChangeAnimation("Move_Monster");
 
 		Snail->CreateAnimation("Death_Monster", "Monster1.png", 2, 2, 0.0f, true);
-	
-	//{
-	//	Snake = CreateImageRenderer(WonderRenderOrder::Monster);
-	//	Snake->SetImage("Snake.png");
-	//	Snake->SetTransform({ {200, 873 }, {400, 400} });
 
-	//	Snake->CreateAnimation("Move_Snake", "Snake.png", 0, 1, 1.0f, true); // 움직이는 상태
-	//	Snake->ChangeAnimation("Move_Snake");
-	//}
 
 	//{
 	//	Frog = CreateImageRenderer(WonderRenderOrder::Monster);
