@@ -32,7 +32,7 @@ void UPlayLevel::BeginPlay()
 
 	ABee* Bee = SpawnActor<ABee>();
 	Bee->SetName("Bee");
-	Bee->SetActorLocation({ 200, 800 });
+	Bee->SetActorLocation({ 500, 800 });
 
 	ABonfire* Bonfire = SpawnActor<ABonfire>();
 	Bonfire->SetName("Bonfire");

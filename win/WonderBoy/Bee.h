@@ -29,7 +29,6 @@ protected:
 	void MoveStart();
 	void DestroyStart();
 
-	void Move(float _DeltaTime);
 
 	std::string GetAnimationName(std::string _Name);
 	EPlayState State = EPlayState::None;
@@ -43,7 +42,18 @@ private:
 	FVector MoveVector = FVector::Left * 50.0f;
 	FVector DownMove = FVector::Down* 130.0f;
 	
+	FVector JumpVector = FVector::Up * 500.0f;
+	
+	FVector GravityAcc = FVector::Down * 2000.0f;
+	FVector GravityVector = FVector::Zero;
 
-	void Destroy();
+	FVector ColMoveVector = FVector::Right * 100.0f;
+	
+	bool ColGra = false;
+	bool ColBee = false;
+
+	void CalGravityVector(float _DeltaTime);
+	void Move(float _DeltaTime);
+	void DesMoveUpdate(float _DeltaTime);
 };
 

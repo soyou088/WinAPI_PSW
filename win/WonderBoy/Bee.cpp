@@ -41,7 +41,6 @@ void ABee::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	{
 		Render = CreateImageRenderer(WonderRenderOrder::Monster);
 		Render->SetImage("Bee.png");
 		Render->SetTransform({ {0, 0 }, {400, 400} });
@@ -49,8 +48,14 @@ void ABee::BeginPlay()
 		Render->CreateAnimation("Move_Bee", "Bee.png", 0, 1, 0.1f, true); // 움직이는 상태
 		Render->ChangeAnimation("Move_Bee");
 
-		//Render->CreateAnimation("Destroy_Bee", "Bee.png", 2, 2, 1.0f, true);
-	}
+		Render->CreateAnimation("Destroy_Bee", "Bee.png", 2, 2, 1.0f, true);
+
+
+
+		Collision = CreateCollision(WonderCollisionOrder::Monster);
+		Collision->SetPosition({ 0,0 });
+		Collision->SetScale({ 50, 50 });
+		Collision->SetColType(ECollisionType::Rect);
 }
 
 void ABee::MoveStart()
@@ -100,6 +105,17 @@ void ABee::StateUpdate(float _DeltaTime)
 
 }
 
+void ABee::CalGravityVector(float _DeltaTime)
+{
+	GravityVector += GravityAcc * _DeltaTime;
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 5, Color8Bit::MagentaA);
+
+	if (Color == Color8Bit::MagentaA)
+	{
+		GravityVector = FVector::Zero;
+		ColGra = true;
+	}
+}
 
 void ABee::Move(float _DeltaTime)
 {
@@ -118,10 +134,19 @@ void ABee::Move(float _DeltaTime)
 	AddActorLocation(DownMove * _DeltaTime);
 }
 
-
-void ABee::Destroy()
+void ABee::DesMoveUpdate(float _DeltaTime)
 {
-	//Destroy();
+	CalGravityVector(_DeltaTime);
+	AddActorLocation((JumpVector + ColMoveVector) * _DeltaTime);
+	AddActorLocation(GravityVector * _DeltaTime);
+
+	if (ColBee == true && ColGra == true)
+	{
+		Destroy();
+	}
+
+
+	int a = 0;
 }
 
 
@@ -130,4 +155,19 @@ void ABee::Destroy()
 void ABee::Tick(float _DeltaTime)
 {
 	Move(_DeltaTime);
+
+	std::vector<UCollision*> Result;
+	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::PlayerBullet, Result))
+	{
+		AActor* MCol = Result[0]->GetOwner();
+		// 닿았을때 포물선을 그린다
+		ColBee = true;
+	}
+	if (ColBee == true)
+	{
+		Render->ChangeAnimation("Destroy_Bee");
+		DesMoveUpdate(_DeltaTime);
+	}
+
+
 }
