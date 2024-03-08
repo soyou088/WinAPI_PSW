@@ -3,32 +3,22 @@
 #include "ContentsHelper.h"
 
 // Ό³Έν :
-class ABee : public AActor
-
+class ASnake : public AActor
 {
 public:
 	// constrcuter destructer
-	ABee();
-	~ABee();
+	ASnake();
+	~ASnake();
 
 	// delete Function
-	ABee(const ABee& _Other) = delete;
-	ABee(ABee&& _Other) noexcept = delete;
-	ABee& operator=(const ABee& _Other) = delete;
-	ABee& operator=(ABee&& _Other) noexcept = delete;
+	ASnake(const ASnake& _Other) = delete;
+	ASnake(ASnake&& _Other) noexcept = delete;
+	ASnake& operator=(const ASnake& _Other) = delete;
+	ASnake& operator=(ASnake&& _Other) noexcept = delete;
 
 protected:
-
-
-	void StateChange(EPlayState _State);
-	void StateUpdate(float _DeltaTime);
-
 	void BeginPlay();
 	void Tick(float _DeltaTime) override;
-	
-	void MoveStart();
-	void DestroyStart();
-
 
 	std::string GetAnimationName(std::string _Name);
 	EPlayState State = EPlayState::None;
@@ -41,20 +31,19 @@ private:
 	UCollision* Collision;
 
 	FVector MoveVector = FVector::Left * 50.0f;
-	FVector DownMove = FVector::Down* 130.0f;
-	
+	FVector DownMove = FVector::Down * 130.0f;
+
 	FVector JumpVector = FVector::Up * 500.0f;
-	
+
 	FVector GravityAcc = FVector::Down * 2000.0f;
 	FVector GravityVector = FVector::Zero;
 
 	FVector ColMoveVector = FVector::Right * 100.0f;
-	
+
 	bool ColGra = false;
-	bool ColBee = false;
+	bool ColSnake = false;
 
 	void CalGravityVector(float _DeltaTime);
-	void Move(float _DeltaTime);
 	void DesMoveUpdate(float _DeltaTime);
 };
 

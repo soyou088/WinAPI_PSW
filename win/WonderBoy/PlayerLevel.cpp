@@ -5,6 +5,7 @@
 #include "Bonfire.h"
 #include "Jumpping.h"
 #include "Agg.h"
+#include "Snake.h"
 #include "BackGroundMap.h"
 #include "BulletActor.h"
 #include <EngineCore\EngineCore.h>
@@ -34,6 +35,15 @@ void UPlayLevel::BeginPlay()
 	Bee->SetName("Bee");
 	Bee->SetActorLocation({ 500, 800 });
 
+	
+	ASnake* Snake = SpawnActor<ASnake>();
+	Snake->SetName("Snake");
+	Snake->SetActorLocation({ 500, 875});
+	
+	
+	
+	
+	
 	ABonfire* Bonfire = SpawnActor<ABonfire>();
 	Bonfire->SetName("Bonfire");
 	Bonfire->SetActorLocation({ 11234,885 });

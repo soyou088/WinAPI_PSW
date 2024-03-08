@@ -24,10 +24,8 @@ protected:
 private:
 
 	UImageRenderer* Snail = nullptr;
-	UImageRenderer* Snake = nullptr;
 	UImageRenderer* Stone = nullptr;
 	UImageRenderer* Frog = nullptr;
-	UImageRenderer* Bonfire = nullptr;
 
 	UCollision* Collision = nullptr;
 

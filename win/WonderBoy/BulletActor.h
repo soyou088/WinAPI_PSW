@@ -28,7 +28,7 @@ protected:
 private:
 
 	UCollision* BCollision = nullptr;
-	UImageRenderer* BRenderer = nullptr;
+	UImageRenderer* Render = nullptr;
 
 	FVector BulletAcc = FVector::Right * 700.0f;
 

@@ -59,6 +59,9 @@
     <ClInclude Include="Jumpping.h">
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClInclude>
+    <ClInclude Include="Snake.h">
+      <Filter>PlayLevel\MonsterActor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -95,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="Jumpping.cpp">
       <Filter>PlayLevel\ObjectActor</Filter>
+    </ClCompile>
+    <ClCompile Include="Snake.cpp">
+      <Filter>PlayLevel\MonsterActor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

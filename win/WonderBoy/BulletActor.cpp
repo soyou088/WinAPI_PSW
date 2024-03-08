@@ -18,17 +18,17 @@ void ABulletActor::BeginPlay()
 {
 	{
 		// Bullet Collision
-		BRenderer = CreateImageRenderer(WonderRenderOrder::PlayerBullet);
-		BRenderer->SetImage("Bullet_C.png");
-		BRenderer->SetTransform({ {0,0}, {130, 130} });
+		Render = CreateImageRenderer(WonderRenderOrder::PlayerBullet);
+		Render->SetImage("Bullet_C.png");
+		Render->SetTransform({ {0,0}, {130, 130} });
 
 
-		BRenderer->CreateAnimation("Bullet", "Bullet_C.png", 0, 3, 0.05f, true);
+		Render->CreateAnimation("Bullet", "Bullet_C.png", 0, 3, 0.05f, true);
 		BCollision = CreateCollision(WonderCollisionOrder::PlayerBullet);
 		BCollision->SetScale({ 10,10 });
 		BCollision->SetColType(ECollisionType::Rect);
 
-		BRenderer->ChangeAnimation("Bullet");
+		Render->ChangeAnimation("Bullet");
 	}
 }
 
