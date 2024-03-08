@@ -53,7 +53,6 @@ protected:
 	void SkateMove(float _DeltaTime);
 	void SkateJump(float _DeltaTime);
 	void SkateBrake(float _DeltaTime);
-	void ColMonster();
 
 
 	// 상태 시작 함수들

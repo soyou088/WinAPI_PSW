@@ -244,15 +244,6 @@ void APlayer::SkateBrake(float _DeltaTime)
 {
 }
 
-void APlayer::ColMonster()
-{
-	//std::vector<UCollision*> Result;
-	//if (true == Collision->CollisionCheck(WonderCollisionOrder::Player, Result))
-	//{
-
-	//}
-}
-
 void APlayer::Bullet()
 {
 	FVector BPos = GetActorLocation();
@@ -275,8 +266,10 @@ void APlayer::Attack(float _DeltaTime)
 {
 	DirCheck();
 	MoveUpdate(_DeltaTime);
-	if (Renderer->IsCurAnimationEnd() == true)
+
+	if (Renderer->IsCurAnimationEnd() == true )
 	{
+		JumpVector = FVector::Zero;
 		StateChange(EPlayState::Move);
 		return;
 	}
@@ -533,6 +526,7 @@ void APlayer::FreeMove(float _DeltaTime)
 void APlayer::Idle(float _DeltaTime)
 {
 	MoveVector = FVector::Zero;
+	
 	// 왼쪽 오른쪽도 안되고 있고.
 	// 여기서는 정말
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
@@ -592,8 +586,6 @@ void APlayer::Move(float _DeltaTime)
 	MoveUpdate(_DeltaTime);
 
 
-
-
 	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
 		FVector MoveDirVector = FVector::Zero;
@@ -650,7 +642,7 @@ void APlayer::Move(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('Q'))
 	{
-		Bullet();
+		StateChange(EPlayState::Attack);
 		return;
 	}
 
@@ -740,7 +732,7 @@ void APlayer::Jump(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('Q'))
 	{
-		Bullet();
+		StateChange(EPlayState::Attack);
 		return;
 	}
 
@@ -826,7 +818,7 @@ void APlayer::SkateMove(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('Q'))
 	{
-		Bullet();
+		StateChange(EPlayState::Attack);
 		return;
 	}
 
@@ -876,7 +868,7 @@ void APlayer::SkateJump(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('Q'))
 	{
-		Bullet();
+		StateChange(EPlayState::Attack);
 		return;
 	}
 
