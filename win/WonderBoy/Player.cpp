@@ -230,6 +230,16 @@ void APlayer::WallCheck()
 
 }
 
+void APlayer::NextAnimation()
+{
+	std::string NextAnimation = GetAnimationName("Run");
+}
+
+void APlayer::FinBullet()
+{
+	
+}
+
 void APlayer::ColorJump()
 {
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);

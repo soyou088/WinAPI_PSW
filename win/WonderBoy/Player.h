@@ -123,8 +123,8 @@ private:
 	void HillUP(Color8Bit _Color);
 	void PlayerGo();
 	void WallCheck();
-
-
+	void NextAnimation();
+	void FinBullet();
 	bool testgr = false;
 };
 

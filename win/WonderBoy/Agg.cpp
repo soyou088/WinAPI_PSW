@@ -21,7 +21,7 @@ void AAgg::BeginPlay()
 
 		Render->CreateAnimation("Destory_Agg", "Agg.png", 1, 1, 0.1f, true);
 
-		Render->CreateAnimation("Effect", "Effect.png", 0, 0, 0.1f, true);
+		Render->CreateAnimation("Effect", "Effect.png", 0, 0, 1.0f, false);
 
 
 		Collision = CreateCollision(WonderCollisionOrder::Object);
@@ -33,7 +33,7 @@ void AAgg::BeginPlay()
 void AAgg::CalGravityVector(float _DeltaTime)
 {
 	GravityVector += GravityAcc * _DeltaTime;
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()-5, Color8Bit::MagentaA);
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()+5, Color8Bit::MagentaA);
 
 	if (Color == Color8Bit::MagentaA)
 	{
@@ -50,10 +50,16 @@ void AAgg::TestMove(float _DeltaTime)
 	AddActorLocation((JumpVector + MoveVector) * _DeltaTime);
 	AddActorLocation(GravityVector * _DeltaTime);
 
-	if (ColAgg == true && ColGra == true)
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()+1, Color8Bit::MagentaA);
+	Color8Bit AColor = Color;
+	if (ColAgg == true && ColGra == true )
 	{
 		Render->ChangeAnimation("Effect");
-		Destroy();
+	}
+	if (Color == Color8Bit(0,0,0,0) && Render->IsCurAnimationEnd() == true)
+	{
+		Render->ActiveOff();
+		//Destroy();
 	}
 
 
@@ -64,6 +70,8 @@ void AAgg::TestMove(float _DeltaTime)
 void AAgg::Tick(float _DeltaTime)
 {
 	std::vector<UCollision*> Result;
+	
+	
 	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Player, Result))
 	{
 		AActor* MCol = Result[0]->GetOwner();
