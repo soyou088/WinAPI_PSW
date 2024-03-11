@@ -320,6 +320,7 @@ void APlayer::JumpStart()
 {
 	JumpVector = JumpPower;
 	Renderer->ChangeAnimation(GetAnimationName("Jump"));
+	AddActorLocation(FVector::Up * 10);
 	DirCheck();
 }
 
@@ -515,6 +516,7 @@ void APlayer::Idle(float _DeltaTime)
 {
 	MoveVector = FVector::Zero;
 	
+	
 	// 왼쪽 오른쪽도 안되고 있고.
 	// 여기서는 정말
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
@@ -660,7 +662,6 @@ void APlayer::Move(float _DeltaTime)
 
 	HillUP(Color8Bit(255, 0, 255, 0));
 	CameraSet(_DeltaTime);
-	ColorJump();
 }
 
 void APlayer::Run(float _DeltaTime)
@@ -758,12 +759,12 @@ void APlayer::Run(float _DeltaTime)
 
 	HillUP(Color8Bit(255, 0, 255, 0));
 	CameraSet(_DeltaTime);
-	ColorJump();
 }
 
 void APlayer::Jump(float _DeltaTime)
 {
-	if (JumpVector.Y == 0) {
+	if (JumpVector.Y == 0) 
+	{
 		StateChange(EPlayState::Idle);
 	}
 
@@ -924,7 +925,6 @@ void APlayer::SkateJump(float _DeltaTime)
 	}
 
 	MoveUpdate(_DeltaTime);
-	ColorJump();
 
 	StateChange(EPlayState::SkateMove);
 }
@@ -943,6 +943,7 @@ void APlayer::Death(float _DeltaTime)
 void APlayer::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
+	ColorJump();
 	StateUpdate(_DeltaTime);
 	FVector PlayerPos = GetActorLocation();
 
