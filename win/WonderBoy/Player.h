@@ -48,7 +48,6 @@ protected:
 	void Run(float _DeltaTime);
 	void Death(float _DeltaTime);
 	void Col(float _DeltaTime);
-	void Attack(float _DeltaTime);
 	void Bullet();
 	void SkateMove(float _DeltaTime);
 	void SkateJump(float _DeltaTime);
@@ -60,7 +59,6 @@ protected:
 	void MoveStart();
 	void RunStart();
 	void JumpStart();
-	void AttackStart();
 
 	void SkateStart();
 	void SkateJumpStart();
@@ -84,14 +82,14 @@ private:
 
 	float FreeMoveSpeed = 700.0f;
 
-	FVector MoveAcc = FVector::Right * 2000.0f;	//500
+	FVector MoveAcc = FVector::Right * 500.0f;	//500
 	FVector MoveVector = FVector::Zero;
 	float MoveMaxSpeed = 600.0f;
 	void AddMoveVector(const FVector& _DirDelta);
 
-	FVector RunAcc = FVector::Right * 1000.0f;	//700
+	FVector RunAcc = FVector::Right * 700.0f;	//700
 	FVector RunVector = FVector::Zero;
-	float RunMaxSpeed = 700.0f;
+	float RunMaxSpeed = 2000.0f;
 	void AddRunVector(const FVector& _DirDelta);
 
 	FVector GravityAcc = FVector::Down * 2000.0f;
@@ -109,7 +107,6 @@ private:
 	FVector SkateMoveVector = FVector::Right * 200.0f;
 
 
-	Color8Bit MyGetColor(int _X, int _Y, Color8Bit _DefaultColor);
 	
 	//FVector SkateJumpPower = FVector::Up * 800;
 	//FVector SkateJumpVector = FVector::Zero;

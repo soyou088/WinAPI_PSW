@@ -184,7 +184,6 @@ void APlayer::CameraSet(float _DeltaTime)
 	if (CPos.X > WallCheck.X - 45)
 	{
 		MoveVector = FVector::Right;
-		//MoveVector += _DirDelta * MoveAcc;
 		return;
 	}
 }
@@ -233,12 +232,16 @@ void APlayer::WallCheck()
 
 void APlayer::ColorJump()
 {
+
+	FVector LVector = LastMoveVector;
+
+
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
 		JumpVector = FVector::Zero;
-		StateChange(EPlayState::Idle);
+		GravityVector = FVector::Zero;
 		return;
 	}
 }
@@ -253,7 +256,7 @@ void APlayer::Bullet()
 	ABulletActor* Bullet = GetWorld()->SpawnActor<ABulletActor>();
 	Bullet->SetName("Bullet");
 	Bullet->DirState = DirState;
-	
+
 	if (DirState == EActorDir::Right)
 	{
 		Bullet->SetActorLocation({ BPos.X + 5 ,BPos.Y - 60 });
@@ -262,29 +265,17 @@ void APlayer::Bullet()
 	{
 		Bullet->SetActorLocation({ BPos.X - 5 ,BPos.Y - 60 });
 	}
-	return;
-}
 
-void APlayer::Attack(float _DeltaTime)
-{
-	DirCheck();
-	MoveUpdate(_DeltaTime);
-	
+
 	if (Renderer->IsCurAnimationEnd() == true)
 	{
 		StateChange(EPlayState::Run);
 		return;
 	}
-	CameraSet(_DeltaTime);
-	
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-	if (Color == Color8Bit(255, 0, 255, 0))
-	{
-		JumpVector = FVector::Zero;
-		return;
-	}
 
+	return;
 }
+
 
 void APlayer::MoveUpdate(float _DeltaTime)
 {
@@ -334,7 +325,6 @@ void APlayer::JumpStart()
 
 void APlayer::RunStart()
 {
-	Renderer->ChangeAnimation(GetAnimationName("Bullet"));
 	Bullet();
 	DirCheck();
 }
@@ -596,7 +586,7 @@ void APlayer::Move(float _DeltaTime)
 		default:
 			break;
 		}
-		if (70.0f <= abs(MoveVector.X))
+		if (50.0f <= abs(MoveVector.X))
 		{
 			AddMoveVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
 		}
@@ -670,10 +660,12 @@ void APlayer::Move(float _DeltaTime)
 
 	HillUP(Color8Bit(255, 0, 255, 0));
 	CameraSet(_DeltaTime);
+	ColorJump();
 }
 
 void APlayer::Run(float _DeltaTime)
 {
+
 	DirCheck();
 	MoveUpdate(_DeltaTime);
 
@@ -699,10 +691,11 @@ void APlayer::Run(float _DeltaTime)
 		else
 		{
 			RunVector = float4::Zero;
-			StateChange(EPlayState::Idle);
+			StateChange(EPlayState::Move);
 			return;
 		}
 	}
+
 
 
 	if (UEngineInput::IsPress(VK_LEFT))
@@ -730,6 +723,11 @@ void APlayer::Run(float _DeltaTime)
 	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress('W'))
 	{
 		AddMoveVector(FVector::Right * _DeltaTime + JumpVector);
+	}
+
+	if (UEngineInput::IsDown('Q'))
+	{
+		Bullet();
 	}
 
 	FVector CheckPos = GetActorLocation();
@@ -760,11 +758,15 @@ void APlayer::Run(float _DeltaTime)
 
 	HillUP(Color8Bit(255, 0, 255, 0));
 	CameraSet(_DeltaTime);
-	//pColorJump();
+	ColorJump();
 }
 
 void APlayer::Jump(float _DeltaTime)
 {
+	if (JumpVector.Y == 0) {
+		StateChange(EPlayState::Idle);
+	}
+
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		AddMoveVector(FVector::Left * _DeltaTime);
@@ -774,7 +776,6 @@ void APlayer::Jump(float _DeltaTime)
 	{
 		AddMoveVector(FVector::Right * _DeltaTime);
 	}
-
 
 	if (true == UEngineInput::IsDown('Q'))
 	{
@@ -789,7 +790,6 @@ void APlayer::Jump(float _DeltaTime)
 
 	MoveUpdate(_DeltaTime);
 	CameraSet(_DeltaTime);
-	ColorJump();
 
 
 }
