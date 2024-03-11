@@ -27,7 +27,7 @@ void APlayer::BeginPlay()
 	{
 		Renderer = CreateImageRenderer(WonderRenderOrder::Player);
 		Renderer->SetImage("Player_1_R.png");
-		Renderer->SetTransform({ {0,0}, {350, 350} });
+		Renderer->SetTransform({ {0,0}, {300, 300} });
 
 		Renderer->CreateAnimation("Idle_Right", "Player_1_R.png", 0, 2, 0.1f, true); // 가만히 있는 상태
 		Renderer->CreateAnimation("Move_Right", "Player_1_R.png", 0, 4, 0.05f, true); // 오른쪽으로 움직이는 상태
@@ -237,7 +237,7 @@ void APlayer::ColorJump()
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
 		JumpVector = FVector::Zero;
-		GravityVector = FVector::Zero;
+		//GravityVector = FVector::Zero;
 		return;
 	}
 }
@@ -658,8 +658,8 @@ void APlayer::Run(float _DeltaTime)
 	{
 		if (UEngineInput::IsFree('Q'))
 		{
-			//StateChange(BeforeRunState);
-			//return;
+			StateChange(BeforeRunState);
+			return;
 		}
 		FVector MoveDirVector = FVector::Zero;
 		switch (DirState)
@@ -685,8 +685,6 @@ void APlayer::Run(float _DeltaTime)
 		}
 	}
 
-
-
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
 		AddRunVector(FVector::Left * _DeltaTime);
@@ -705,7 +703,7 @@ void APlayer::Run(float _DeltaTime)
 	}
 	if (UEngineInput::IsFree('Q'))
 	{
-	//	Renderer->ChangeAnimation(GetAnimationName("Run"));
+		Renderer->ChangeAnimation(GetAnimationName("Run"));
 	}
 	if (UEngineInput::IsDown('Q'))
 	{
@@ -742,6 +740,8 @@ void APlayer::Run(float _DeltaTime)
 	CameraSet(_DeltaTime);
 }
 
+
+
 void APlayer::Jump(float _DeltaTime)
 {
 
@@ -760,12 +760,17 @@ void APlayer::Jump(float _DeltaTime)
 		AddMoveVector(FVector::Right * _DeltaTime);
 	}
 
-	if (true == UEngineInput::IsDown('Q'))
+	if (true == UEngineInput::IsDown('Q') )
 	{
 		BeforeRunState = EPlayState::Jump;
 		StateChange(EPlayState::Run);
+		if (JumpVector.Y == 0)
+		{
+			StateChange(BeforeRunState);
+		}
 		return;
 	}
+
 
 	if (JumpMax <= JumpVector.Size2D())
 	{
