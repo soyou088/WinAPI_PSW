@@ -121,9 +121,13 @@ void APlayer::AddMoveVector(const FVector& _DirDelta)
 	{
 		MoveVector += _DirDelta * SkateMoveVector;
 	}
-
-
 }
+
+void APlayer::AddRunVector(const FVector& _DirDelta)
+{
+	RunVector += _DirDelta * RunAcc;
+}
+
 
 void APlayer::CalMoveVector(float _DeltaTime)
 {
@@ -156,7 +160,6 @@ void APlayer::CalMoveVector(float _DeltaTime)
 void APlayer::MoveLastMoveVector(float _DeltaTime)
 {
 	AddActorLocation(LastMoveVector * _DeltaTime);
-
 }
 
 void APlayer::CameraSet(float _DeltaTime)
@@ -235,7 +238,7 @@ void APlayer::ColorJump()
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
 		JumpVector = FVector::Zero;
-		StateChange(EPlayState::Move);
+		StateChange(EPlayState::Idle);
 		return;
 	}
 }
@@ -266,13 +269,21 @@ void APlayer::Attack(float _DeltaTime)
 {
 	DirCheck();
 	MoveUpdate(_DeltaTime);
-
-	if (Renderer->IsCurAnimationEnd() == true )
+	
+	if (Renderer->IsCurAnimationEnd() == true)
 	{
-		JumpVector = FVector::Zero;
-		StateChange(EPlayState::Move);
+		StateChange(EPlayState::Run);
 		return;
 	}
+	CameraSet(_DeltaTime);
+	
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
+	if (Color == Color8Bit(255, 0, 255, 0))
+	{
+		JumpVector = FVector::Zero;
+		return;
+	}
+
 }
 
 void APlayer::MoveUpdate(float _DeltaTime)
@@ -323,8 +334,8 @@ void APlayer::JumpStart()
 
 void APlayer::RunStart()
 {
-	RunVector += RunAcc;
-	Renderer->ChangeAnimation(GetAnimationName("Run"));
+	Renderer->ChangeAnimation(GetAnimationName("Bullet"));
+	Bullet();
 	DirCheck();
 }
 
@@ -347,13 +358,6 @@ void APlayer::SkateBrakeStart()
 	DirCheck();
 }
 
-void APlayer::AttackStart()
-{
-	Renderer->ChangeAnimation(GetAnimationName("Bullet"));
-	Bullet();
-	DirCheck();
-}
-
 void APlayer::StateChange(EPlayState _State)
 {
 	// 이전상태와 지금 상태가 같지 않아
@@ -373,9 +377,6 @@ void APlayer::StateChange(EPlayState _State)
 			break;
 		case EPlayState::Jump:
 			JumpStart();
-			break;
-		case EPlayState::Attack:
-			AttackStart();
 			break;
 		case EPlayState::SkateMove:
 			SkateStart();
@@ -418,9 +419,6 @@ void APlayer::StateUpdate(float _DeltaTime)
 		case EPlayState::Jump:
 			Jump(_DeltaTime);
 			break;
-		case EPlayState::Attack:
-			Attack(_DeltaTime);
-			break;
 		case EPlayState::SkateMove:
 			SkateMove(_DeltaTime);
 			break;
@@ -449,7 +447,7 @@ void APlayer::StateUpdate(float _DeltaTime)
 			SkateBrake(_DeltaTime);
 			break;
 		case EPlayState::Attack:
-			Attack(_DeltaTime);
+			Run(_DeltaTime);
 			break;
 		default:
 			break;
@@ -542,10 +540,7 @@ void APlayer::Idle(float _DeltaTime)
 		return;
 	}
 
-	if (
-		true == UEngineInput::IsPress(VK_LEFT) ||
-		true == UEngineInput::IsPress(VK_RIGHT)
-		)
+	if (true == UEngineInput::IsPress(VK_LEFT) || true == UEngineInput::IsPress(VK_RIGHT))
 	{
 		StateChange(EPlayState::Move);
 		return;
@@ -561,7 +556,7 @@ void APlayer::Idle(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('Q'))
 	{
-		StateChange(EPlayState::Attack);
+		StateChange(EPlayState::Run);
 		return;
 	}
 
@@ -574,6 +569,7 @@ void APlayer::Idle(float _DeltaTime)
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
 		MoveVector = FVector::Zero;
+		JumpVector = FVector::Zero;
 	}
 	CameraSet(_DeltaTime);
 	MoveUpdate(_DeltaTime);
@@ -642,15 +638,9 @@ void APlayer::Move(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('Q'))
 	{
-		StateChange(EPlayState::Attack);
+		StateChange(EPlayState::Run);
 		return;
 	}
-
-	//if (true == UEngineInput::IsPress('Q') && UEngineInput::IsPress(VK_RIGHT))
-	//{
-	//	StateChange(EPlayState::Run);
-	//	return;
-	//}
 
 	FVector CheckPos = GetActorLocation();
 	switch (DirState)
@@ -680,7 +670,6 @@ void APlayer::Move(float _DeltaTime)
 
 	HillUP(Color8Bit(255, 0, 255, 0));
 	CameraSet(_DeltaTime);
-
 }
 
 void APlayer::Run(float _DeltaTime)
@@ -688,33 +677,90 @@ void APlayer::Run(float _DeltaTime)
 	DirCheck();
 	MoveUpdate(_DeltaTime);
 
-	RunVector += MoveVector + RunAcc;
 
 	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
-		StateChange(EPlayState::Idle);
-		return;
+		FVector MoveDirVector = FVector::Zero;
+		switch (DirState)
+		{
+		case EActorDir::Left:
+			MoveDirVector = FVector::Right;
+			break;
+		case EActorDir::Right:
+			MoveDirVector = FVector::Left;
+			break;
+		default:
+			break;
+		}
+		if (70.0f <= abs(RunVector.X))
+		{
+			AddRunVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
+		}
+		else
+		{
+			RunVector = float4::Zero;
+			StateChange(EPlayState::Idle);
+			return;
+		}
 	}
+
 
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
-		AddMoveVector(FVector::Left + RunVector);
+		AddRunVector(FVector::Left * _DeltaTime);
 	}
 
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
-		AddMoveVector(FVector::Right + RunVector);
+		AddRunVector(FVector::Right * _DeltaTime);
 	}
 
-	if (true == UEngineInput::IsDown('W'))
+	FVector aRunVector = RunVector;
+	if (true == UEngineInput::IsPress('W'))
 	{
 		StateChange(EPlayState::Jump);
 		return;
 	}
 
-	MoveUpdate(_DeltaTime);
+	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress('W'))
+	{
+		AddMoveVector(FVector::Left * _DeltaTime + JumpVector);
+	}
+
+	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress('W'))
+	{
+		AddMoveVector(FVector::Right * _DeltaTime + JumpVector);
+	}
+
+	FVector CheckPos = GetActorLocation();
+	switch (DirState)
+	{
+	case EActorDir::Left:
+		CheckPos.X -= 30;
+		break;
+	case EActorDir::Right:
+		CheckPos.X += 30;
+		break;
+	default:
+		break;
+	}
+	CheckPos.Y -= 30;
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CheckPos.iX(), CheckPos.iY(), Color8Bit::MagentaA);
+	if (Color != Color8Bit(255, 0, 255, 0))
+	{
+		AddActorLocation(MovePos);
+		GetWorld()->AddCameraPos(MovePos);
+	}
+
+	if (true == UEngineInput::IsPress('S'))
+	{
+		StateChange(EPlayState::SkateMove);
+	}
+
+
+	HillUP(Color8Bit(255, 0, 255, 0));
 	CameraSet(_DeltaTime);
-	StateChange(EPlayState::Move);
+	//pColorJump();
 }
 
 void APlayer::Jump(float _DeltaTime)
@@ -732,7 +778,7 @@ void APlayer::Jump(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('Q'))
 	{
-		StateChange(EPlayState::Attack);
+		StateChange(EPlayState::Run);
 		return;
 	}
 
