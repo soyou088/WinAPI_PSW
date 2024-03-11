@@ -232,10 +232,6 @@ void APlayer::WallCheck()
 
 void APlayer::ColorJump()
 {
-
-	FVector LVector = LastMoveVector;
-
-
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 
 	if (Color == Color8Bit(255, 0, 255, 0))
@@ -264,13 +260,6 @@ void APlayer::Bullet()
 	else
 	{
 		Bullet->SetActorLocation({ BPos.X - 5 ,BPos.Y - 60 });
-	}
-
-
-	if (Renderer->IsCurAnimationEnd() == true)
-	{
-		StateChange(EPlayState::Run);
-		return;
 	}
 
 	return;
@@ -326,6 +315,7 @@ void APlayer::JumpStart()
 
 void APlayer::RunStart()
 {
+	Renderer->ChangeAnimation(GetAnimationName("Bullet"));
 	Bullet();
 	DirCheck();
 }
@@ -548,6 +538,7 @@ void APlayer::Idle(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('Q'))
 	{
+		BeforeRunState = EPlayState::Idle;
 		StateChange(EPlayState::Run);
 		return;
 	}
@@ -618,19 +609,11 @@ void APlayer::Move(float _DeltaTime)
 		return;
 	}
 
-	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress('W'))
-	{
-		AddMoveVector(FVector::Left * _DeltaTime + JumpVector);
-	}
-
-	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress('W'))
-	{
-		AddMoveVector(FVector::Right * _DeltaTime + JumpVector);
-	}
-
 	if (true == UEngineInput::IsDown('Q'))
 	{
+		BeforeRunState = EPlayState::Move;
 		StateChange(EPlayState::Run);
+
 		return;
 	}
 
@@ -673,6 +656,11 @@ void APlayer::Run(float _DeltaTime)
 
 	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
+		if (UEngineInput::IsFree('Q'))
+		{
+			//StateChange(BeforeRunState);
+			//return;
+		}
 		FVector MoveDirVector = FVector::Zero;
 		switch (DirState)
 		{
@@ -685,14 +673,14 @@ void APlayer::Run(float _DeltaTime)
 		default:
 			break;
 		}
-		if (70.0f <= abs(RunVector.X))
+		if (50.0f <= abs(RunVector.X))
 		{
 			AddRunVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
 		}
 		else
 		{
 			RunVector = float4::Zero;
-			StateChange(EPlayState::Move);
+			StateChange(EPlayState::Idle);
 			return;
 		}
 	}
@@ -715,17 +703,10 @@ void APlayer::Run(float _DeltaTime)
 		StateChange(EPlayState::Jump);
 		return;
 	}
-
-	if (UEngineInput::IsPress(VK_LEFT) && UEngineInput::IsPress('W'))
+	if (UEngineInput::IsFree('Q'))
 	{
-		AddMoveVector(FVector::Left * _DeltaTime + JumpVector);
+	//	Renderer->ChangeAnimation(GetAnimationName("Run"));
 	}
-
-	if (UEngineInput::IsPress(VK_RIGHT) && UEngineInput::IsPress('W'))
-	{
-		AddMoveVector(FVector::Right * _DeltaTime + JumpVector);
-	}
-
 	if (UEngineInput::IsDown('Q'))
 	{
 		Bullet();
@@ -763,6 +744,7 @@ void APlayer::Run(float _DeltaTime)
 
 void APlayer::Jump(float _DeltaTime)
 {
+
 	if (JumpVector.Y == 0) 
 	{
 		StateChange(EPlayState::Idle);
@@ -780,6 +762,7 @@ void APlayer::Jump(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('Q'))
 	{
+		BeforeRunState = EPlayState::Jump;
 		StateChange(EPlayState::Run);
 		return;
 	}

@@ -87,7 +87,7 @@ private:
 	float MoveMaxSpeed = 600.0f;
 	void AddMoveVector(const FVector& _DirDelta);
 
-	FVector RunAcc = FVector::Right * 700.0f;	//700
+	FVector RunAcc = FVector::Right * 2000.0f;	//700
 	FVector RunVector = FVector::Zero;
 	float RunMaxSpeed = 2000.0f;
 	void AddRunVector(const FVector& _DirDelta);
@@ -106,7 +106,7 @@ private:
 
 	FVector SkateMoveVector = FVector::Right * 200.0f;
 
-
+	EPlayState BeforeRunState = EPlayState::None;
 	
 	//FVector SkateJumpPower = FVector::Up * 800;
 	//FVector SkateJumpVector = FVector::Zero;
