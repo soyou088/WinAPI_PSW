@@ -27,7 +27,7 @@ void APlayer::BeginPlay()
 	{
 		Renderer = CreateImageRenderer(WonderRenderOrder::Player);
 		Renderer->SetImage("Player_1_R.png");
-		Renderer->SetTransform({ {0,0}, {300, 300} });
+		Renderer->SetTransform({ {0,0}, {300, 250} });
 
 		Renderer->CreateAnimation("Idle_Right", "Player_1_R.png", 0, 2, 0.1f, true); // 가만히 있는 상태
 		Renderer->CreateAnimation("Move_Right", "Player_1_R.png", 0, 4, 0.05f, true); // 오른쪽으로 움직이는 상태
@@ -237,7 +237,7 @@ void APlayer::ColorJump()
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
 		JumpVector = FVector::Zero;
-		//GravityVector = FVector::Zero;
+		GravityVector = FVector::Zero;
 		return;
 	}
 }
@@ -510,6 +510,7 @@ void APlayer::Idle(float _DeltaTime)
 	// 왼쪽 오른쪽도 안되고 있고.
 	// 여기서는 정말
 	// 가만히 있을때만 어떻게 할지 신경쓰면 됩니다.
+
 	if (true == UEngineInput::IsDown('1'))
 	{
 		StateChange(EPlayState::FreeMove);
@@ -673,13 +674,13 @@ void APlayer::Run(float _DeltaTime)
 		default:
 			break;
 		}
-		if (50.0f <= abs(RunVector.X))
+		if (50.0f <= abs(MoveVector.X))
 		{
-			AddRunVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
+			AddMoveVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
 		}
 		else
 		{
-			RunVector = float4::Zero;
+			MoveVector = float4::Zero;
 			StateChange(EPlayState::Idle);
 			return;
 		}
@@ -687,12 +688,12 @@ void APlayer::Run(float _DeltaTime)
 
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
-		AddRunVector(FVector::Left * _DeltaTime);
+		AddMoveVector(FVector::Left * _DeltaTime);
 	}
 
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
-		AddRunVector(FVector::Right * _DeltaTime);
+		AddMoveVector(FVector::Right * _DeltaTime);
 	}
 
 	FVector aRunVector = RunVector;
@@ -747,7 +748,7 @@ void APlayer::Jump(float _DeltaTime)
 
 	if (JumpVector.Y == 0) 
 	{
-		StateChange(EPlayState::Idle);
+		StateChange(EPlayState::Move);
 	}
 
 	if (UEngineInput::IsPress(VK_LEFT))
