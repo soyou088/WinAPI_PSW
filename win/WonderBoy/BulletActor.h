@@ -17,7 +17,11 @@ public:
 	ABulletActor& operator=(const ABulletActor& _Other) = delete;
 	ABulletActor& operator=(ABulletActor&& _Other) noexcept = delete;
 	
-	EActorDir DirState = EActorDir::Right;
+	void SetBulletAcc(FVector _Value)
+	{
+		BulletAcc = _Value;
+	}
+
 
 protected:
 	void BeginPlay();
@@ -36,4 +40,5 @@ private:
 	FVector GravityVector = FVector::Zero;
 
 	void Move(float _DeltaTime);
+	void ColBullet();
 };

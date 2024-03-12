@@ -261,14 +261,17 @@ void APlayer::Bullet()
 	FVector BPos = GetActorLocation();
 	ABulletActor* Bullet = GetWorld()->SpawnActor<ABulletActor>();
 	Bullet->SetName("Bullet");
-	Bullet->DirState = DirState;
+
+	
 
 	if (DirState == EActorDir::Right)
 	{
+		Bullet->SetBulletAcc(FVector::Right * 700.0f);
 		Bullet->SetActorLocation({ BPos.X + 5 ,BPos.Y - 60 });
 	}
 	else
 	{
+		Bullet->SetBulletAcc(FVector::Left * 700.0f);
 		Bullet->SetActorLocation({ BPos.X - 5 ,BPos.Y - 60 });
 	}
 
@@ -953,14 +956,11 @@ void APlayer::Tick(float _DeltaTime)
 	}
 
 	std::vector<UCollision*> Result;
-	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Object, Result))
+	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Monster, Result))
 	{
 		AActor* MCol = Result[0]->GetOwner();
-		
-
-		
 		Renderer->ChangeAnimation("Death");
-
+		return;
 	}
 
 	APlayer* Player = APlayer::GetMainPlayer();

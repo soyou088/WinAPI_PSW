@@ -32,51 +32,18 @@ void ABulletActor::BeginPlay()
 	}
 }
 
-
-void ABulletActor::Tick(float _DeltaTime)
-{
-	Move(_DeltaTime);
-
-	ABulletActor* Bullet = nullptr;
-
-	if (true == UEngineInput::IsPress(VK_RIGHT))
-	{
-		FVector BulletDir = FVector::Right;
-
-		FVector BulletDirNormal = BulletDir.Normalize2DReturn();
-	}
-	else
-	{
-		FVector BulletDir = FVector::Left;
-
-		FVector BulletDirNormal = BulletDir.Normalize2DReturn();
-	}
-
-	std::vector<UCollision*> Result;
-	if (true == BCollision->CollisionCheck(WonderCollisionOrder::Monster, Result))
-	{
-		UCollision* BCollision = Result[0];
-		AActor* Ptr = BCollision->GetOwner();
-		AMonster* Monster = dynamic_cast<AMonster*>(Ptr);
-		return;
-	}
-
-}
-
 void ABulletActor::Move(float _DeltaTime)
 {
 	CalGravityVector(_DeltaTime);
-	if (DirState == EActorDir::Left)
-	{
-		AddActorLocation(-BulletAcc * _DeltaTime);
-	}
-	else
-	{
-		AddActorLocation(BulletAcc * _DeltaTime);
-	}
+	AddActorLocation(BulletAcc * _DeltaTime);
 	AddActorLocation(GravityVector * _DeltaTime);
 
 	int a = 0;
+}
+
+void ABulletActor::ColBullet()
+{
+	AddActorLocation({-20, - 50});
 }
 
 void ABulletActor::CalGravityVector(float _DeltaTime)
@@ -89,4 +56,26 @@ void ABulletActor::CalGravityVector(float _DeltaTime)
 		GravityVector = FVector::Zero;
 		Destroy();
 	}
+}
+
+
+
+void ABulletActor::Tick(float _DeltaTime)
+{
+
+	ABulletActor* Bullet = nullptr;
+
+	std::vector<UCollision*> Result;
+	if (true == BCollision->CollisionCheck(WonderCollisionOrder::Monster, Result))
+	{
+		UCollision* BCollision = Result[0];
+		AActor* Ptr = BCollision->GetOwner();
+		AMonster* Monster = dynamic_cast<AMonster*>(Ptr);
+		BCollision->ActiveOff();
+		BulletAcc *= -0.2;
+		ColBullet();
+		return;
+	}
+
+	Move(_DeltaTime);
 }

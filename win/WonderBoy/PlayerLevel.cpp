@@ -27,10 +27,6 @@ void UPlayLevel::BeginPlay()
 	Map->SetMapImage("Map3.png");
 	Map->SetColMapImage("ColMap3.png");
 
-	AMonster* Monster = SpawnActor<AMonster>();
-	Monster->SetName("Monster");
-	Monster->SetActorLocation({ 200, 873 });
-
 	AMonster* Monster2 = SpawnActor<AMonster>();
 	Monster2->SetName("Monster2");
 	Monster2->SetActorLocation({ 1437, 873 });
