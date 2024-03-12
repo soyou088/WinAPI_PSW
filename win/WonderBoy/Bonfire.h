@@ -17,7 +17,7 @@ public:
 	ABonfire& operator=(ABonfire&& _Other) noexcept = delete;
 
 protected:
-	void BeginPlay();
+	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 	std::string GetAnimationName(std::string _Name);

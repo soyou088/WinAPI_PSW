@@ -11,6 +11,7 @@ enum class WonderRenderOrder
 	PlayerBullet,
 	Player,
 	Skate,
+	UI,
 };
 
 enum class WonderCollisionOrder

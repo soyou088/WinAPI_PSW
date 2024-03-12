@@ -17,7 +17,7 @@ public:
 	AMonster& operator=(AMonster&& _Other) noexcept = delete;
 
 protected:
-	void BeginPlay();
+	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 

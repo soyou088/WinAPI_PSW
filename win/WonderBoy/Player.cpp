@@ -125,11 +125,6 @@ void APlayer::AddMoveVector(const FVector& _DirDelta)
 	}
 }
 
-void APlayer::AddRunVector(const FVector& _DirDelta)
-{
-	RunVector += _DirDelta * RunAcc;
-}
-
 
 void APlayer::CalMoveVector(float _DeltaTime)
 {
@@ -568,6 +563,8 @@ void APlayer::Idle(float _DeltaTime)
 		MoveVector = FVector::Zero;
 		JumpVector = FVector::Zero;
 	}
+
+
 	CameraSet(_DeltaTime);
 	MoveUpdate(_DeltaTime);
 }
@@ -576,7 +573,7 @@ void APlayer::Idle(float _DeltaTime)
 void APlayer::Move(float _DeltaTime)
 {
 	DirCheck();
-	MoveUpdate(_DeltaTime);
+	
 
 
 	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
@@ -593,7 +590,7 @@ void APlayer::Move(float _DeltaTime)
 		default:
 			break;
 		}
-		if (50.0f <= abs(MoveVector.X))
+		if (100.0f <= abs(MoveVector.X))
 		{
 			AddMoveVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
 		}
@@ -659,14 +656,13 @@ void APlayer::Move(float _DeltaTime)
 
 	HillUP(Color8Bit(255, 0, 255, 0));
 	CameraSet(_DeltaTime);
+	MoveUpdate(_DeltaTime);
+
 }
 
 void APlayer::Run(float _DeltaTime)
 {
-
 	DirCheck();
-	MoveUpdate(_DeltaTime);
-
 
 	if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 	{
@@ -687,7 +683,7 @@ void APlayer::Run(float _DeltaTime)
 		default:
 			break;
 		}
-		if (50.0f <= abs(MoveVector.X))
+		if (100.0f <= abs(MoveVector.X))
 		{
 			AddMoveVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
 		}
@@ -752,6 +748,7 @@ void APlayer::Run(float _DeltaTime)
 
 	HillUP(Color8Bit(255, 0, 255, 0));
 	CameraSet(_DeltaTime);
+	MoveUpdate(_DeltaTime);
 }
 
 
@@ -956,7 +953,8 @@ void APlayer::Tick(float _DeltaTime)
 	}
 
 	std::vector<UCollision*> Result;
-	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Monster, Result))
+	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Monster, Result) ||
+		true == Collision->CollisionCheck(WonderCollisionOrder::Bonfire, Result))
 	{
 		AActor* MCol = Result[0]->GetOwner();
 		Renderer->ChangeAnimation("Death");

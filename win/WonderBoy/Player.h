@@ -48,10 +48,10 @@ protected:
 	void Run(float _DeltaTime);
 	void Death(float _DeltaTime);
 	void Col(float _DeltaTime);
-	void Bullet();
 	void SkateMove(float _DeltaTime);
 	void SkateJump(float _DeltaTime);
 	void SkateBrake(float _DeltaTime);
+	void Bullet();
 
 
 	// 상태 시작 함수들
@@ -84,13 +84,10 @@ private:
 
 	FVector MoveAcc = FVector::Right * 100.0f;	//500
 	FVector MoveVector = FVector::Zero;
-	float MoveMaxSpeed = 500.0f;
+	float MoveMaxSpeed = 200.0f;
 	void AddMoveVector(const FVector& _DirDelta);
 
-	FVector RunAcc = FVector::Right * 700.0f;	//700
-	FVector RunVector = FVector::Zero;
-	float RunMaxSpeed = 1000.0f;
-	void AddRunVector(const FVector& _DirDelta);
+	float RunMaxSpeed = 300.0f;
 
 	FVector GravityAcc = FVector::Down * 2000.0f;
 	FVector GravityVector = FVector::Zero;

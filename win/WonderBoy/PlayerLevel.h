@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore\Level.h>
 #include <EngineCore\Actor.h>
+#include "Stage.h"
 
 // Ό³Έν :
 class UPlayLevel : public ULevel, public AActor
@@ -26,6 +27,6 @@ protected:
 
 
 private:
-
+	AStage* Stage = nullptr;
 };
 

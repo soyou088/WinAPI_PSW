@@ -68,6 +68,9 @@
     <ClInclude Include="Stone.h">
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>PlayLevel\ObjectActor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -112,6 +115,9 @@
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClCompile>
     <ClCompile Include="Stone.cpp">
+      <Filter>PlayLevel\ObjectActor</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClCompile>
   </ItemGroup>

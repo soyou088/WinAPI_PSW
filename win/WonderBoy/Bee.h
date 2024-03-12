@@ -23,7 +23,7 @@ protected:
 	void StateChange(EPlayState _State);
 	void StateUpdate(float _DeltaTime);
 
-	void BeginPlay();
+	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	
 	void MoveStart();

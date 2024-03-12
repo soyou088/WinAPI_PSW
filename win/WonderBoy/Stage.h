@@ -2,26 +2,27 @@
 #include <EngineCore\Actor.h>
 #include "ContentsHelper.h"
 
+
 // Ό³Έν :
-class AStone : public AActor
+class AStage	: public AActor
 {
 public:
 	// constrcuter destructer
-	AStone();
-	~AStone();
+	AStage();
+	~AStage();
 
 	// delete Function
-	AStone(const AStone& _Other) = delete;
-	AStone(AStone&& _Other) noexcept = delete;
-	AStone& operator=(const AStone& _Other) = delete;
-	AStone& operator=(AStone&& _Other) noexcept = delete;
+	AStage(const AStage& _Other) = delete;
+	AStage(AStage&& _Other) noexcept = delete;
+	AStage& operator=(const AStage& _Other) = delete;
+	AStage& operator=(AStage&& _Other) noexcept = delete;
 
 protected:
-
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 private:
+
 	UImageRenderer* Render = nullptr;
 
 	UCollision* Collision = nullptr;

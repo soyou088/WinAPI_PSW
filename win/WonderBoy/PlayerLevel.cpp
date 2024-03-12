@@ -10,6 +10,7 @@
 #include "Stone.h"
 
 
+
 #include "BackGroundMap.h"
 #include "BulletActor.h"
 #include <EngineCore\EngineCore.h>
@@ -136,8 +137,12 @@ void UPlayLevel::BeginPlay()
 	Stone10->AllRenderersActiveOff();
 
 
-
-
+	Stage = SpawnActor<AStage>();
+	Stage->SetName("Stage");
+	Stage->SetActorLocation({ 272, 700 });
+	Stage->Destroy(3.0f);
+	
+	
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");
 	Player->SetActorLocation({ 150, 873 });
@@ -156,6 +161,8 @@ void UPlayLevel::Tick(float _DeltaTime)
 	}
 
 	SetCameraPos(Pos);
+
+	
 }
 
 void UPlayLevel::LevelStart(ULevel* _Level)

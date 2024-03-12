@@ -24,7 +24,7 @@ public:
 
 
 protected:
-	void BeginPlay();
+	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void CalGravityVector(float _DeltaTime);
 
@@ -34,7 +34,7 @@ private:
 	UCollision* BCollision = nullptr;
 	UImageRenderer* Render = nullptr;
 
-	FVector BulletAcc = FVector::Right * 700.0f;
+	FVector BulletAcc = FVector::Right * 650.0f;
 
 	FVector GravityAcc = FVector::Down * 700.0f;
 	FVector GravityVector = FVector::Zero;
