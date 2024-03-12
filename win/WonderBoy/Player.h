@@ -82,9 +82,9 @@ private:
 
 	float FreeMoveSpeed = 700.0f;
 
-	FVector MoveAcc = FVector::Right * 100.0f;	//500
+	FVector MoveAcc = FVector::Right * 1000.0f;	//500
 	FVector MoveVector = FVector::Zero;
-	float MoveMaxSpeed = 200.0f;
+	float MoveMaxSpeed = 800.0f;
 	void AddMoveVector(const FVector& _DirDelta);
 
 	float RunMaxSpeed = 300.0f;
@@ -121,7 +121,8 @@ private:
 	void PlayerGo();
 	void WallCheck();
 	void NextAnimation();
-	void FinBullet();
+	void FinPlayGo();
+
 	bool testgr = false;
 };
 

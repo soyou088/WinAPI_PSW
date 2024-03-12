@@ -216,6 +216,12 @@ void APlayer::PlayerGo()
 	AddActorLocation({ 11000,0 });
 }
 
+void APlayer::FinPlayGo()
+{
+	GetWorld()->SetCameraPos({ 19600 , -19 });
+	SetActorLocation({ 19714, 318 });
+}
+
 void APlayer::WallCheck()
 {
 	FVector WallCheck = GetActorLocation();
@@ -232,10 +238,6 @@ void APlayer::NextAnimation()
 	std::string NextAnimation = GetAnimationName("Run");
 }
 
-void APlayer::FinBullet()
-{
-	
-}
 
 void APlayer::ColorJump()
 {
@@ -557,6 +559,14 @@ void APlayer::Idle(float _DeltaTime)
 		PlayerGo();
 	}
 
+	if (true == UEngineInput::IsDown('J'))
+	{
+		FinPlayGo();
+	
+	}
+
+
+
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
 	if (Color == Color8Bit(255, 0, 255, 0))
 	{
@@ -612,6 +622,8 @@ void APlayer::Move(float _DeltaTime)
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
 		AddMoveVector(FVector::Right * _DeltaTime);
+		FVector CPos = GetWorld()->GetCameraPos();
+		int a = 0;
 	}
 
 	if (true == UEngineInput::IsPress('W'))
