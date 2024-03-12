@@ -706,11 +706,7 @@ void APlayer::Run(float _DeltaTime)
 
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
-		AddMoveVector((FVector::Right * _DeltaTime) * 3);
-		if (UEngineInput::IsFree(VK_RIGHT))
-		{
-			StateChange(EPlayState::Move);
-		}
+		AddMoveVector((FVector::Right * _DeltaTime) * 2);
 	}
 
 	if (true == UEngineInput::IsPress('W'))
@@ -724,6 +720,7 @@ void APlayer::Run(float _DeltaTime)
 	}
 	if (UEngineInput::IsDown('Q'))
 	{
+		Renderer->ChangeAnimation(GetAnimationName("Bullet"));
 		Bullet();
 	}
 

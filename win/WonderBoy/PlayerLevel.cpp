@@ -98,6 +98,15 @@ void UPlayLevel::BeginPlay()
 	Stone5->SetActorLocation({ 9811,850 });
 	Stone5->AllRenderersActiveOff();
 
+	AStone* Stone6 = SpawnActor<AStone>();
+	Stone6->SetName("Stone");
+	Stone6->SetActorLocation({ 10800,850 });
+	Stone6->AllRenderersActiveOff();
+
+	AStone* Stone7 = SpawnActor<AStone>();
+	Stone7->SetName("Stone");
+	Stone7->SetActorLocation({ 10957,850 });
+	Stone7->AllRenderersActiveOff();
 
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");
