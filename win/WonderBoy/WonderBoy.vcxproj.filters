@@ -62,6 +62,9 @@
     <ClInclude Include="Snake.h">
       <Filter>PlayLevel\MonsterActor</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>PlayLevel\ObjectActor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -101,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="Snake.cpp">
       <Filter>PlayLevel\MonsterActor</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>PlayLevel\ObjectActor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

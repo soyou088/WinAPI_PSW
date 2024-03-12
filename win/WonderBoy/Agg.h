@@ -32,9 +32,9 @@ private:
 
 	FVector LastMoveVector = FVector::Zero;
 	
-	FVector MoveVector = FVector::Right * 100.0f;
+	FVector MoveVector = FVector::Right * 300.0f;
 
-	FVector JumpVector = FVector::Up * 730.0f;
+	FVector JumpVector = FVector::Up * 700.0f;
 
 	FVector GravityAcc = FVector::Down * 2000.0f;
 	FVector GravityVector = FVector::Zero;

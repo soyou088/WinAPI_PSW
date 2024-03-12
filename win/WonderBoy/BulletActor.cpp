@@ -43,7 +43,7 @@ void ABulletActor::Move(float _DeltaTime)
 
 void ABulletActor::ColBullet()
 {
-	AddActorLocation({-20, - 50});
+	AddActorLocation({-20, - 20});
 }
 
 void ABulletActor::CalGravityVector(float _DeltaTime)

@@ -262,8 +262,6 @@ void APlayer::Bullet()
 	ABulletActor* Bullet = GetWorld()->SpawnActor<ABulletActor>();
 	Bullet->SetName("Bullet");
 
-	
-
 	if (DirState == EActorDir::Right)
 	{
 		Bullet->SetBulletAcc(FVector::Right * 700.0f);

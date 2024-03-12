@@ -2,10 +2,11 @@
 #include "Player.h"
 #include "Monster.h"
 #include "Bee.h"
+#include "Snake.h"
 #include "Bonfire.h"
 #include "Jumpping.h"
 #include "Agg.h"
-#include "Snake.h"
+#include "Bullet.h"
 #include "BackGroundMap.h"
 #include "BulletActor.h"
 #include <EngineCore\EngineCore.h>
@@ -52,10 +53,6 @@ void UPlayLevel::BeginPlay()
 	Snake->SetName("Snake");
 	Snake->SetActorLocation({ 500, 875});
 	
-	
-	
-	
-	
 	ABonfire* Bonfire = SpawnActor<ABonfire>();
 	Bonfire->SetName("Bonfire");
 	Bonfire->SetActorLocation({ 11234,885 });
@@ -67,6 +64,12 @@ void UPlayLevel::BeginPlay()
 	AAgg* Agg = SpawnActor<AAgg>();
 	Agg->SetName("Agg");
 	Agg->SetActorLocation({ 897,875 });
+
+	ABullet* BulletObject = SpawnActor<ABullet>();
+	BulletObject->SetName("BulletObject");
+	BulletObject->SetActorLocation({ 1106,875 });
+	BulletObject->AllRenderersActiveOff();
+	
 
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");

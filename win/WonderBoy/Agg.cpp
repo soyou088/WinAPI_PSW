@@ -19,7 +19,7 @@ void AAgg::BeginPlay()
 		Render->CreateAnimation("Idel_Agg", "Agg.png", 0, 0, 0.1f, true); 
 		Render->ChangeAnimation("Idel_Agg");
 
-		Render->CreateAnimation("Destory_Agg", "Agg.png", 1, 2, 0.72f, true);
+		Render->CreateAnimation("Destory_Agg", "Agg.png", 1, 2, 0.6897f, true);
 
 
 
