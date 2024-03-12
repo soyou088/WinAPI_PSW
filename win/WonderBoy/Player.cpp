@@ -590,7 +590,7 @@ void APlayer::Move(float _DeltaTime)
 		default:
 			break;
 		}
-		if (100.0f <= abs(MoveVector.X))
+		if (80.0f <= abs(MoveVector.X))
 		{
 			AddMoveVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
 		}
@@ -683,7 +683,7 @@ void APlayer::Run(float _DeltaTime)
 		default:
 			break;
 		}
-		if (100.0f <= abs(MoveVector.X))
+		if (80.0f <= abs(MoveVector.X))
 		{
 			AddMoveVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
 		}
@@ -697,12 +697,12 @@ void APlayer::Run(float _DeltaTime)
 
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
-		AddMoveVector((FVector::Left * _DeltaTime) * 2);
+		AddMoveVector((FVector::Left * _DeltaTime) * 3);
 	}
 
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
-		AddMoveVector((FVector::Right * _DeltaTime) * 2);
+		AddMoveVector((FVector::Right * _DeltaTime) * 3);
 	}
 
 	if (true == UEngineInput::IsPress('W'))
