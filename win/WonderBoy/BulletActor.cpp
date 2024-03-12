@@ -58,7 +58,6 @@ void ABulletActor::Tick(float _DeltaTime)
 		UCollision* BCollision = Result[0];
 		AActor* Ptr = BCollision->GetOwner();
 		AMonster* Monster = dynamic_cast<AMonster*>(Ptr);
-		
 		return;
 	}
 

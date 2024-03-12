@@ -34,7 +34,7 @@ private:
 	
 	FVector MoveVector = FVector::Right * 100.0f;
 
-	FVector JumpVector = FVector::Up * 700.0f;
+	FVector JumpVector = FVector::Up * 730.0f;
 
 	FVector GravityAcc = FVector::Down * 2000.0f;
 	FVector GravityVector = FVector::Zero;
@@ -42,7 +42,7 @@ private:
 	bool ColGra = false;
 	bool ColAgg = false;
 	void CalGravityVector(float _DeltaTime);
-	void TestMove(float _DeltaTime);
+	void AggMove(float _DeltaTime);
 
 };
 
