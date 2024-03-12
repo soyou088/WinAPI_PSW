@@ -20,7 +20,7 @@ void ABonfire::BeginPlay()
 	Render->ChangeAnimation("Move_Bonfire");
 
 	Collision = CreateCollision(WonderCollisionOrder::Bonfire);
-	Collision->SetPosition({ 0,-30 });
+	Collision->SetPosition({ 0,-40 });
 	Collision->SetScale({ 50, 70 });
 	Collision->SetColType(ECollisionType::Rect);
 

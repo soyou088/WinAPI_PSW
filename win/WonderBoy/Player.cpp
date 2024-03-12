@@ -175,8 +175,8 @@ void APlayer::CameraSet(float _DeltaTime)
 		}
 	
 	FVector PPos = GetActorLocation();
-
-	if (PPos.X >= CPos.X + 150 && 0 < LastMoveVector.X)
+	float ScaleX = GEngine->MainWindow.GetWindowScale().X;
+	if (PPos.X >= CPos.X + 150 && 0 < LastMoveVector.X && UContentsHelper::ColMapImage->GetScale().X  >= CPos.X + ScaleX)
 	{
 		GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
 

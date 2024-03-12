@@ -68,6 +68,7 @@ void UPlayLevel::BeginPlay()
 	Jumpping->SetName("Jumpping");
 	Jumpping->SetActorLocation({ 17875,890 });
 
+
 	AAgg* Agg = SpawnActor<AAgg>();
 	Agg->SetName("Agg");
 	Agg->SetActorLocation({ 897,875 });
@@ -76,11 +77,14 @@ void UPlayLevel::BeginPlay()
 	Agg2->SetName("Agg2");
 	Agg2->SetActorLocation({ 6126,875 });
 
+
 	ABullet* BulletObject = SpawnActor<ABullet>();
 	BulletObject->SetName("BulletObject");
 	BulletObject->SetActorLocation({ 1106,875 });
 	BulletObject->AllRenderersActiveOff();
 	
+
+
 	AStone* Stone = SpawnActor<AStone>();
 	Stone->SetName("Stone");
 	Stone->SetActorLocation({ 3041,850 });
@@ -115,6 +119,24 @@ void UPlayLevel::BeginPlay()
 	Stone7->SetName("Stone");
 	Stone7->SetActorLocation({ 10957,850 });
 	Stone7->AllRenderersActiveOff();
+
+	AStone* Stone8 = SpawnActor<AStone>();
+	Stone8->SetName("Stone");
+	Stone8->SetActorLocation({ 16537,300 });
+	Stone8->AllRenderersActiveOff();
+
+	AStone* Stone9 = SpawnActor<AStone>();
+	Stone9->SetName("Stone");
+	Stone9->SetActorLocation({ 17130,300 });
+	Stone9->AllRenderersActiveOff();
+	
+	AStone* Stone10 = SpawnActor<AStone>();
+	Stone10->SetName("Stone");
+	Stone10->SetActorLocation({ 17211,300});
+	Stone10->AllRenderersActiveOff();
+
+
+
 
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");
