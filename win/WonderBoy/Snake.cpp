@@ -12,7 +12,7 @@ void ASnake::BeginPlay()
 {
 	Render = CreateImageRenderer(WonderRenderOrder::Monster);
 	Render->SetImage("Snake2.png");
-	Render->SetTransform({ {0, 0}, {400, 400} });
+	Render->SetTransform({ {0, 0}, {300, 300} });
 	Render->CreateAnimation("Snake", "Snake2.png", 0, 12, 0.1f, true); // 움직이는 상태
 	Render->CreateAnimation("Death", "Snake2.png", 13, 13, 0.1f, true);
 	

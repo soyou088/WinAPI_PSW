@@ -66,12 +66,13 @@ void ABulletActor::Tick(float _DeltaTime)
 	ABulletActor* Bullet = nullptr;
 
 	std::vector<UCollision*> Result;
-	if (true == BCollision->CollisionCheck(WonderCollisionOrder::Monster, Result))
+	if (true == BCollision->CollisionCheck(WonderCollisionOrder::Stone, Result) 
+		|| true == BCollision->CollisionCheck(WonderCollisionOrder::Object, Result) 
+		|| true == BCollision->CollisionCheck(WonderCollisionOrder::Monster, Result))
 	{
 		UCollision* BCollision = Result[0];
 		AActor* Ptr = BCollision->GetOwner();
 		AMonster* Monster = dynamic_cast<AMonster*>(Ptr);
-		BCollision->ActiveOff();
 		BulletAcc *= -0.2;
 		ColBullet();
 		return;

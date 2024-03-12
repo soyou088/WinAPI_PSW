@@ -54,7 +54,6 @@ void AAgg::AggMove(float _DeltaTime)
 	Color8Bit AColor = Color;
 	if (ColAgg == true && ColGra == true && Color == Color8Bit::MagentaA)
 	{
-		Render->ChangeAnimation("Destory_Agg");
 		Destroy();
 	}
 
@@ -65,8 +64,11 @@ void AAgg::AggMove(float _DeltaTime)
 void AAgg::Tick(float _DeltaTime)
 {
 	std::vector<UCollision*> Result;
-	
-	if (ColAgg == false && nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Player, Result))
+
+	if ( ColAgg == false && 
+		nullptr != Collision && 
+		true == Collision->CollisionCheck(WonderCollisionOrder::Player, Result) ||
+		true == Collision->CollisionCheck(WonderCollisionOrder::PlayerBullet, Result))
 	{
 		AActor* MCol = Result[0]->GetOwner();
 		// 닿았을때 포물선을 그린다

@@ -54,7 +54,7 @@ void UPlayLevel::BeginPlay()
 	
 	ASnake* Snake = SpawnActor<ASnake>();
 	Snake->SetName("Snake");
-	Snake->SetActorLocation({ 500, 875});
+	Snake->SetActorLocation({ 11832, 875});
 	
 	ABonfire* Bonfire = SpawnActor<ABonfire>();
 	Bonfire->SetName("Bonfire");

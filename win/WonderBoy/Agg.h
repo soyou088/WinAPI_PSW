@@ -41,6 +41,7 @@ private:
 
 	bool ColGra = false;
 	bool ColAgg = false;
+	bool BulAgg = false;
 	void CalGravityVector(float _DeltaTime);
 	void AggMove(float _DeltaTime);
 

@@ -20,7 +20,6 @@ protected:
 
 	void BeginPlay();
 	void Tick(float _DeltaTime) override;
-	void ColStone();
 
 private:
 	UImageRenderer* Render = nullptr;

@@ -27,7 +27,7 @@ void APlayer::BeginPlay()
 	{
 		Renderer = CreateImageRenderer(WonderRenderOrder::Player);
 		Renderer->SetImage("Player_1_R.png");
-		Renderer->SetTransform({ {0,0}, {300, 250} });
+		Renderer->SetTransform({ {0,0}, {300, 300} });
 
 		Renderer->CreateAnimation("Idle_Right", "Player_1_R.png", 0, 2, 0.1f, true); // 가만히 있는 상태
 		Renderer->CreateAnimation("Move_Right", "Player_1_R.png", 0, 4, 0.05f, true); // 오른쪽으로 움직이는 상태
@@ -57,6 +57,8 @@ void APlayer::BeginPlay()
 		Renderer->CreateAnimation("Bullet_Left", "Player_1_L.png", 7, 8, 0.1f, true); // 왼쪽 공격
 
 		Renderer->CreateAnimation("Death", "Death.png", 0, 1, 0.1f, true); // 죽기
+
+		Renderer->CreateAnimation("ColStone_Right", "Player_1_R.png", 9, 9, 0.1f, true); // 오른쪽 col
 
 		Renderer->ChangeAnimation("Idle_Right");
 	}
@@ -966,7 +968,7 @@ void APlayer::Tick(float _DeltaTime)
 	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Stone, Result))
 	{
 		AActor* SCol = Result[0]->GetOwner();
-		Renderer->ChangeAnimation("Death");
+		Renderer->ChangeAnimation("ColStone_Right");
 		return;
 	}
 
