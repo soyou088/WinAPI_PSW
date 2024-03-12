@@ -65,6 +65,9 @@
     <ClInclude Include="Bullet.h">
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClInclude>
+    <ClInclude Include="Stone.h">
+      <Filter>PlayLevel\ObjectActor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -106,6 +109,9 @@
       <Filter>PlayLevel\MonsterActor</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
+      <Filter>PlayLevel\ObjectActor</Filter>
+    </ClCompile>
+    <ClCompile Include="Stone.cpp">
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClCompile>
   </ItemGroup>

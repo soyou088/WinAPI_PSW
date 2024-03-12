@@ -7,6 +7,9 @@
 #include "Jumpping.h"
 #include "Agg.h"
 #include "Bullet.h"
+#include "Stone.h"
+
+
 #include "BackGroundMap.h"
 #include "BulletActor.h"
 #include <EngineCore\EngineCore.h>
@@ -70,6 +73,31 @@ void UPlayLevel::BeginPlay()
 	BulletObject->SetActorLocation({ 1106,875 });
 	BulletObject->AllRenderersActiveOff();
 	
+	AStone* Stone = SpawnActor<AStone>();
+	Stone->SetName("Stone");
+	Stone->SetActorLocation({ 3041,850 });
+	Stone->AllRenderersActiveOff();
+
+	AStone* Stone2 = SpawnActor<AStone>();
+	Stone2->SetName("Stone");
+	Stone2->SetActorLocation({ 3480,850 });
+	Stone2->AllRenderersActiveOff();
+
+	AStone* Stone3 = SpawnActor<AStone>();
+	Stone3->SetName("Stone");
+	Stone3->SetActorLocation({ 3599,850 });
+	Stone3->AllRenderersActiveOff();
+
+	AStone* Stone4 = SpawnActor<AStone>();
+	Stone4->SetName("Stone");
+	Stone4->SetActorLocation({ 9098,850 });
+	Stone4->AllRenderersActiveOff();
+
+	AStone* Stone5 = SpawnActor<AStone>();
+	Stone5->SetName("Stone");
+	Stone5->SetActorLocation({ 9811,850 });
+	Stone5->AllRenderersActiveOff();
+
 
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");

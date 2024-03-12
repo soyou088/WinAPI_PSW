@@ -699,15 +699,18 @@ void APlayer::Run(float _DeltaTime)
 
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
-		AddMoveVector(FVector::Left * _DeltaTime);
+		AddMoveVector((FVector::Left * _DeltaTime) * 2);
 	}
 
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
-		AddMoveVector(FVector::Right * _DeltaTime);
+		AddMoveVector((FVector::Right * _DeltaTime) * 3);
+		if (UEngineInput::IsFree(VK_RIGHT))
+		{
+			StateChange(EPlayState::Move);
+		}
 	}
 
-	FVector aRunVector = RunVector;
 	if (true == UEngineInput::IsPress('W'))
 	{
 		StateChange(EPlayState::Jump);
@@ -957,6 +960,12 @@ void APlayer::Tick(float _DeltaTime)
 	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Monster, Result))
 	{
 		AActor* MCol = Result[0]->GetOwner();
+		Renderer->ChangeAnimation("Death");
+		return;
+	}
+	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Stone, Result))
+	{
+		AActor* SCol = Result[0]->GetOwner();
 		Renderer->ChangeAnimation("Death");
 		return;
 	}

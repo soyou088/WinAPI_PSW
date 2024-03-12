@@ -26,18 +26,6 @@ void AMonster::BeginPlay()
 
 		Snail->CreateAnimation("Death_Monster", "Monster1.png", 2, 2, 0.0f, true);
 
-
-	//{
-	//	Frog = CreateImageRenderer(WonderRenderOrder::Monster);
-	//	Frog->SetImage("Frog.png");
-	//	Frog->SetTransform({ {200, 873 }, {400, 400} });
-
-	//	Frog->CreateAnimation("Move_Frog", "Frog.png", 0, 1, 1.0f, true); // 움직이는 상태
-	//	Frog->ChangeAnimation("Move_Frog");
-	//}
-
-
-
 	
 		Collision = CreateCollision(WonderCollisionOrder::Monster);
 		Collision->SetPosition({ 0,-28 });
