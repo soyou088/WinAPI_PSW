@@ -50,8 +50,8 @@ void ABulletActor::CalGravityVector(float _DeltaTime)
 {
 	GravityVector += GravityAcc * _DeltaTime;
 	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY(), Color8Bit::MagentaA);
-
-	if (Color == Color8Bit::MagentaA)
+	std::vector<UCollision*> Result;
+	if (Color == Color8Bit::MagentaA || true == BCollision->CollisionCheck(WonderCollisionOrder::Bonfire, Result))
 	{
 		GravityVector = FVector::Zero;
 		Destroy();
@@ -77,6 +77,8 @@ void ABulletActor::Tick(float _DeltaTime)
 		ColBullet();
 		return;
 	}
+
+
 
 	Move(_DeltaTime);
 }

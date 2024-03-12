@@ -18,6 +18,7 @@ enum class WonderCollisionOrder
 	PlayerBullet, // µ¹µµ³¢
 	Monster, 
 	Stone,
+	Bonfire,
 	Object,
 	Player,
 

@@ -19,7 +19,7 @@ void ABonfire::BeginPlay()
 	Render->CreateAnimation("Move_Bonfire", "Bonfire_2_2.png", 0, 2, 0.1f, true); // 움직이는 상태
 	Render->ChangeAnimation("Move_Bonfire");
 
-	Collision = CreateCollision(WonderCollisionOrder::Monster);
+	Collision = CreateCollision(WonderCollisionOrder::Bonfire);
 	Collision->SetPosition({ 0,-30 });
 	Collision->SetScale({ 50, 70 });
 	Collision->SetColType(ECollisionType::Rect);

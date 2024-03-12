@@ -27,16 +27,16 @@ void APlayer::BeginPlay()
 	{
 		Renderer = CreateImageRenderer(WonderRenderOrder::Player);
 		Renderer->SetImage("Player_1_R.png");
-		Renderer->SetTransform({ {0,0}, {300, 300} });
+		Renderer->SetTransform({ {0,0}, {320, 290} });
 
 		Renderer->CreateAnimation("Idle_Right", "Player_1_R.png", 0, 2, 0.1f, true); // 가만히 있는 상태
-		Renderer->CreateAnimation("Move_Right", "Player_1_R.png", 0, 4, 0.05f, true); // 오른쪽으로 움직이는 상태
+		Renderer->CreateAnimation("Move_Right", "Player_1_R.png", 0, 5, 0.05f, true); // 오른쪽으로 움직이는 상태
 
 		Renderer->CreateAnimation("Idle_Left", "Player_1_L.png", 0, 2, 0.1f, true); // 가만히 있는 상태
-		Renderer->CreateAnimation("Move_Left", "Player_1_L.png", 0, 4, 0.05f, true); // 왼쪽으로 움직이는 상태
+		Renderer->CreateAnimation("Move_Left", "Player_1_L.png", 0, 5, 0.05f, true); // 왼쪽으로 움직이는 상태
 
-		Renderer->CreateAnimation("Run_Right", "Player_1_R.png", 0, 4, 0.05f, true); // 오른쪽으로 달리는 상태
-		Renderer->CreateAnimation("Run_Left", "Player_1_L.png", 0, 4, 0.05f, true); // 왼쪽으로 달리는 상태
+		Renderer->CreateAnimation("Run_Right", "Player_1_R.png", 0, 5, 0.05f, true); // 오른쪽으로 달리는 상태
+		Renderer->CreateAnimation("Run_Left", "Player_1_L.png", 0, 5, 0.05f, true); // 왼쪽으로 달리는 상태
 
 		Renderer->CreateAnimation("Jump_Right", "Player_1_R.png", 5, 5, 0.1f, true); // 오른쪽으로 점프하기
 		Renderer->CreateAnimation("Jump_Left", "Player_1_L.png", 5, 5, 0.1f, true); // 왼쪽으로 점프하기
