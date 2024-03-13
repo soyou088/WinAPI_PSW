@@ -74,6 +74,9 @@
     <ClInclude Include="Stage.h">
       <Filter>PlayLevel\ObjectActor\UI</Filter>
     </ClInclude>
+    <ClInclude Include="UI_Player.h">
+      <Filter>PlayLevel\ObjectActor\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -121,6 +124,9 @@
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClCompile>
     <ClCompile Include="Stage.cpp">
+      <Filter>PlayLevel\ObjectActor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Player.cpp">
       <Filter>PlayLevel\ObjectActor\UI</Filter>
     </ClCompile>
   </ItemGroup>

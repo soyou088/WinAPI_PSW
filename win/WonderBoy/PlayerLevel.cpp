@@ -9,7 +9,8 @@
 #include "Bullet.h"
 #include "Stone.h"
 
-
+#include "UI_Player.h"
+#include "Stage.h"
 
 #include "BackGroundMap.h"
 #include "BulletActor.h"
@@ -137,11 +138,15 @@ void UPlayLevel::BeginPlay()
 	Stone10->AllRenderersActiveOff();
 
 
-	Stage = SpawnActor<AStage>();
+	AStage* Stage = SpawnActor<AStage>();
 	Stage->SetName("Stage");
 	Stage->SetActorLocation({ 260, 700 });
 	Stage->Destroy(2.0f);
 	
+	AUI_Player* UIPlayer = SpawnActor<AUI_Player>();
+	UIPlayer->SetName("UI_PLayer");
+	UIPlayer->SetActorLocation({ 55,550 });
+
 	
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");
