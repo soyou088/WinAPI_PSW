@@ -13,6 +13,7 @@
 #include "Stage.h"
 #include "UI_Back.h"
 #include "UIEX.h"
+#include "UI_item.h"
 
 #include "BackGroundMap.h"
 #include "BulletActor.h"
@@ -147,17 +148,21 @@ void UPlayLevel::BeginPlay()
 	Stage->SetActorLocation({ 260, 700 });
 	Stage->Destroy(2.0f);
 
-	//AUI_Back* UIBack = SpawnActor<AUI_Back>();
-	//UIBack->SetName("UI_Back");
-	//UIBack->SetActorLocation({ 250,85 });
-	
-	AUI_Player* UIPlayer = SpawnActor<AUI_Player>();
-	UIPlayer->SetName("UI_PLayer");
-	UIPlayer->SetActorLocation({ 70,10 });
-
 	AUIEX* UIEX = SpawnActor<AUIEX>();
 	UIEX->SetName("UIEX");
 	UIEX->SetActorLocation({ 256,55 });
+
+	AUI_Back* UIBack = SpawnActor<AUI_Back>();
+	UIBack->SetName("UI_Back");
+	UIBack->SetActorLocation({ 250,40 });
+	
+	AUI_Player* UIPlayer = SpawnActor<AUI_Player>();
+	UIPlayer->SetName("UI_PLayer");
+	UIPlayer->SetActorLocation({ 70,12 });
+
+	AUI_item* UIitem = SpawnActor<AUI_item>();
+	UIitem->SetName("UI_item");
+	UIitem->SetActorLocation({ 73,95});
 
 	// Player
 	APlayer* Player = SpawnActor<APlayer>();

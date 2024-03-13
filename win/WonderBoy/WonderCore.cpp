@@ -57,6 +57,7 @@ void UWonderCore::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Stage.png", 1, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("UI_Back.png", 1, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("UIEX.png", 1, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("UI_item.png", 1, 1);
 	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Object\\UI_Player"));
 
 	// Title

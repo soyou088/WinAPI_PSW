@@ -710,13 +710,13 @@ void APlayer::Run(float _DeltaTime)
 
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
-		AddMoveVector((FVector::Left * _DeltaTime) * 5);
+		AddMoveVector((FVector::Left * _DeltaTime) * 5.f);
 		Renderer->ChangeAnimation(GetAnimationName("Move"));
 	}
 
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
-		AddMoveVector((FVector::Right * _DeltaTime) * 5);
+		AddMoveVector((FVector::Right * _DeltaTime) * 5.f);
 		Renderer->ChangeAnimation(GetAnimationName("Move"));
 	}
 
