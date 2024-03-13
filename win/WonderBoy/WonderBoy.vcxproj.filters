@@ -86,6 +86,9 @@
     <ClInclude Include="UI_item.h">
       <Filter>PlayLevel\ObjectActor\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Life.h">
+      <Filter>PlayLevel\ObjectActor\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -145,6 +148,9 @@
       <Filter>PlayLevel\ObjectActor\UI</Filter>
     </ClCompile>
     <ClCompile Include="UI_item.cpp">
+      <Filter>PlayLevel\ObjectActor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Life.cpp">
       <Filter>PlayLevel\ObjectActor\UI</Filter>
     </ClCompile>
   </ItemGroup>

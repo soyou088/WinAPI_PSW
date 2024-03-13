@@ -14,7 +14,7 @@
 #include "UI_Back.h"
 #include "UIEX.h"
 #include "UI_item.h"
-
+#include "Life.h"
 #include "BackGroundMap.h"
 #include "BulletActor.h"
 #include <EngineCore\EngineCore.h>
@@ -160,9 +160,19 @@ void UPlayLevel::BeginPlay()
 	UIPlayer->SetName("UI_PLayer");
 	UIPlayer->SetActorLocation({ 70,12 });
 
+	ALife* Life = SpawnActor<ALife>();
+	Life->SetName("Life");
+	Life->SetActorLocation({ 23,59 });
+
+	ALife* Life2 = SpawnActor<ALife>();
+	Life2->SetName("Life");
+	Life2->SetActorLocation({ 61,59 });
+
 	AUI_item* UIitem = SpawnActor<AUI_item>();
 	UIitem->SetName("UI_item");
 	UIitem->SetActorLocation({ 73,95});
+
+
 
 	// Player
 	APlayer* Player = SpawnActor<APlayer>();
