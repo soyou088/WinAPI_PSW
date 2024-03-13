@@ -10,6 +10,8 @@ ALife::~ALife()
 
 void ALife::BeginPlay()
 {
+	AActor::BeginPlay();
+
 	Render = CreateImageRenderer(WonderRenderOrder::UI);
 
 	Render->CreateAnimation("Life", "Life.png", 0, 0, 1.0f, true);

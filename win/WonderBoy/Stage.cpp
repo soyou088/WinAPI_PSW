@@ -10,6 +10,8 @@ AStage::~AStage()
 
 void AStage::BeginPlay()
 {
+	AActor::BeginPlay();
+
 	Render = CreateImageRenderer(WonderRenderOrder::UI);
 
 	Render->CreateAnimation("Stage", "Stage.png", 0, 0, 1.0f, true);

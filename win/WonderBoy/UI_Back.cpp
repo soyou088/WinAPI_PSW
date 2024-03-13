@@ -10,6 +10,8 @@ AUI_Back::~AUI_Back()
 
 void AUI_Back::BeginPlay()
 {
+	AActor::BeginPlay();
+
 		Render = CreateImageRenderer(WonderRenderOrder::UI);
 
 		Render->CreateAnimation("UI_Back", "UI_Back.png", 0, 0, 1.0f, true);

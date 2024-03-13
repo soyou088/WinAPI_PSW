@@ -10,6 +10,8 @@ AUI_item::~AUI_item()
 
 void AUI_item::BeginPlay()
 {
+	AActor::BeginPlay();
+
 	Render = CreateImageRenderer(WonderRenderOrder::UI);
 
 	Render->CreateAnimation("UI_item", "UI_item.png", 0, 0, 1.0f, true);

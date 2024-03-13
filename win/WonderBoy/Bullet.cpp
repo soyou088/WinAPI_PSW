@@ -10,6 +10,8 @@ ABullet::~ABullet()
 
 void ABullet::BeginPlay()
 {
+	AActor::BeginPlay();
+
 	Render = CreateImageRenderer(WonderRenderOrder::Object);
 
 	Render->CreateAnimation("BulletObject", "BulletObject1.png", 0, 0, 1.0f, true);
