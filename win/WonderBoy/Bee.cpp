@@ -54,7 +54,7 @@ void ABee::BeginPlay()
 
 		Collision = CreateCollision(WonderCollisionOrder::Monster);
 		Collision->SetPosition({ 0,0 });
-		Collision->SetScale({ 50, 50 });
+		Collision->SetScale({ 50, 90 });
 		Collision->SetColType(ECollisionType::Rect);
 }
 

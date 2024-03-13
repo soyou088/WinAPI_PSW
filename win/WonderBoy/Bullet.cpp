@@ -18,7 +18,7 @@ void ABullet::BeginPlay()
 
 	Render->ChangeAnimation("BulletObject");
 
-	Collision = CreateCollision(WonderCollisionOrder::Object);
+	Collision = CreateCollision(WonderCollisionOrder::Bullet);
 	Collision->SetPosition({ 0,-28 });
 	Collision->SetScale({ 50, 50 });
 	Collision->SetColType(ECollisionType::Rect);

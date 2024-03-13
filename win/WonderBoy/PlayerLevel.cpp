@@ -139,8 +139,8 @@ void UPlayLevel::BeginPlay()
 
 	Stage = SpawnActor<AStage>();
 	Stage->SetName("Stage");
-	Stage->SetActorLocation({ 272, 700 });
-	Stage->Destroy(3.0f);
+	Stage->SetActorLocation({ 260, 700 });
+	Stage->Destroy(2.0f);
 	
 	
 	APlayer* Player = SpawnActor<APlayer>();

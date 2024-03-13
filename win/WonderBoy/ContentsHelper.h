@@ -20,6 +20,7 @@ enum class WonderCollisionOrder
 	Monster, 
 	Stone,
 	Bonfire,
+	Bullet,
 	Object,
 	Player,
 

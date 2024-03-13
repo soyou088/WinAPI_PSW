@@ -709,12 +709,12 @@ void APlayer::Run(float _DeltaTime)
 
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
-		AddMoveVector((FVector::Left * _DeltaTime) * 3);
+		AddMoveVector((FVector::Left * _DeltaTime) * 10);
 	}
 
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
-		AddMoveVector((FVector::Right * _DeltaTime) * 3);
+		AddMoveVector((FVector::Right * _DeltaTime) * 10);
 	}
 
 	if (true == UEngineInput::IsPress('W'))
@@ -722,9 +722,12 @@ void APlayer::Run(float _DeltaTime)
 		StateChange(EPlayState::Jump);
 		return;
 	}
-	if (UEngineInput::IsFree('Q'))
+	if (UEngineInput::IsPress('Q'))
 	{
-		Renderer->ChangeAnimation(GetAnimationName("Run"));
+		if (true == Renderer->IsCurAnimationEnd())
+		{
+			Renderer->ChangeAnimation(GetAnimationName("Move"));
+		}
 	}
 	if (UEngineInput::IsDown('Q'))
 	{
