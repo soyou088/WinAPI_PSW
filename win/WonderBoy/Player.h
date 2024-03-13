@@ -82,9 +82,9 @@ private:
 
 	float FreeMoveSpeed = 700.0f;
 
-	FVector MoveAcc = FVector::Right * 200.0f;	//500
+	FVector MoveAcc = FVector::Right * 100.0f;	//500
 	FVector MoveVector = FVector::Zero;
-	float MoveMaxSpeed = 300.0f;
+	float MoveMaxSpeed = 200.0f;
 	void AddMoveVector(const FVector& _DirDelta);
 
 	float RunMaxSpeed = 300.0f;

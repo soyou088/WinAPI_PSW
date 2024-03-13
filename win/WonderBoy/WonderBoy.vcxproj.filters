@@ -22,6 +22,9 @@
     <Filter Include="PlayLevel\ObjectActor">
       <UniqueIdentifier>{c0088058-63c4-49f7-b80b-b7473e4866ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayLevel\ObjectActor\UI">
+      <UniqueIdentifier>{910ce9ed-1dfa-4861-b62c-3140c0aa5d85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGroundMap.h">
@@ -69,7 +72,7 @@
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClInclude>
     <ClInclude Include="Stage.h">
-      <Filter>PlayLevel\ObjectActor</Filter>
+      <Filter>PlayLevel\ObjectActor\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -118,7 +121,7 @@
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClCompile>
     <ClCompile Include="Stage.cpp">
-      <Filter>PlayLevel\ObjectActor</Filter>
+      <Filter>PlayLevel\ObjectActor\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

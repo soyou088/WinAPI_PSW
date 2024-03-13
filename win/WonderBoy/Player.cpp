@@ -212,8 +212,9 @@ void APlayer::HillUP(Color8Bit _Color)
 
 void APlayer::PlayerGo()
 {
-	GetWorld()->AddCameraPos({ 11000,0 });
-	AddActorLocation({ 11000,0 });
+	FVector CPos = GetWorld()->GetCameraPos();
+	GetWorld()->SetCameraPos({ 11000,540 });
+	SetActorLocation({	11150, 873 });
 }
 
 void APlayer::FinPlayGo()
@@ -626,13 +627,13 @@ void APlayer::Move(float _DeltaTime)
 		int a = 0;
 	}
 
-	if (true == UEngineInput::IsPress('W'))
+	if (UEngineInput::IsPress('W'))
 	{
 		StateChange(EPlayState::Jump);
 		return;
 	}
 
-	if (true == UEngineInput::IsDown('Q'))
+	if (UEngineInput::IsPress('Q'))
 	{
 		BeforeRunState = EPlayState::Move;
 		StateChange(EPlayState::Run);
@@ -709,15 +710,17 @@ void APlayer::Run(float _DeltaTime)
 
 	if (UEngineInput::IsPress(VK_LEFT))
 	{
-		AddMoveVector((FVector::Left * _DeltaTime) * 10);
+		AddMoveVector((FVector::Left * _DeltaTime) * 5);
+		Renderer->ChangeAnimation(GetAnimationName("Move"));
 	}
 
 	if (UEngineInput::IsPress(VK_RIGHT))
 	{
-		AddMoveVector((FVector::Right * _DeltaTime) * 10);
+		AddMoveVector((FVector::Right * _DeltaTime) * 5);
+		Renderer->ChangeAnimation(GetAnimationName("Move"));
 	}
 
-	if (true == UEngineInput::IsPress('W'))
+	if (UEngineInput::IsPress('W'))
 	{
 		StateChange(EPlayState::Jump);
 		return;
@@ -733,6 +736,11 @@ void APlayer::Run(float _DeltaTime)
 	{
 		Renderer->ChangeAnimation(GetAnimationName("Bullet"));
 		Bullet();
+		if (true == UEngineInput::IsPress(VK_RIGHT))
+		{
+			Renderer->ChangeAnimation(GetAnimationName("Bullet"));
+			Renderer->ChangeAnimation(GetAnimationName("Move"));
+		}
 	}
 
 	FVector CheckPos = GetActorLocation();
