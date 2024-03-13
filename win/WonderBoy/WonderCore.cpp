@@ -52,11 +52,13 @@ void UWonderCore::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Skate_R.png", 5, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Skate_L.png", 5, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Effect.png", 1, 1);
+
+	// UI
 	UEngineResourcesManager::GetInst().CuttingImage("Stage.png", 1, 1);
-
-
+	UEngineResourcesManager::GetInst().CuttingImage("UI_Back.png", 1, 1);
 	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Object\\UI_Player"));
 
+	// Title
 	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Title"));
 
 	CreateLevel<UTitleLevel>("Title");
