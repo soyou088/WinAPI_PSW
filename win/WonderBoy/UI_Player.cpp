@@ -18,7 +18,7 @@ void AUI_Player::BeginPlay()
 	Render->ChangeAnimation("UI_Player");
 	
 	Render->SetImage("PLAYER1.png");
-	Render->SetTransform({ {0, 0 }, {80, 30} });
+	Render->SetTransform({ {0, 0}, {80, 30} });
 	
 	 Render->CameraEffectOff();
 	
