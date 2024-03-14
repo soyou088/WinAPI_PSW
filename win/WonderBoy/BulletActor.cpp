@@ -68,7 +68,8 @@ void ABulletActor::Tick(float _DeltaTime)
 	std::vector<UCollision*> Result;
 	if (true == BCollision->CollisionCheck(WonderCollisionOrder::Stone, Result) 
 		|| true == BCollision->CollisionCheck(WonderCollisionOrder::Object, Result) 
-		|| true == BCollision->CollisionCheck(WonderCollisionOrder::Monster, Result))
+		|| true == BCollision->CollisionCheck(WonderCollisionOrder::Monster, Result)
+		|| true == BCollision->CollisionCheck(WonderCollisionOrder::Rock, Result))
 	{
 		UCollision* BCollision = Result[0];
 		AActor* Ptr = BCollision->GetOwner();

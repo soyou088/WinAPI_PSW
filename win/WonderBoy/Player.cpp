@@ -989,6 +989,13 @@ void APlayer::Tick(float _DeltaTime)
 		Renderer->ChangeAnimation("ColStone_Right");
 		return;
 	}
+	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Rock, Result))
+	{
+		AActor* SCol = Result[0]->GetOwner();
+		Renderer->ChangeAnimation("Death");
+		return;
+	}
+
 
 	APlayer* Player = APlayer::GetMainPlayer();
 	if (nullptr == Player)

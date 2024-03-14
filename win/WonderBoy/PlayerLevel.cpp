@@ -149,9 +149,15 @@ void UPlayLevel::BeginPlay()
 
 	ARock* Rock = SpawnActor<ARock>();
 	Rock->SetName("Rock");
-	Rock->SetActorLocation({ 12736 ,678 });
+	Rock->SetActorLocation({ 13036 ,678 });
 
+	ARock* Rock2 = SpawnActor<ARock>();
+	Rock2->SetName("Rock");
+	Rock2->SetActorLocation({ 13540 ,587 });
 
+	ARock* Rock3 = SpawnActor<ARock>();
+	Rock3->SetName("Rock");
+	Rock3->SetActorLocation({ 14061 ,396 });
 
 
 	// UI

@@ -14,14 +14,18 @@ void ARock::BeginPlay()
 
 	Render = CreateImageRenderer(WonderRenderOrder::Object);
 	Render->SetImage("Rock.png");
-	Render->SetTransform({ {0, 0 }, {400, 400} });
+	Render->SetTransform({ {0, 0 }, {300, 300} });
 
 	Render->CreateAnimation("Rock", "Rock.png", 0, 3, 0.1f, true); // 움직이는 상태
 	
 	Render->ChangeAnimation("Rock");
 
-	
 
+
+	Collision = CreateCollision(WonderCollisionOrder::Rock);
+	Collision->SetPosition({ 0,-30 });
+	Collision->SetScale({ 68, 68});
+	Collision->SetColType(ECollisionType::CirCle);
 }
 
 void ARock::Move(float _DeltaTime)
