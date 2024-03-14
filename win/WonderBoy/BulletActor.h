@@ -26,7 +26,6 @@ public:
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-	void CalGravityVector(float _DeltaTime);
 
 
 private:
@@ -41,4 +40,5 @@ private:
 
 	void Move(float _DeltaTime);
 	void ColBullet();
+	void CalGravityVector(float _DeltaTime);
 };

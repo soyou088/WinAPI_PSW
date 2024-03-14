@@ -22,9 +22,9 @@ void AStone::BeginPlay()
 	Render->ChangeAnimation("Stone");
 
 
-	Collision = CreateCollision(WonderCollisionOrder::Stone);
+	Collision = CreateCollision(WonderCollisionOrder::Object);
 	Collision->SetScale({ 50, 50 });
-	Collision->SetColType(ECollisionType::Rect);
+	Collision->SetColType(ECollisionType::CirCle);
 }
 
 void AStone::Tick(float _DeltaTime)

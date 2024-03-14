@@ -37,21 +37,26 @@ void UWonderCore::BeginPlay()
 	                                               // 이미지 자르기 6개씩 2줄
 	UEngineResourcesManager::GetInst().CuttingImage("Player_1_R.png", 6, 2);
 	UEngineResourcesManager::GetInst().CuttingImage("Player_1_L.png", 6, 2);
+	UEngineResourcesManager::GetInst().CuttingImage("Skate_R.png", 5, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Skate_L.png", 5, 1);
+	
+	UEngineResourcesManager::GetInst().CuttingImage("Effect.png", 1, 1);
+
 	UEngineResourcesManager::GetInst().CuttingImage("Monster1.png", 3, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Bee.png", 3, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Snake2.png", 14, 1);
-	UEngineResourcesManager::GetInst().CuttingImage("Bonfire_2_2.png", 3, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Stone.png", 4, 1);
-	UEngineResourcesManager::GetInst().CuttingImage("Agg.png", 3, 1);
-	UEngineResourcesManager::GetInst().CuttingImage("Angel.png", 2, 1);
-	UEngineResourcesManager::GetInst().CuttingImage("Jumpping.png", 2, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Bonfire_2_2.png", 3, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Death.png", 2, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Bullet_C.png", 4, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("BulletObject.png", 2, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("BulletObject1.png", 1, 1);
-	UEngineResourcesManager::GetInst().CuttingImage("Skate_R.png", 5, 1);
-	UEngineResourcesManager::GetInst().CuttingImage("Skate_L.png", 5, 1);
-	UEngineResourcesManager::GetInst().CuttingImage("Effect.png", 1, 1);
+
+	UEngineResourcesManager::GetInst().CuttingImage("Angel.png", 2, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Jumpping.png", 2, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Agg.png", 3, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("Rock.png", 4, 1);
+
 
 	// UI
 	UEngineResourcesManager::GetInst().CuttingImage("Stage.png", 1, 1);

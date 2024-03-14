@@ -61,6 +61,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Rock.h" />
     <ClInclude Include="Snake.h">
       <SubType>
       </SubType>
@@ -149,6 +150,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Snake.cpp">
       <SubType>
       </SubType>

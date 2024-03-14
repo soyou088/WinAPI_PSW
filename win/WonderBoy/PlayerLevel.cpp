@@ -8,6 +8,8 @@
 #include "Agg.h"
 #include "Bullet.h"
 #include "Stone.h"
+#include "Rock.h"
+
 
 #include "UI_Player.h"
 #include "Stage.h"
@@ -143,6 +145,12 @@ void UPlayLevel::BeginPlay()
 	Stone10->SetName("Stone");
 	Stone10->SetActorLocation({ 17211,300});
 	Stone10->AllRenderersActiveOff();
+
+
+	ARock* Rock = SpawnActor<ARock>();
+	Rock->SetName("Rock");
+	Rock->SetActorLocation({ 12736 ,678 });
+
 
 
 
