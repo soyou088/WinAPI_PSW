@@ -1,7 +1,7 @@
 #pragma once
 #include <EngineCore\Actor.h>
 #include "ContentsHelper.h"
-
+#include <EnginePlatform/EngineSound.h>
 
 // Ό³Έν : 
 class ABulletActor : public AActor
@@ -33,10 +33,13 @@ private:
 	UCollision* BCollision = nullptr;
 	UImageRenderer* Render = nullptr;
 
+	UEngineSoundPlayer Sound;
+
 	FVector BulletAcc = FVector::Right * 650.0f;
 
 	FVector GravityAcc = FVector::Down * 700.0f;
 	FVector GravityVector = FVector::Zero;
+
 
 	void Move(float _DeltaTime);
 	void ColBullet();

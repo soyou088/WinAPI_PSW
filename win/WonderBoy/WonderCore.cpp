@@ -4,6 +4,8 @@
 #include <EngineBase\EngineDirectory.h>
 #include <EngineBase\EngineFile.h>
 #include <EngineCore\EngineResourcesManager.h>
+#include <EnginePlatform/EngineSound.h>
+
 
 UWonderCore::UWonderCore()
 {
@@ -33,6 +35,14 @@ void UWonderCore::BeginPlay()
 	for (UEngineFile& File : NewList)
 	{
 		UEngineResourcesManager::GetInst().LoadImg(File.GetFullPath());
+	}
+
+	// 사운드 파일을 로드한다
+	std::list<UEngineFile> NewSoundList = NewDir.AllFile({ ".wav", ".mp3" }, true);
+
+	for (UEngineFile& File : NewSoundList)
+	{
+		UEngineSound::Load(File.GetFullPath());
 	}
 	                                               // 이미지 자르기 6개씩 2줄
 	UEngineResourcesManager::GetInst().CuttingImage("Player_1_R.png", 6, 2);
@@ -68,14 +78,24 @@ void UWonderCore::BeginPlay()
 	
 	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Object\\UI_Player"));
 	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Object\\HP"));
-	
-	
+
 	// Title
 	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Title"));
 
 	CreateLevel<UTitleLevel>("Title");
 	CreateLevel<UPlayLevel>("Player");
 	ChangeLevel("Title");
+
+
+	// Sound
+
+	//std::list<UEngineFile> SoundList = NewDir.AllFile({ ".wav", ".mp3" }, true);
+	//// 엔진만의 규칙을 정할거냐.
+	//for (UEngineFile& File : NewList)
+	//{
+	//	UEngineSound::Load(File.GetFullPath());
+	//}
+
 
 
 }

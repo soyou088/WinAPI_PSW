@@ -6,12 +6,14 @@
 
 
 
+
 ABulletActor::ABulletActor()
 {
 }
 
 ABulletActor::~ABulletActor()
 {
+	Sound.Off();
 }
 
 void ABulletActor::BeginPlay()
@@ -30,6 +32,12 @@ void ABulletActor::BeginPlay()
 
 		Render->ChangeAnimation("Bullet");
 	}
+
+	{
+		Sound = UEngineSound::SoundPlay("Foot_1_1.wav");
+		Sound.On();
+	}
+
 }
 
 void ABulletActor::Move(float _DeltaTime)
@@ -74,7 +82,7 @@ void ABulletActor::Tick(float _DeltaTime)
 		UCollision* BCollision = Result[0];
 		AActor* Ptr = BCollision->GetOwner();
 		AMonster* Monster = dynamic_cast<AMonster*>(Ptr);
-		BulletAcc *= -0.2;
+		BulletAcc *= -0.2f;
 		ColBullet();
 		return;
 	}
