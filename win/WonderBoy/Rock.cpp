@@ -27,10 +27,7 @@ void ARock::BeginPlay()
 	Collision->SetScale({ 68, 68});
 	Collision->SetColType(ECollisionType::CirCle);
 
-	Collision = CreateCollision(WonderCollisionOrder::Switch);
-	Collision->SetPosition({ 0,-30 });
-	Collision->SetScale({ 20, 100 });
-	Collision->SetColType(ECollisionType::Rect);
+
 }
 
 
@@ -53,23 +50,11 @@ void ARock::CalGravityVector(float _DeltaTime)
 	}
 }
 
-void ARock::RockMoveON(float _DeltaTime)
-{
-	if (MoveON == true)
-	{
-		Move(_DeltaTime);
-	}
-}
-
 
 void ARock::Tick(float _DeltaTime)
 {
-	std::vector<UCollision*> Result;
-	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Player, Result))
+	if (true == UContentsHelper::RockOn )
 	{
-		AActor* MCol = Result[0]->GetOwner();
-		MoveON = true;
+		Move(_DeltaTime);
 	}
-
-	RockMoveON(_DeltaTime);
 }

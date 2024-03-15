@@ -9,6 +9,7 @@
 #include "Bullet.h"
 #include "Stone.h"
 #include "Rock.h"
+#include "Switch.h"
 
 
 #include "UI_Player.h"
@@ -147,19 +148,20 @@ void UPlayLevel::BeginPlay()
 
 	ARock* Rock = SpawnActor<ARock>();
 	Rock->SetName("Rock");
-	Rock->SetActorLocation({ 13036 ,300 });
+	Rock->SetActorLocation({ 14788 ,300 });
 
 	ARock* Rock2 = SpawnActor<ARock>();
 	Rock2->SetName("Rock");
-	Rock2->SetActorLocation({ 13540 ,300});
+	Rock2->SetActorLocation({ 15361 ,200});
 
 	ARock* Rock3 = SpawnActor<ARock>();
 	Rock3->SetName("Rock");
-	Rock3->SetActorLocation({ 14061 ,300 });
+	Rock3->SetActorLocation({ 15934 ,100 });
 
-	ARock* RockOn = SpawnActor<ARock>();
-	RockOn->SetName("RockSwitch");
-	RockOn->SetActorLocation({ 12000, 1019 });
+	ASwitch* Switch = SpawnActor<ASwitch>();
+	Switch->SetName("RockSwitch");
+	Switch->SetActorLocation({ 13912, 1019 });
+
 
 
 	// UI

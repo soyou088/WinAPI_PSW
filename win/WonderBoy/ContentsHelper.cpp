@@ -4,6 +4,7 @@ UWindowImage* UContentsHelper::ColMapImage = nullptr;
 UWindowImage* UContentsHelper::ColMonsterImage = nullptr;
 
 bool UContentsHelper::UIOn = false;
+bool UContentsHelper::RockOn = false;
 
 UContentsHelper::UContentsHelper()
 {
