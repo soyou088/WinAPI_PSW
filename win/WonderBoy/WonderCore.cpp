@@ -41,6 +41,7 @@ void UWonderCore::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Skate_L.png", 5, 1);
 	
 	UEngineResourcesManager::GetInst().CuttingImage("Effect.png", 1, 1);
+	UEngineResourcesManager::GetInst().CuttingImage("UIEX_3.png", 1, 1);
 
 	UEngineResourcesManager::GetInst().CuttingImage("Monster1.png", 3, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Bee.png", 3, 1);

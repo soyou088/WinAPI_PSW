@@ -19,7 +19,7 @@ void AAgg::BeginPlay()
 		Render->CreateAnimation("Idel_Agg", "Agg.png", 0, 0, 0.1f, true); 
 		Render->ChangeAnimation("Idel_Agg");
 
-		Render->CreateAnimation("Destory_Agg", "Agg.png", 1, 2, 0.6897f, true);
+		Render->CreateAnimation("Destory_Agg", "Agg.png", 1, 2, 0.6797f, true);
 
 
 
@@ -50,7 +50,7 @@ void AAgg::AggMove(float _DeltaTime)
 	AddActorLocation(GravityVector * _DeltaTime);
 
 
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()+1, Color8Bit::MagentaA);
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()+3, Color8Bit::MagentaA);
 	Color8Bit AColor = Color;
 	if (ColAgg == true && ColGra == true && Color == Color8Bit::MagentaA)
 	{

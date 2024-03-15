@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include "ContentsHelper.h"
 
 ABullet::ABullet()
 {
@@ -33,6 +34,10 @@ void ABullet::MakeBullet()
 }
 
 
+
+
+
+
 void ABullet::Tick(float _DeltaTime)
 {	
 	std::vector<UCollision*> Result;
@@ -44,8 +49,11 @@ void ABullet::Tick(float _DeltaTime)
 
 	if (true == Collision->CollisionCheck(WonderCollisionOrder::Player, Result))
 	{
-		Destroy();
+		Render->ActiveOff();
+		UContentsHelper::UIOn = true;
 	}
+
 }
+
 
 

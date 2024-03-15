@@ -117,7 +117,7 @@ private:
 	void MoveLastMoveVector(float _DeltaTime);
 	void MoveUpdate(float _DeltaTime);
 	void ColorJump();
-	void HillUP(Color8Bit _Color);
+	void HillUP(Color8Bit _Color, float _DeltaTime);
 	void PlayerGo();
 	void WallCheck();
 	void NextAnimation();

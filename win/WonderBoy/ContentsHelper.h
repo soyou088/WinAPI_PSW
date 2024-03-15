@@ -61,6 +61,7 @@ public:
 	static UWindowImage* ColMapImage;
 	static UWindowImage* ColMonsterImage;
 	static FVector GetMousePos();
+	static bool UIOn;
 
 private:
 	// constrcuter destructer

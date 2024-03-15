@@ -24,5 +24,8 @@ protected:
 private:
 
 	UImageRenderer* Render = nullptr;
+	UImageRenderer* UIRender = nullptr;
+
+	void SetUI();
 };
 

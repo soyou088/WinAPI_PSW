@@ -91,11 +91,9 @@ void UPlayLevel::BeginPlay()
 
 	ABullet* BulletObject = SpawnActor<ABullet>();
 	BulletObject->SetName("BulletObject");
-	BulletObject->SetActorLocation({ 1106,1019 });
+	BulletObject->SetActorLocation({ 2001,1019 });
 	BulletObject->AllRenderersActiveOff();
 	
-
-
 	AStone* Stone = SpawnActor<AStone>();
 	Stone->SetName("Stone");
 	Stone->SetActorLocation({ 3549,1019 });

@@ -20,12 +20,18 @@ protected:
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+	
+
 
 	void MakeBullet();
 
 private:
 	UImageRenderer* Render = nullptr;
 
+
 	UCollision* Collision = nullptr;
+
+
 };
+
 

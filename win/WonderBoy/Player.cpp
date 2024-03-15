@@ -163,9 +163,15 @@ void APlayer::CameraSet(float _DeltaTime)
 {
 	// 카메라 막기
 	FVector CPos = GetWorld()->GetCameraPos();
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() + 300, Color8Bit(0, 0, 0, 0));
+	while (Color == Color8Bit::MagentaA)
+	{
+		Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() - 10, Color8Bit(0, 0, 0, 0));
+		GetWorld()->AddCameraPos(FVector::Up);
+	}
 	FVector PPos = GetActorLocation();
 	float ScaleX = GEngine->MainWindow.GetWindowScale().X;
-	if (PPos.X >= CPos.X + 160 && 0 < LastMoveVector.X && UContentsHelper::ColMapImage->GetScale().X  >= CPos.X + ScaleX)
+	if (PPos.X >= CPos.X + 300 && 0 < LastMoveVector.X && UContentsHelper::ColMapImage->GetScale().X  >= CPos.X + ScaleX)
 	{
 		GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
 
@@ -187,7 +193,7 @@ void APlayer::CalLastMoveVector(float _DeltaTime)
 	LastMoveVector = LastMoveVector + GravityVector;
 }
 
-void APlayer::HillUP(Color8Bit _Color)
+void APlayer::HillUP(Color8Bit _Color, float _DeltaTime)
 {
 	// _Color 일때 FVector UP한다.
 	while (true)
@@ -197,7 +203,6 @@ void APlayer::HillUP(Color8Bit _Color)
 		{
 		FVector playerpos = GetActorLocation();
 			AddActorLocation(FVector::Up);
-			GetWorld()->AddCameraPos(FVector::Up);
 		}
 		else
 		{
@@ -279,7 +284,7 @@ void APlayer::MoveUpdate(float _DeltaTime)
 	CalGravityVector(_DeltaTime);// 중력 계산 값	
 	CalLastMoveVector(_DeltaTime); // 다 던한 값
 	MoveLastMoveVector(_DeltaTime); // 카메라
-	HillUP(Color8Bit(255, 0, 255, 0));
+	HillUP(Color8Bit(255, 0, 255, 0), _DeltaTime);
 }
 
 APlayer* APlayer::MainPlayer = nullptr;
@@ -663,7 +668,7 @@ void APlayer::Move(float _DeltaTime)
 	}
 
 
-	HillUP(Color8Bit(255, 0, 255, 0));
+	HillUP(Color8Bit(255, 0, 255, 0), _DeltaTime);
 	CameraSet(_DeltaTime);
 	MoveUpdate(_DeltaTime);
 
@@ -765,7 +770,7 @@ void APlayer::Run(float _DeltaTime)
 	}
 
 
-	HillUP(Color8Bit(255, 0, 255, 0));
+	HillUP(Color8Bit(255, 0, 255, 0), _DeltaTime);
 	CameraSet(_DeltaTime);
 	MoveUpdate(_DeltaTime);
 }
@@ -914,7 +919,7 @@ void APlayer::SkateMove(float _DeltaTime)
 	}
 
 
-	HillUP(Color8Bit(255, 0, 255, 0));
+	HillUP(Color8Bit(255, 0, 255, 0), _DeltaTime);
 
 }
 
