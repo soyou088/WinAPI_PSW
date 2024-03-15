@@ -29,7 +29,7 @@ private:
 
 	UCollision* Collision = nullptr;
 
-	FVector MoveVector = FVector::Left * 50.0f;
+	FVector MoveVector = FVector::Left * 70.0f;
 
 	FVector GravityAcc = FVector::Down * 2000.0f;
 	FVector GravityVector = FVector::Zero;

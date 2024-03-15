@@ -220,8 +220,8 @@ void APlayer::PlayerGo()
 
 void APlayer::FinPlayGo()
 {
-	GetWorld()->SetCameraPos({ 19600 , -19 });
-	SetActorLocation({ 19714, 318 });
+	GetWorld()->SetCameraPos({ 20000 , -50 });
+	SetActorLocation({ 20200, 100 });
 }
 
 void APlayer::WallCheck()

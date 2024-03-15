@@ -78,7 +78,7 @@ void UPlayLevel::BeginPlay()
 
 	AJumpping* Jumpping = SpawnActor<AJumpping>();
 	Jumpping->SetName("Jumpping");
-	Jumpping->SetActorLocation({ 20798,396 });
+	Jumpping->SetActorLocation({ 20806,396 });
 
 
 	AAgg* Agg = SpawnActor<AAgg>();
