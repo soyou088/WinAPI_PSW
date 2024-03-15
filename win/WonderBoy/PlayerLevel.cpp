@@ -10,7 +10,7 @@
 #include "Stone.h"
 #include "Rock.h"
 #include "Switch.h"
-
+#include "Board.h"
 
 #include "UI_Player.h"
 #include "Stage.h"
@@ -80,6 +80,11 @@ void UPlayLevel::BeginPlay()
 	Jumpping->SetName("Jumpping");
 	Jumpping->SetActorLocation({ 20806,396 });
 
+	ABoard* Board = SpawnActor<ABoard>();
+	Board->SetName("Board");
+	Board->SetActorLocation({ 7348,1019 });
+	Board->AllRenderersActiveOff();
+
 
 	AAgg* Agg = SpawnActor<AAgg>();
 	Agg->SetName("Agg");
@@ -88,6 +93,10 @@ void UPlayLevel::BeginPlay()
 	AAgg* Agg2 = SpawnActor<AAgg>();
 	Agg2->SetName("Agg2");
 	Agg2->SetActorLocation({ 7146,1019 });
+
+	AAgg* Agg3 = SpawnActor<AAgg>();
+	Agg3->SetName("Agg3");
+	Agg3->SetActorLocation({ 16070,489 });
 
 
 	ABullet* BulletObject = SpawnActor<ABullet>();
