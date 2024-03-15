@@ -163,13 +163,23 @@ void APlayer::CameraSet(float _DeltaTime)
 {
 	// 카메라 막기
 	FVector CPos = GetWorld()->GetCameraPos();
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() + 300, Color8Bit(0, 0, 0, 0));
-	while (Color == Color8Bit::MagentaA)
-	{
-		Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() - 10, Color8Bit(0, 0, 0, 0));
-		GetWorld()->AddCameraPos(FVector::Up);
-	}
 	FVector PPos = GetActorLocation();
+
+	Color8Bit Color = Color8Bit::Black;
+	FVector CheckCPos = CPos;
+	while (Color != Color8Bit::GreenA)
+	{
+		Color = UContentsHelper::ColMapImage->GetColor(CheckCPos.iX(), CheckCPos.iY(), Color8Bit::White);
+		CheckCPos.Y += 1;
+
+		if (Color == Color8Bit::GreenA)
+		{
+			GetWorld()->SetCameraPos(CheckCPos + FVector::Up * 400.0f);
+			break;
+		}
+	}
+
+	// x 움직임
 	float ScaleX = GEngine->MainWindow.GetWindowScale().X;
 	if (PPos.X >= CPos.X + 300 && 0 < LastMoveVector.X && UContentsHelper::ColMapImage->GetScale().X  >= CPos.X + ScaleX)
 	{
