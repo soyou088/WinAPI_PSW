@@ -16,7 +16,7 @@ void AStage::BeginPlay()
 
 	Render->CreateAnimation("Stage", "Stage.png", 0, 0, 1.0f, true);
 	Render->SetImage("Stage.png");
-	Render->SetTransform({ {0, 0 }, {180, 180} });
+	Render->SetTransform({ {0, 0 }, {200, 230} });
 
 	Render->ChangeAnimation("Stage");
 }

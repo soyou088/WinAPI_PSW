@@ -44,23 +44,23 @@ void UPlayLevel::BeginPlay()
 
 	AMonster* Monster2 = SpawnActor<AMonster>();
 	Monster2->SetName("Monster2");
-	Monster2->SetActorLocation({ 1437, 1019 });
+	Monster2->SetActorLocation({ 2268, 1019 });
 
 	AMonster* Monster3 = SpawnActor<AMonster>();
 	Monster3->SetName("Monster3");
-	Monster3->SetActorLocation({ 1931, 1019 });
+	Monster3->SetActorLocation({ 2762, 1019 });
 
 	AMonster* Monster4 = SpawnActor<AMonster>();
 	Monster4->SetName("Monster4");
-	Monster4->SetActorLocation({ 2091, 1019 });
+	Monster4->SetActorLocation({ 2922, 1019 });
 
 	AMonster* Monster5 = SpawnActor<AMonster>();
 	Monster5->SetName("Monster5");
-	Monster5->SetActorLocation({ 4057, 1019 });
+	Monster5->SetActorLocation({ 4888, 1019 });
 
 	AMonster* Monster6 = SpawnActor<AMonster>();
 	Monster6->SetName("Monster6");
-	Monster6->SetActorLocation({ 4823, 1019 });
+	Monster6->SetActorLocation({ 5654, 1019 });
 
 	ABee* Bee = SpawnActor<ABee>();
 	Bee->SetName("Bee");
@@ -167,16 +167,16 @@ void UPlayLevel::BeginPlay()
 	// UI
 	AStage* Stage = SpawnActor<AStage>();
 	Stage->SetName("Stage");
-	Stage->SetActorLocation({ 260, 700 });
+	Stage->SetActorLocation({ 326, 830 });
 	Stage->Destroy(2.0f);
 
-	AUIEX* UIEX = SpawnActor<AUIEX>();
-	UIEX->SetName("UIEX");
-	UIEX->SetActorLocation({ 256,55 });
+//	AUIEX* UIEX = SpawnActor<AUIEX>();
+//	UIEX->SetName("UIEX");
+//	UIEX->SetActorLocation({ 256,55 });
 
 	AUI_Back* UIBack = SpawnActor<AUI_Back>();
 	UIBack->SetName("UI_Back");
-	UIBack->SetActorLocation({ 250,40 });
+	UIBack->SetActorLocation({ 350,40 });
 	
 	AUI_Player* UIPlayer = SpawnActor<AUI_Player>();
 	UIPlayer->SetName("UI_PLayer");
@@ -196,14 +196,14 @@ void UPlayLevel::BeginPlay()
 
 	AUI_HP* UIHP = SpawnActor<AUI_HP>();
 	UIHP->SetName("HP");
-	UIHP->SetActorLocation({ 365, 59 });
+	UIHP->SetActorLocation({ 500, 59 });
 
 
 
 	// Player
 	APlayer* Player = SpawnActor<APlayer>();
 	Player->SetName("Player");
-	Player->SetActorLocation({ 150, 873 });
+	Player->SetActorLocation({ 227, 873 });
 
 }
 

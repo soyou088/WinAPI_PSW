@@ -18,7 +18,7 @@ void AUI_HP::BeginPlay()
 	Render->ChangeAnimation("HP");
 
 	Render->SetImage("HP-0.png");
-	Render->SetTransform({ {0, 0}, {280, 30} });
+	Render->SetTransform({ {0, 0}, {380, 32} });
 
 	Render->CameraEffectOff();
 

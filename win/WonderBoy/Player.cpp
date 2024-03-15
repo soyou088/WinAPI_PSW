@@ -27,7 +27,7 @@ void APlayer::BeginPlay()
 	{
 		Renderer = CreateImageRenderer(WonderRenderOrder::Player);
 		Renderer->SetImage("Player_1_R.png");
-		Renderer->SetTransform({ {0,0}, {320, 290} });
+		Renderer->SetTransform({ {0,0}, {400, 330} });
 
 		Renderer->CreateAnimation("Idle_Right", "Player_1_R.png", 0, 2, 0.1f, true); // 가만히 있는 상태
 		Renderer->CreateAnimation("Move_Right", "Player_1_R.png", 0, 5, 0.05f, true); // 오른쪽으로 움직이는 상태
@@ -161,17 +161,11 @@ void APlayer::MoveLastMoveVector(float _DeltaTime)
 
 void APlayer::CameraSet(float _DeltaTime)
 {
+	// 카메라 막기
 	FVector CPos = GetWorld()->GetCameraPos();
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() + 300, Color8Bit(0, 0, 0, 0));
-		while (Color == Color8Bit::MagentaA)
-		{
-			Color = UContentsHelper::ColMapImage->GetColor(CPos.iX(), CPos.iY() - 10000 , Color8Bit(0,0,0,0));
-			GetWorld()->AddCameraPos(FVector::Up);
-		}
-	
 	FVector PPos = GetActorLocation();
 	float ScaleX = GEngine->MainWindow.GetWindowScale().X;
-	if (PPos.X >= CPos.X + 150 && 0 < LastMoveVector.X && UContentsHelper::ColMapImage->GetScale().X  >= CPos.X + ScaleX)
+	if (PPos.X >= CPos.X + 160 && 0 < LastMoveVector.X && UContentsHelper::ColMapImage->GetScale().X  >= CPos.X + ScaleX)
 	{
 		GetWorld()->AddCameraPos(MoveVector * _DeltaTime);
 
@@ -203,6 +197,7 @@ void APlayer::HillUP(Color8Bit _Color)
 		{
 		FVector playerpos = GetActorLocation();
 			AddActorLocation(FVector::Up);
+			GetWorld()->AddCameraPos(FVector::Up);
 		}
 		else
 		{
@@ -214,8 +209,8 @@ void APlayer::HillUP(Color8Bit _Color)
 void APlayer::PlayerGo()
 {
 	FVector CPos = GetWorld()->GetCameraPos();
-	GetWorld()->SetCameraPos({ 11000,600 });
-	SetActorLocation({	11150, 873 });
+	GetWorld()->SetCameraPos({ 13100,600 });
+	SetActorLocation({	13170, 873 });
 }
 
 void APlayer::FinPlayGo()

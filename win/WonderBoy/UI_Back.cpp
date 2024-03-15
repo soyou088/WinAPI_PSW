@@ -16,7 +16,7 @@ void AUI_Back::BeginPlay()
 
 		Render->CreateAnimation("UI_Back", "UI_Back.png", 0, 0, 1.0f, true);
 		Render->SetImage("UI_Back.png");
-		Render->SetTransform({ {0, 0 }, {525, 75} });
+		Render->SetTransform({ {0, 0 }, {700, 75} });
 
 		Render->ChangeAnimation("UI_Back");
 

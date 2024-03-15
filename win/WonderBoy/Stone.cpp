@@ -22,7 +22,7 @@ void AStone::BeginPlay()
 	Render->ChangeAnimation("Stone");
 
 
-	Collision = CreateCollision(WonderCollisionOrder::Object);
+	Collision = CreateCollision(WonderCollisionOrder::Stone);
 	Collision->SetPosition({ 0,-15 });
 	Collision->SetScale({ 50, 50 });
 	Collision->SetColType(ECollisionType::Rect);

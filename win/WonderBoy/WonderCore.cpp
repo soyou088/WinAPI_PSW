@@ -16,7 +16,7 @@ UWonderCore::~UWonderCore()
 void UWonderCore::BeginPlay()
 {
 	// Window 크기
-	MainWindow.SetWindowScale({ 280 * 2, 300 * 2});
+	MainWindow.SetWindowScale({ 350 * 2, 300 * 2});
 	// Window 위치
 	MainWindow.SetWindowPosition({ 800 , 0 });
 
