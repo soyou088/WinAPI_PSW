@@ -34,8 +34,10 @@ private:
 	FVector GravityAcc = FVector::Down * 2000.0f;
 	FVector GravityVector = FVector::Zero;
 
+	bool MoveON = false;
 	void Move(float _DeltaTime);
 	void CalGravityVector(float _DeltaTime);
+	void RockMoveON(float _DeltaTime);
 
 };
 

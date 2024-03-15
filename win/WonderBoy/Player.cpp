@@ -5,7 +5,7 @@
 #include <EngineBase\EngineDebug.h>
 #include <EngineCore/EngineDebug.h>
 #include "ContentsHelper.h"
-
+#include <EngineBase/EngineDebug.h>
 
 
 
@@ -22,7 +22,7 @@ void APlayer::BeginPlay()
 {
 	AActor::BeginPlay(); // 부모에서 실행하는 함수를 해주는게 좋아서 했다.
 
-	GetWorld()->AddCameraPos({ 0, 540 }); // 카메라세팅
+	GetWorld()->AddCameraPos({ 0, 600 }); // 카메라세팅
 	MainPlayer = this;
 	{
 		Renderer = CreateImageRenderer(WonderRenderOrder::Player);
@@ -201,6 +201,7 @@ void APlayer::HillUP(Color8Bit _Color)
 		Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 1, Color8Bit::MagentaA);
 		if (Color == _Color)
 		{
+		FVector playerpos = GetActorLocation();
 			AddActorLocation(FVector::Up);
 		}
 		else
@@ -213,7 +214,7 @@ void APlayer::HillUP(Color8Bit _Color)
 void APlayer::PlayerGo()
 {
 	FVector CPos = GetWorld()->GetCameraPos();
-	GetWorld()->SetCameraPos({ 11000,540 });
+	GetWorld()->SetCameraPos({ 11000,600 });
 	SetActorLocation({	11150, 873 });
 }
 
@@ -964,6 +965,19 @@ void APlayer::Death(float _DeltaTime)
 
 void APlayer::Tick(float _DeltaTime)
 {
+	std::string Mouse = std::to_string(UContentsHelper::GetMousePos().Y);
+	std::string PlayerY = std::to_string(GetActorLocation().Y);
+
+	Color8Bit mouse = UContentsHelper::ColMapImage->GetColor(UContentsHelper::GetMousePos().iX(), UContentsHelper::GetMousePos().iY() + 540, Color8Bit::MagentaA);
+	if (mouse == Color8Bit(255, 0, 255, 0))
+	{
+		int a = 0;
+	}
+
+
+	UEngineDebug::DebugTextPrint(Mouse, 24);
+	UEngineDebug::DebugTextPrint(PlayerY, 24);
+
 	AActor::Tick(_DeltaTime);
 	ColorJump();
 	StateUpdate(_DeltaTime);
@@ -976,8 +990,8 @@ void APlayer::Tick(float _DeltaTime)
 	}
 
 	std::vector<UCollision*> Result;
-	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Monster, Result) ||
-		true == Collision->CollisionCheck(WonderCollisionOrder::Bonfire, Result))
+	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Monster, Result) 
+		|| true == Collision->CollisionCheck(WonderCollisionOrder::Bonfire, Result))
 	{
 		AActor* MCol = Result[0]->GetOwner();
 		Renderer->ChangeAnimation("Death");
@@ -996,6 +1010,11 @@ void APlayer::Tick(float _DeltaTime)
 		return;
 	}
 
+	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Switch, Result))
+	{
+		AActor* SCol = Result[0]->GetOwner();
+		return;
+	}
 
 	APlayer* Player = APlayer::GetMainPlayer();
 	if (nullptr == Player)

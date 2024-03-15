@@ -39,125 +39,129 @@ void UPlayLevel::BeginPlay()
 	
 
 	ABackGroundMap* Map = SpawnActor<ABackGroundMap>();
-	Map->SetMapImage("Map3.png");
-	Map->SetColMapImage("ColMap3.png");
+	Map->SetMapImage("Map5.png");
+	Map->SetColMapImage("ColMap5.png");
 
 	AMonster* Monster2 = SpawnActor<AMonster>();
 	Monster2->SetName("Monster2");
-	Monster2->SetActorLocation({ 1437, 873 });
+	Monster2->SetActorLocation({ 1437, 1019 });
 
 	AMonster* Monster3 = SpawnActor<AMonster>();
 	Monster3->SetName("Monster3");
-	Monster3->SetActorLocation({ 1931, 873 });
+	Monster3->SetActorLocation({ 1931, 1019 });
 
 	AMonster* Monster4 = SpawnActor<AMonster>();
 	Monster4->SetName("Monster4");
-	Monster4->SetActorLocation({ 2091, 873 });
+	Monster4->SetActorLocation({ 2091, 1019 });
 
 	AMonster* Monster5 = SpawnActor<AMonster>();
 	Monster5->SetName("Monster5");
-	Monster5->SetActorLocation({ 4057, 873 });
+	Monster5->SetActorLocation({ 4057, 1019 });
 
 	AMonster* Monster6 = SpawnActor<AMonster>();
 	Monster6->SetName("Monster6");
-	Monster6->SetActorLocation({ 4823, 873 });
+	Monster6->SetActorLocation({ 4823, 1019 });
 
 	ABee* Bee = SpawnActor<ABee>();
 	Bee->SetName("Bee");
 	Bee->SetActorLocation({ 500, 800 });
 
-	
 	ASnake* Snake = SpawnActor<ASnake>();
 	Snake->SetName("Snake");
-	Snake->SetActorLocation({ 11832, 875});
+	Snake->SetActorLocation({ 13788, 1021 });
 	
+
 	ABonfire* Bonfire = SpawnActor<ABonfire>();
 	Bonfire->SetName("Bonfire");
-	Bonfire->SetActorLocation({ 11234,885 });
+	Bonfire->SetActorLocation({ 13103,1035});
 
 	AJumpping* Jumpping = SpawnActor<AJumpping>();
 	Jumpping->SetName("Jumpping");
-	Jumpping->SetActorLocation({ 17875,890 });
+	Jumpping->SetActorLocation({ 20798,396 });
 
 
 	AAgg* Agg = SpawnActor<AAgg>();
 	Agg->SetName("Agg");
-	Agg->SetActorLocation({ 897,875 });
+	Agg->SetActorLocation({ 1787,1019 });
 
 	AAgg* Agg2 = SpawnActor<AAgg>();
 	Agg2->SetName("Agg2");
-	Agg2->SetActorLocation({ 6126,875 });
+	Agg2->SetActorLocation({ 7146,1019 });
 
 
 	ABullet* BulletObject = SpawnActor<ABullet>();
 	BulletObject->SetName("BulletObject");
-	BulletObject->SetActorLocation({ 1106,875 });
+	BulletObject->SetActorLocation({ 1106,1019 });
 	BulletObject->AllRenderersActiveOff();
 	
 
 
 	AStone* Stone = SpawnActor<AStone>();
 	Stone->SetName("Stone");
-	Stone->SetActorLocation({ 3041,850 });
+	Stone->SetActorLocation({ 3549,1019 });
 	Stone->AllRenderersActiveOff();
 
 	AStone* Stone2 = SpawnActor<AStone>();
 	Stone2->SetName("Stone");
-	Stone2->SetActorLocation({ 3480,850 });
+	Stone2->SetActorLocation({ 4058,1019 });
 	Stone2->AllRenderersActiveOff();
 
 	AStone* Stone3 = SpawnActor<AStone>();
 	Stone3->SetName("Stone");
-	Stone3->SetActorLocation({ 3599,850 });
+	Stone3->SetActorLocation({ 4196,1019 });
 	Stone3->AllRenderersActiveOff();
 
 	AStone* Stone4 = SpawnActor<AStone>();
 	Stone4->SetName("Stone");
-	Stone4->SetActorLocation({ 9098,850 });
+	Stone4->SetActorLocation({ 10610,1019 });
 	Stone4->AllRenderersActiveOff();
 
 	AStone* Stone5 = SpawnActor<AStone>();
 	Stone5->SetName("Stone");
-	Stone5->SetActorLocation({ 9811,850 });
+	Stone5->SetActorLocation({ 11443,1019 });
 	Stone5->AllRenderersActiveOff();
 
 	AStone* Stone6 = SpawnActor<AStone>();
 	Stone6->SetName("Stone");
-	Stone6->SetActorLocation({ 10800,850 });
+	Stone6->SetActorLocation({ 12595,1019 });
 	Stone6->AllRenderersActiveOff();
 
 	AStone* Stone7 = SpawnActor<AStone>();
 	Stone7->SetName("Stone");
-	Stone7->SetActorLocation({ 10957,850 });
+	Stone7->SetActorLocation({ 12775,1019 });
 	Stone7->AllRenderersActiveOff();
 
 	AStone* Stone8 = SpawnActor<AStone>();
 	Stone8->SetName("Stone");
-	Stone8->SetActorLocation({ 16537,300 });
+	Stone8->SetActorLocation({ 19285,369 });
 	Stone8->AllRenderersActiveOff();
 
 	AStone* Stone9 = SpawnActor<AStone>();
 	Stone9->SetName("Stone");
-	Stone9->SetActorLocation({ 17130,300 });
+	Stone9->SetActorLocation({ 19980,369 });
 	Stone9->AllRenderersActiveOff();
 	
 	AStone* Stone10 = SpawnActor<AStone>();
 	Stone10->SetName("Stone");
-	Stone10->SetActorLocation({ 17211,300});
+	Stone10->SetActorLocation({ 20071,369 });
 	Stone10->AllRenderersActiveOff();
 
 
 	ARock* Rock = SpawnActor<ARock>();
 	Rock->SetName("Rock");
-	Rock->SetActorLocation({ 13036 ,678 });
+	Rock->SetActorLocation({ 13036 ,300 });
 
 	ARock* Rock2 = SpawnActor<ARock>();
 	Rock2->SetName("Rock");
-	Rock2->SetActorLocation({ 13540 ,587 });
+	Rock2->SetActorLocation({ 13540 ,300});
 
 	ARock* Rock3 = SpawnActor<ARock>();
 	Rock3->SetName("Rock");
-	Rock3->SetActorLocation({ 14061 ,396 });
+	Rock3->SetActorLocation({ 14061 ,300 });
+
+	ARock* RockOn = SpawnActor<ARock>();
+	RockOn->SetName("RockSwitch");
+	RockOn->SetActorLocation({ 12000, 1019 });
 
 
 	// UI

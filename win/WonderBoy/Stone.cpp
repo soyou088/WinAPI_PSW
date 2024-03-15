@@ -23,8 +23,9 @@ void AStone::BeginPlay()
 
 
 	Collision = CreateCollision(WonderCollisionOrder::Object);
+	Collision->SetPosition({ 0,-15 });
 	Collision->SetScale({ 50, 50 });
-	Collision->SetColType(ECollisionType::CirCle);
+	Collision->SetColType(ECollisionType::Rect);
 }
 
 void AStone::Tick(float _DeltaTime)

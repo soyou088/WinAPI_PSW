@@ -21,6 +21,7 @@ enum class WonderCollisionOrder
 	Stone,
 	Bonfire,
 	Rock,
+	Switch,
 	Bullet,
 	Object,
 	Player,
