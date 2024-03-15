@@ -174,7 +174,7 @@ void APlayer::CameraSet(float _DeltaTime)
 
 		if (Color == Color8Bit::GreenA)
 		{
-			GetWorld()->SetCameraPos(CheckCPos + FVector::Up * 400.0f);
+			GetWorld()->SetCameraPos(CheckCPos + FVector::Up * 300.0f);
 			break;
 		}
 	}
