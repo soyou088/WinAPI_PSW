@@ -5,6 +5,7 @@ UWindowImage* UContentsHelper::ColMonsterImage = nullptr;
 
 bool UContentsHelper::UIOn = false;
 bool UContentsHelper::RockOn = false;
+bool UContentsHelper::AppleOn = false;
 
 UContentsHelper::UContentsHelper()
 {

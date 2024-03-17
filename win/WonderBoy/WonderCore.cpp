@@ -68,6 +68,7 @@ void UWonderCore::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Agg.png", 3, 1);
 	UEngineResourcesManager::GetInst().CuttingImage("Rock.png", 4, 1);
 
+	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Object\\Fruit"));
 
 	// UI
 	UEngineResourcesManager::GetInst().CuttingImage("Stage.png", 1, 1);
@@ -77,8 +78,8 @@ void UWonderCore::BeginPlay()
 	UEngineResourcesManager::GetInst().CuttingImage("Life.png", 1, 1);
 	
 	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Object\\UI_Player"));
-	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Object\\HP"));
 
+	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Object\\HP"));
 	// Title
 	UEngineResourcesManager::GetInst().LoadFolder(NewDir.AppendPath("Title"));
 

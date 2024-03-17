@@ -101,6 +101,9 @@
     <ClInclude Include="Board.h">
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClInclude>
+    <ClInclude Include="Fruit.h">
+      <Filter>PlayLevel\ObjectActor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -175,6 +178,9 @@
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClCompile>
     <ClCompile Include="Board.cpp">
+      <Filter>PlayLevel\ObjectActor</Filter>
+    </ClCompile>
+    <ClCompile Include="Fruit.cpp">
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClCompile>
   </ItemGroup>

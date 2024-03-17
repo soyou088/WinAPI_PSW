@@ -22,5 +22,6 @@ protected:
 
 private:
 	UCollision* Collision = nullptr;
+	UCollision* ColApple = nullptr;
 };
 

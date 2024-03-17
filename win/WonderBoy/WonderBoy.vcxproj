@@ -48,6 +48,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Fruit.h" />
     <ClInclude Include="Jumpping.h" />
     <ClInclude Include="Life.h">
       <SubType>
@@ -145,6 +146,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Fruit.cpp" />
     <ClCompile Include="Jumpping.cpp" />
     <ClCompile Include="Life.cpp">
       <SubType>

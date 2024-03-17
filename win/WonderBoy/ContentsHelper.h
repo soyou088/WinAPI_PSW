@@ -22,6 +22,7 @@ enum class WonderCollisionOrder
 	Bonfire,
 	Rock,
 	Switch,
+	Apple,
 	Bullet,
 	Object,
 	Player,
@@ -63,6 +64,7 @@ public:
 	static FVector GetMousePos();
 	static bool UIOn;
 	static bool RockOn;
+	static bool AppleOn;
 
 private:
 	// constrcuter destructer

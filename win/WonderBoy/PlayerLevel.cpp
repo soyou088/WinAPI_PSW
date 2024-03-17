@@ -20,7 +20,7 @@
 #include "Life.h"
 #include "UI_HP.h"
 
-
+#include "Fruit.h"
 
 #include "BackGroundMap.h"
 #include "BulletActor.h"
@@ -206,6 +206,15 @@ void UPlayLevel::BeginPlay()
 	AUI_HP* UIHP = SpawnActor<AUI_HP>();
 	UIHP->SetName("HP");
 	UIHP->SetActorLocation({ 500, 59 });
+
+
+	AFruit* Fruit = SpawnActor<AFruit>();
+	Fruit->SetName("Apple");
+	Fruit->SetActorLocation({ 1047  ,1019 });
+
+	ASwitch* Apple = SpawnActor<ASwitch>();
+	Apple->SetName("Apple");
+	Apple->SetActorLocation({ 847, 1019 });
 
 
 

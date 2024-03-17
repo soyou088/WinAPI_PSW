@@ -37,7 +37,6 @@ private:
 	bool MoveON = false;
 	void Move(float _DeltaTime);
 	void CalGravityVector(float _DeltaTime);
-	void RockMoveON(float _DeltaTime);
 
 };
 

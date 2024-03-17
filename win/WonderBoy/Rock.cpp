@@ -15,9 +15,7 @@ void ARock::BeginPlay()
 	Render = CreateImageRenderer(WonderRenderOrder::Object);
 	Render->SetImage("Rock.png");
 	Render->SetTransform({ {0, 0 }, {300, 300} });
-
 	Render->CreateAnimation("Rock", "Rock.png", 0, 3, 0.1f, true); // 움직이는 상태
-	
 	Render->ChangeAnimation("Rock");
 
 
@@ -38,6 +36,7 @@ void ARock::Move(float _DeltaTime)
 	AddActorLocation(MoveVector * _DeltaTime);
 	AddActorLocation(GravityVector * _DeltaTime);
 }
+
 
 void ARock::CalGravityVector(float _DeltaTime)
 {
