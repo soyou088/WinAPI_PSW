@@ -388,9 +388,6 @@ void APlayer::StateChange(EPlayState _State)
 		case EPlayState::SkateJump:
 			SkateJumpStart();
 			break;
-		case EPlayState::SkateBrake:
-			SkateBrakeStart();
-			break;
 		default:
 			break;
 		}
@@ -446,9 +443,6 @@ void APlayer::StateUpdate(float _DeltaTime)
 			break;
 		case EPlayState::SkateJump:
 			SkateJump(_DeltaTime);
-			break;
-		case EPlayState::SkateBrake:
-			SkateBrake(_DeltaTime);
 			break;
 		case EPlayState::Attack:
 			Run(_DeltaTime);
@@ -853,6 +847,7 @@ void APlayer::SkateMove(float _DeltaTime)
 			if (80.0f <= abs(MoveVector.X))
 			{
 				AddMoveVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
+				MoveDirVector = FVector::Right * 10;
 			}
 			else
 			{
@@ -865,6 +860,7 @@ void APlayer::SkateMove(float _DeltaTime)
 		if (UEngineInput::IsPress(VK_LEFT))
 		{
 			AddMoveVector(FVector::Left * _DeltaTime);
+			Renderer->ChangeAnimation("SkateBrake_Right");
 		}
 
 
