@@ -108,9 +108,9 @@ void ABee::StateUpdate(float _DeltaTime)
 void ABee::CalGravityVector(float _DeltaTime)
 {
 	GravityVector += GravityAcc * _DeltaTime;
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 5, Color8Bit::MagentaA);
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() - 5, Color8Bit(0,0,0,0));
 
-	if (Color == Color8Bit::MagentaA)
+	if (Color == Color8Bit(255,0,255,0))
 	{
 		GravityVector = FVector::Zero;
 		ColGra = true;
@@ -122,13 +122,13 @@ void ABee::Move(float _DeltaTime)
 	FVector PPos = GetActorLocation();
 
 	AddActorLocation(MoveVector * _DeltaTime);
-	if (PPos.Y > 873)
+	if (PPos.Y > 1000)
 	{
-		DownMove *= -1;
+		DownMove.Y = -200.0f;
 	}
-	if (PPos.Y < 790)
+	if (PPos.Y < 920)
 	{
-		DownMove *= -1;
+		DownMove.Y = 200.0f;
 	}
 
 	AddActorLocation(DownMove * _DeltaTime);
@@ -144,9 +144,6 @@ void ABee::DesMoveUpdate(float _DeltaTime)
 	{
 		Destroy();
 	}
-
-
-	int a = 0;
 }
 
 

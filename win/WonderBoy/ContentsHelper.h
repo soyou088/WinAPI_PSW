@@ -24,6 +24,7 @@ enum class WonderCollisionOrder
 	Fruit,
 	Banana,
 	Bullet,
+	Board,
 	Stone,
 	Object,
 	Player,

@@ -14,11 +14,8 @@ void ASwitch::BeginPlay()
 {
 	Collision = CreateCollision(WonderCollisionOrder::Switch);
 	Collision->SetPosition({ 0,-30 });
-	Collision->SetScale({ 20, 100 });
+	Collision->SetScale({ 20, 1000 });
 	Collision->SetColType(ECollisionType::Rect);
-
-
-	 
 }
 
 void ASwitch::Tick(float _DeltaTime)

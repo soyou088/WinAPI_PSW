@@ -20,7 +20,7 @@ void ABoard::BeginPlay()
 
 	Render->ChangeAnimation("Board");
 
-	Collision = CreateCollision(WonderCollisionOrder::Bullet);
+	Collision = CreateCollision(WonderCollisionOrder::Board);
 	Collision->SetPosition({ 0,-28 });
 	Collision->SetScale({ 100, 50 });
 	Collision->SetColType(ECollisionType::Rect);

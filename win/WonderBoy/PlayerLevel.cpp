@@ -63,9 +63,19 @@ void UPlayLevel::BeginPlay()
 	Monster6->SetName("Monster6");
 	Monster6->SetActorLocation({ 5654, 1019 });
 
+
+
 	ABee* Bee = SpawnActor<ABee>();
 	Bee->SetName("Bee");
-	Bee->SetActorLocation({ 500, 800 });
+	Bee->SetActorLocation({ 9329, 1000 });
+
+	ABee* Bee2 = SpawnActor<ABee>();
+	Bee2->SetName("Bee");
+	Bee2->SetActorLocation({ 10020, 1000 });
+
+	ABee* Bee3 = SpawnActor<ABee>();
+	Bee3->SetName("Bee");
+	Bee3->SetActorLocation({ 10220, 1000 });
 
 	ASnake* Snake = SpawnActor<ASnake>();
 	Snake->SetName("Snake");
@@ -228,23 +238,30 @@ void UPlayLevel::BeginPlay()
 	DApple->SetActorLocation({ 2709  ,1019 });
 	DApple->FruitNumber = 2;
 
-
 	DApple = SpawnActor<AFruit>();
 	DApple->SetName("DApple");
 	DApple->SetActorLocation({ 4193  ,960 });
 	DApple->FruitNumber = 1;
-
 
 	DApple = SpawnActor<AFruit>();
 	DApple->SetName("DBanana");
 	DApple->SetActorLocation({ 10750  ,1019 });
 	DApple->FruitNumber = 2;
 
-
 	DApple = SpawnActor<AFruit>();
 	DApple->SetName("DCarrot");
 	DApple->SetActorLocation({ 10900 ,1019 });
 	DApple->FruitNumber = 3;
+
+	DApple = SpawnActor<AFruit>();
+	DApple->SetName("DBanana");
+	DApple->SetActorLocation({ 12503 , 1119 });
+	DApple->FruitNumber = 2;
+
+	DApple = SpawnActor<AFruit>();
+	DApple->SetName("DApple");
+	DApple->SetActorLocation({ 11657 , 980 });
+	DApple->FruitNumber = 1;
 
 
 	// Player

@@ -43,8 +43,8 @@ private:
 
 	UEngineSoundPlayer Sound;
 
-	FVector MoveVector = FVector::Left * 50.0f;
-	FVector DownMove = FVector::Down* 130.0f;
+	FVector MoveVector = FVector::Left * 30.0f;
+	FVector DownMove = FVector::Down* 200.0f;
 	
 	FVector JumpVector = FVector::Up * 500.0f;
 	
