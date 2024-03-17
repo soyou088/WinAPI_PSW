@@ -825,11 +825,10 @@ void APlayer::Jump(float _DeltaTime)
 
 void APlayer::SkateMove(float _DeltaTime)
 {
-
 	SkateMoveVector = SkateMoveVector * _DeltaTime;
 
 		DirCheck();
-
+		
 		if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 		{
 			FVector MoveDirVector = FVector::Right * 200.0f; 
@@ -854,12 +853,16 @@ void APlayer::SkateMove(float _DeltaTime)
 				MoveVector = FVector::Right * 200.0f;
 				return;
 			}
+
 		}
 
 
 		if (UEngineInput::IsPress(VK_LEFT))
 		{
-			AddMoveVector(FVector::Left * _DeltaTime);
+			if (30 >= MoveVector.X)
+			{
+				MoveVector.X = 30;
+			}
 			Renderer->ChangeAnimation("SkateBrake_Right");
 		}
 
