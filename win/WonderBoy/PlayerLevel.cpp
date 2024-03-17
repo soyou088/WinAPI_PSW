@@ -49,11 +49,11 @@ void UPlayLevel::BeginPlay()
 
 	AMonster* Monster3 = SpawnActor<AMonster>();
 	Monster3->SetName("Monster3");
-	Monster3->SetActorLocation({ 2762, 1019 });
+	Monster3->SetActorLocation({ 2979, 1019 });
 
 	AMonster* Monster4 = SpawnActor<AMonster>();
 	Monster4->SetName("Monster4");
-	Monster4->SetActorLocation({ 2922, 1019 });
+	Monster4->SetActorLocation({ 3179, 1019 });
 
 	AMonster* Monster5 = SpawnActor<AMonster>();
 	Monster5->SetName("Monster5");
@@ -219,9 +219,32 @@ void UPlayLevel::BeginPlay()
 	DApple->FruitNumber = 1;
 
 	DApple = SpawnActor<AFruit>();
-	DApple->SetName("DApple");
-	DApple->SetActorLocation({ 1047  ,1019 });
+	DApple->SetName("DBanana");
+	DApple->SetActorLocation({ 1347  ,1019 });
 	DApple->FruitNumber = 2;
+
+	DApple = SpawnActor<AFruit>();
+	DApple->SetName("DApple");
+	DApple->SetActorLocation({ 2709  ,1019 });
+	DApple->FruitNumber = 2;
+
+
+	DApple = SpawnActor<AFruit>();
+	DApple->SetName("DApple");
+	DApple->SetActorLocation({ 4193  ,960 });
+	DApple->FruitNumber = 1;
+
+
+	DApple = SpawnActor<AFruit>();
+	DApple->SetName("DBanana");
+	DApple->SetActorLocation({ 10750  ,1019 });
+	DApple->FruitNumber = 2;
+
+
+	DApple = SpawnActor<AFruit>();
+	DApple->SetName("DCarrot");
+	DApple->SetActorLocation({ 10900 ,1019 });
+	DApple->FruitNumber = 3;
 
 
 	// Player

@@ -23,6 +23,8 @@ void ASnake::BeginPlay()
 	Collision->SetScale({ 50, 50 });
 	Collision->SetColType(ECollisionType::Rect);
 
+
+
 }
 
 

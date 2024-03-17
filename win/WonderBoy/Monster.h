@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore\Actor.h>
 #include "ContentsHelper.h"
+#include <EnginePlatform/EngineSound.h>
 
 // Ό³Έν :
 class AMonster : public AActor
@@ -24,8 +25,9 @@ protected:
 private:
 
 	UImageRenderer* Snail = nullptr;
-	UImageRenderer* Stone = nullptr;
-	UImageRenderer* Frog = nullptr;
+
+	UEngineSoundPlayer Sound;
+
 
 	UCollision* Collision = nullptr;
 
@@ -37,6 +39,8 @@ private:
 	FVector JumpVector = FVector::Up * 500.0f;
 
 	FVector ColMoveVector = FVector::Right * 100.0f;
+
+
 
 
 	bool ColGra = false;

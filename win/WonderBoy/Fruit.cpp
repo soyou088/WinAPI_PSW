@@ -13,23 +13,26 @@ void AFruit::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	CApple = CreateCollision(WonderCollisionOrder::Object);
-	CApple->SetPosition({ 0,-28 });
-	CApple->SetScale({ 100, 100 });
-	CApple->SetColType(ECollisionType::CirCle);
+	ColCheck = CreateCollision(WonderCollisionOrder::Fruit);
+	ColCheck->SetPosition({ -230,-28 });
+	ColCheck->SetScale({ 10, 1000 });
+	ColCheck->SetColType(ECollisionType::Rect);
 
-	DApple = CreateCollision(WonderCollisionOrder::Object);
-	DApple->SetPosition({ 0,-28 });
-	DApple->SetScale({ 20, 20 });
-	DApple->SetColType(ECollisionType::CirCle);
+	DesCheck = CreateCollision(WonderCollisionOrder::Fruit);
+	DesCheck->SetPosition({ 0,-28 });
+	DesCheck->SetScale({ 30, 30 });
+	DesCheck->SetColType(ECollisionType::CirCle);
 
+
+	Sound = UEngineSound::SoundPlay("item_get.wav");
+	Sound.Off();
 
 }
 
 
 void AFruit::Score()
 {
-	CApple->Destroy();
+	ColCheck->Destroy();
 }
 
 
@@ -38,17 +41,18 @@ void AFruit::Score()
 void AFruit::Tick(float _DeltaTime)
 {
 	std::vector<UCollision*> Result;
-	if (nullptr != CApple && true == CApple->CollisionCheck(WonderCollisionOrder::Player, Result))
+	if (nullptr != ColCheck && true == ColCheck->CollisionCheck(WonderCollisionOrder::Player, Result))
 	{
 
 		AActor* MCol = Result[0]->GetOwner();
 		Collision();
 	}
-	if (nullptr != DApple && true == DApple->CollisionCheck(WonderCollisionOrder::Player, Result))
+	if (nullptr != DesCheck && true == DesCheck->CollisionCheck(WonderCollisionOrder::Player, Result))
 	{
 
 		AActor* MCol = Result[0]->GetOwner();
 		Apple->ActiveOff();
+		Sound.On();
 	}
 
 }
@@ -67,8 +71,8 @@ void AFruit::Collision()
 	case 2:
 		Apple = CreateImageRenderer(WonderRenderOrder::Object);
 		Apple->SetImage("Banana.png");
-		Apple->SetTransform({ {20, -100 }, {30, 35} });
-
+		Apple->SetTransform({ {20, -230 }, {35, 35} });
+		DesCheck->SetPosition({ 20, -230 });
 		Score();
 		break;
 	case 3:
@@ -78,10 +82,18 @@ void AFruit::Collision()
 		Score();
 		break;
 	case 4:
-		Apple = CreateImageRenderer(WonderRenderOrder::Object);
+	/*	Apple = CreateImageRenderer(WonderRenderOrder::Object);
 		Apple->SetImage("Melon.png");
 		Apple->SetTransform({ {0, -28 }, {30, 35} });
+		Score();*/
+		Apple = CreateImageRenderer(WonderRenderOrder::Object);
+		Apple->SetImage("Apple.png");
+		Apple->SetTransform({ {0, -28 }, {30, 35} });
+
 		Score();
+
+		break;
+	case 5:
 
 		break;
 	}

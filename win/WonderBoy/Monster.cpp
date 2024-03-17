@@ -32,6 +32,8 @@ void AMonster::BeginPlay()
 		Collision->SetScale({ 50, 50 });
 		Collision->SetColType(ECollisionType::Rect);
 	
+		Sound = UEngineSound::SoundPlay("MonsterKill.wav");
+		Sound.Off();
 }
 
 void AMonster::HillDown()
@@ -81,6 +83,7 @@ void AMonster::DesMoveUpdate(float _DeltaTime)
 
 	if (ColSnail == true && ColGra == true)
 	{
+	
 		Destroy();
 	}
 
@@ -108,7 +111,7 @@ void AMonster::Tick(float _DeltaTime)
 
 	if (ColSnail == true)
 	{
+		Sound.On();
 		DesMoveUpdate(_DeltaTime);
-
 	}
 }

@@ -27,16 +27,14 @@ void ABulletActor::BeginPlay()
 
 		Render->CreateAnimation("Bullet", "Bullet_C.png", 0, 3, 0.05f, true);
 		BCollision = CreateCollision(WonderCollisionOrder::PlayerBullet);
-		BCollision->SetScale({ 10,10 });
+		BCollision->SetScale({ 20,20 });
 		BCollision->SetColType(ECollisionType::Rect);
 
 		Render->ChangeAnimation("Bullet");
 	}
 
-	{
-		Sound = UEngineSound::SoundPlay("Foot_1_1.wav");
+		Sound = UEngineSound::SoundPlay("BulletSound.wav");
 		Sound.On();
-	}
 
 }
 
@@ -86,6 +84,7 @@ void ABulletActor::Tick(float _DeltaTime)
 		ColBullet();
 		return;
 	}
+
 
 
 

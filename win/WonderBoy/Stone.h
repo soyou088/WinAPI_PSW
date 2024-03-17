@@ -1,6 +1,8 @@
 #pragma once
 #include <EngineCore\Actor.h>
 #include "ContentsHelper.h"
+#include <EnginePlatform/EngineSound.h>
+
 
 // Ό³Έν :
 class AStone : public AActor
@@ -21,9 +23,15 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void BulletHitSound();
+
 private:
 	UImageRenderer* Render = nullptr;
 
+	UEngineSoundPlayer Sound;
+
 	UCollision* Collision = nullptr;
+
+	bool  BulletHit = false;
 };
 

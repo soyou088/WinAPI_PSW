@@ -18,13 +18,13 @@ enum class WonderCollisionOrder
 {
 	PlayerBullet, // µ¹µµ³¢
 	Monster, 
-	Stone,
 	Bonfire,
 	Rock,
 	Switch,
-	Apple,
+	Fruit,
 	Banana,
 	Bullet,
+	Stone,
 	Object,
 	Player,
 

@@ -26,7 +26,12 @@ void AStone::BeginPlay()
 	Collision->SetPosition({ 0,-15 });
 	Collision->SetScale({ 50, 50 });
 	Collision->SetColType(ECollisionType::Rect);
+
+	
+
 }
+
+
 
 void AStone::Tick(float _DeltaTime)
 {
@@ -34,6 +39,22 @@ void AStone::Tick(float _DeltaTime)
 	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Player, Result))
 	{
 		AActor* MCol = Result[0]->GetOwner();
+
 	}
 
+	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::PlayerBullet, Result))
+	{
+		AActor* MCol = Result[0]->GetOwner();
+		if (BulletHit == false)
+		{
+			Sound = UEngineSound::SoundPlay("Stone_weapon_Hit.wav");
+			BulletHit = true;
+		}
+
+	}
+	else
+	{
+		BulletHit = false;
+	}
 }
+

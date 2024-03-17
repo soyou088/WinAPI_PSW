@@ -1,6 +1,8 @@
 #pragma once
 #include <EngineCore\Actor.h>
 #include "ContentsHelper.h"
+#include <EnginePlatform/EngineSound.h>
+
 
 // Ό³Έν :
 class ASnake : public AActor
@@ -20,13 +22,14 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	std::string GetAnimationName(std::string _Name);
 	EPlayState State = EPlayState::None;
 	EActorDir DirState = EActorDir::Right;
 	std::string CurAnimationName = "None";
 
 private:
 	UImageRenderer* Render = nullptr;
+
+	UEngineSoundPlayer Sound;
 
 	UCollision* Collision;
 

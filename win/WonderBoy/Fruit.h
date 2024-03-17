@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore\Actor.h>
 #include "ContentsHelper.h"
+#include <EnginePlatform/EngineSound.h>
 
 // Ό³Έν :
 class AFruit : public AActor
@@ -26,22 +27,11 @@ protected:
 
 private:
 	UImageRenderer* Apple = nullptr;
-	UImageRenderer* Banana = nullptr;
-	UImageRenderer* Carrot = nullptr;
-	UImageRenderer* Doll = nullptr;
-	UImageRenderer* FruitE = nullptr;
-	UImageRenderer* Melon = nullptr;
-	UImageRenderer* Tomato = nullptr;
 
+	UEngineSoundPlayer Sound;
 
-	UCollision* CApple = nullptr;
-	UCollision* DApple = nullptr;
-	UCollision* CCarrot = nullptr;
-	UCollision* CDoll = nullptr;
-	UCollision* CFruitE = nullptr;
-	UCollision* CMelon = nullptr;
-	UCollision* CTomato = nullptr;
-
+	UCollision* ColCheck = nullptr;
+	UCollision* DesCheck = nullptr;
 
 	void Score();
 

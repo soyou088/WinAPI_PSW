@@ -88,14 +88,6 @@ void UWonderCore::BeginPlay()
 	ChangeLevel("Title");
 
 
-	// Sound
-
-	//std::list<UEngineFile> SoundList = NewDir.AllFile({ ".wav", ".mp3" }, true);
-	//// 엔진만의 규칙을 정할거냐.
-	//for (UEngineFile& File : NewList)
-	//{
-	//	UEngineSound::Load(File.GetFullPath());
-	//}
 
 
 

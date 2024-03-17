@@ -25,6 +25,9 @@ void ABullet::BeginPlay()
 	Collision->SetPosition({ 0,-28 });
 	Collision->SetScale({ 50, 50 });
 	Collision->SetColType(ECollisionType::Rect);
+
+	Sound = UEngineSound::SoundPlay("item_get.wav");
+	Sound.Off();
 }
 
 
@@ -51,6 +54,7 @@ void ABullet::Tick(float _DeltaTime)
 	{
 		Render->ActiveOff();
 		UContentsHelper::UIOn = true;
+		Sound.On();
 	}
 
 }

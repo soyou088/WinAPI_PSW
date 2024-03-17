@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore\Actor.h>
 #include "ContentsHelper.h"
+#include <EnginePlatform/EngineSound.h>
 
 // Ό³Έν :
 class ABoard : public AActor
@@ -24,6 +25,7 @@ protected:
 private:
 	UImageRenderer* Render = nullptr;
 
+	UEngineSoundPlayer Sound;
 
 	UCollision* Collision = nullptr;
 

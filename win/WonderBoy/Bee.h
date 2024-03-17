@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore\Actor.h>
 #include "ContentsHelper.h"
+#include <EnginePlatform/EngineSound.h>
 
 // Ό³Έν :
 class ABee : public AActor
@@ -39,6 +40,8 @@ private:
 	UImageRenderer* Render = nullptr;
 
 	UCollision* Collision;
+
+	UEngineSoundPlayer Sound;
 
 	FVector MoveVector = FVector::Left * 50.0f;
 	FVector DownMove = FVector::Down* 130.0f;

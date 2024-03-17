@@ -24,7 +24,11 @@ void ABoard::BeginPlay()
 	Collision->SetPosition({ 0,-28 });
 	Collision->SetScale({ 100, 50 });
 	Collision->SetColType(ECollisionType::Rect);
+
+	Sound = UEngineSound::SoundPlay("item_get.wav");
+	Sound.Off();
 }
+
 
 void ABoard::MakeBullet()
 {
@@ -42,6 +46,7 @@ void ABoard::Tick(float _DeltaTime)
 
 	if (true == Collision->CollisionCheck(WonderCollisionOrder::Player, Result))
 	{
+		Sound.On();
 		Render->ActiveOff();
 	}
 }

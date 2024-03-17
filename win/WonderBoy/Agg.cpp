@@ -32,8 +32,8 @@ void AAgg::BeginPlay()
 void AAgg::CalGravityVector(float _DeltaTime)
 {
 	GravityVector += GravityAcc * _DeltaTime;
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY()+1, Color8Bit::MagentaA);
-
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(GetActorLocation().iX(), GetActorLocation().iY() +2, Color8Bit::MagentaA);
+ 
 	if (Color == Color8Bit::MagentaA)
 	{
 		GravityVector = FVector::Zero;
