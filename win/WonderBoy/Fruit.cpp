@@ -13,24 +13,26 @@ void AFruit::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	Apple = CreateImageRenderer(WonderRenderOrder::Object);
-
-	Apple->SetImage("Apple.png");
-	Apple->SetTransform({ {0, -28 }, {30, 35} });
-	Apple->ActiveOff();
-
-	CApple = CreateCollision(WonderCollisionOrder::Apple);
+	CApple = CreateCollision(WonderCollisionOrder::Object);
 	CApple->SetPosition({ 0,-28 });
-	CApple->SetScale({ 30, 35 });
+	CApple->SetScale({ 100, 100 });
 	CApple->SetColType(ECollisionType::CirCle);
+
+	DApple = CreateCollision(WonderCollisionOrder::Object);
+	DApple->SetPosition({ 0,-28 });
+	DApple->SetScale({ 20, 20 });
+	DApple->SetColType(ECollisionType::CirCle);
+
 
 }
 
 
 void AFruit::Score()
 {
-	Destroy();
+	CApple->Destroy();
 }
+
+
 
 
 void AFruit::Tick(float _DeltaTime)
@@ -38,14 +40,50 @@ void AFruit::Tick(float _DeltaTime)
 	std::vector<UCollision*> Result;
 	if (nullptr != CApple && true == CApple->CollisionCheck(WonderCollisionOrder::Player, Result))
 	{
+
 		AActor* MCol = Result[0]->GetOwner();
-		Score();
+		Collision();
+	}
+	if (nullptr != DApple && true == DApple->CollisionCheck(WonderCollisionOrder::Player, Result))
+	{
+
+		AActor* MCol = Result[0]->GetOwner();
+		Apple->ActiveOff();
 	}
 
+}
 
-	if (true == UContentsHelper::AppleOn)
+void AFruit::Collision()
+{
+
+	switch (FruitNumber)
 	{
-		Apple->ActiveOn();
+	case 1:
+		Apple = CreateImageRenderer(WonderRenderOrder::Object);
+		Apple->SetImage("Apple.png");
+		Apple->SetTransform({ {0, -28 }, {30, 35} });
+		Score();
+		break;
+	case 2:
+		Apple = CreateImageRenderer(WonderRenderOrder::Object);
+		Apple->SetImage("Banana.png");
+		Apple->SetTransform({ {20, -100 }, {30, 35} });
+
+		Score();
+		break;
+	case 3:
+		Apple = CreateImageRenderer(WonderRenderOrder::Object);
+		Apple->SetImage("Carrot.png");
+		Apple->SetTransform({ {0, -28 }, {30, 35} });
+		Score();
+		break;
+	case 4:
+		Apple = CreateImageRenderer(WonderRenderOrder::Object);
+		Apple->SetImage("Melon.png");
+		Apple->SetTransform({ {0, -28 }, {30, 35} });
+		Score();
+
+		break;
 	}
 }
 

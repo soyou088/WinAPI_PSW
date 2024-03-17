@@ -17,10 +17,7 @@ void ASwitch::BeginPlay()
 	Collision->SetScale({ 20, 100 });
 	Collision->SetColType(ECollisionType::Rect);
 
-	ColApple = CreateCollision(WonderCollisionOrder::Apple);
-	ColApple->SetPosition({ 0,-30 });
-	ColApple->SetScale({ 20, 1000 });
-	ColApple->SetColType(ECollisionType::Rect);
+
 	 
 }
 
@@ -33,10 +30,6 @@ void ASwitch::Tick(float _DeltaTime)
 		UContentsHelper::RockOn = true;
 	}
 
-	if (nullptr != ColApple && true == ColApple->CollisionCheck(WonderCollisionOrder::Player, Result))
-	{
-		AActor* MCol = Result[0]->GetOwner();
-		UContentsHelper::AppleOn = true;
-	}
+
 }
 

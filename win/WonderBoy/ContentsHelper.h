@@ -23,6 +23,7 @@ enum class WonderCollisionOrder
 	Rock,
 	Switch,
 	Apple,
+	Banana,
 	Bullet,
 	Object,
 	Player,
@@ -65,6 +66,13 @@ public:
 	static bool UIOn;
 	static bool RockOn;
 	static bool AppleOn;
+	static bool BananaOn;
+	static bool CarrotOn;
+	static bool DollOn;
+	static bool FruitEOn;
+	static bool MelonOn;
+	static bool TomatoOn;
+
 
 private:
 	// constrcuter destructer

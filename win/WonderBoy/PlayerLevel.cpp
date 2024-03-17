@@ -208,14 +208,20 @@ void UPlayLevel::BeginPlay()
 	UIHP->SetActorLocation({ 500, 59 });
 
 
-	AFruit* Fruit = SpawnActor<AFruit>();
-	Fruit->SetName("Apple");
-	Fruit->SetActorLocation({ 1047  ,1019 });
-
-	ASwitch* Apple = SpawnActor<ASwitch>();
+	AFruit* Apple = SpawnActor<AFruit>();
 	Apple->SetName("Apple");
-	Apple->SetActorLocation({ 847, 1019 });
+	Apple->SetActorLocation({ 1047  ,1019 });
+	Apple->FruitNumber = 1;
 
+	AFruit* DApple = SpawnActor<AFruit>();
+	DApple->SetName("DApple");
+	DApple->SetActorLocation({ 1047  ,1019 });
+	DApple->FruitNumber = 1;
+
+	DApple = SpawnActor<AFruit>();
+	DApple->SetName("DApple");
+	DApple->SetActorLocation({ 1047  ,1019 });
+	DApple->FruitNumber = 2;
 
 
 	// Player

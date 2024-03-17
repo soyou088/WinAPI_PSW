@@ -16,10 +16,13 @@ public:
 	AFruit& operator=(const AFruit& _Other) = delete;
 	AFruit& operator=(AFruit&& _Other) noexcept = delete;
 
+	int FruitNumber = 0;
 protected:
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+
+	void Collision();
 
 private:
 	UImageRenderer* Apple = nullptr;
@@ -32,7 +35,7 @@ private:
 
 
 	UCollision* CApple = nullptr;
-	UCollision* CBanana = nullptr;
+	UCollision* DApple = nullptr;
 	UCollision* CCarrot = nullptr;
 	UCollision* CDoll = nullptr;
 	UCollision* CFruitE = nullptr;
