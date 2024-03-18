@@ -59,6 +59,7 @@ protected:
 	void MoveStart();
 	void RunStart();
 	void JumpStart();
+	void JumppingStart();
 
 	void SkateStart();
 	void SkateJumpStart();
@@ -128,5 +129,6 @@ private:
 	void FinPlayGo();
 
 	bool testgr = false;
+	bool IsSpring = false;
 };
 

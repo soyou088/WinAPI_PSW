@@ -47,6 +47,7 @@ enum class EPlayState
 	Move,
 	Run,
 	Jump,
+	Jumpping,
 	Attack,
 	Destroy,
 	SkateMove,

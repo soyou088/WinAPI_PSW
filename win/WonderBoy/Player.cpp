@@ -332,10 +332,17 @@ void APlayer::MoveStart()
 void APlayer::JumpStart()
 {
 	JumpVector = JumpPower;
+	if (true == IsSpring)
+	{
+		JumpVector = JumpPower * 2 ;
+		JumpMax = 1000.0f;
+		IsSpring = false;
+	}
 	Renderer->ChangeAnimation(GetAnimationName("Jump"));
 	AddActorLocation(FVector::Up * 10);
 	DirCheck();
 }
+
 
 void APlayer::RunStart()
 {
@@ -1026,6 +1033,7 @@ void APlayer::Tick(float _DeltaTime)
 
 	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Jumpping, Result))
 	{
+		IsSpring = true;
 		AActor* SCol = Result[0]->GetOwner();
 		StateChange(EPlayState::Jump);
 		return;
