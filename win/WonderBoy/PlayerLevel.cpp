@@ -13,6 +13,7 @@
 #include "Board.h"
 #include "Bridge.h"
 
+
 #include "UI_Player.h"
 #include "Stage.h"
 #include "UI_Back.h"
@@ -182,9 +183,12 @@ void UPlayLevel::BeginPlay()
 	Switch->SetName("RockSwitch");
 	Switch->SetActorLocation({ 13912, 1019 });
 
-	ABridge* Bridge = SpawnActor<ABridge>();
-	Bridge->SetName("Bridge ");
-	Bridge->SetActorLocation({ 22467 ,300 });
+
+
+	Bridge* ABridge = SpawnActor<Bridge>();
+	ABridge->SetName("Bridge");
+	ABridge->SetActorLocation({ 22476, 355 });
+
 
 	// UI
 	AStage* Stage = SpawnActor<AStage>();
