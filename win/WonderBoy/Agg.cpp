@@ -22,7 +22,7 @@ void AAgg::BeginPlay()
 		Render->CreateAnimation("Destory_Agg", "Agg.png", 1, 2, 0.6797f, true);
 
 
-
+		//¤¸¤¸
 		Collision = CreateCollision(WonderCollisionOrder::Object);
 		Collision->SetPosition({ 0,-20 });
 		Collision->SetScale({ 70, 30 });
