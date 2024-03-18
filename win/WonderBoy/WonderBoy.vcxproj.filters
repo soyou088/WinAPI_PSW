@@ -104,9 +104,6 @@
     <ClInclude Include="Fruit.h">
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClInclude>
-    <ClInclude Include="Bridge.h">
-      <Filter>PlayLevel\ObjectActor</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundMap.cpp">
@@ -184,9 +181,6 @@
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClCompile>
     <ClCompile Include="Fruit.cpp">
-      <Filter>PlayLevel\ObjectActor</Filter>
-    </ClCompile>
-    <ClCompile Include="Bridge.cpp">
       <Filter>PlayLevel\ObjectActor</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1040,13 +1040,6 @@ void APlayer::Tick(float _DeltaTime)
 		return;
 	}
 
-	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(UContentsHelper::GetMousePos().iX(), UContentsHelper::GetMousePos().iY(), Color8Bit::MagentaA);
-	if (Color == Color8Bit::MagentaA && nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Bridge, Result))
-	{
-		AActor* SCol = Result[0]->GetOwner();
-		return;
-	}
-
 
 	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Board, Result))
 	{
