@@ -840,7 +840,7 @@ void APlayer::SkateMove(float _DeltaTime)
 		
 		if (true == UEngineInput::IsFree(VK_LEFT) && UEngineInput::IsFree(VK_RIGHT))
 		{
-			FVector MoveDirVector = FVector::Right * 200.0f; 
+			FVector MoveDirVector = FVector::Right * 500.0f; 
 			switch (DirState)
 			{
 			case EActorDir::Left:
@@ -852,14 +852,15 @@ void APlayer::SkateMove(float _DeltaTime)
 			default:
 				break;
 			}
-			if (80.0f <= abs(MoveVector.X))
+			if (80.0f >= abs(MoveVector.X))
 			{
-				AddMoveVector((MoveDirVector)*_DeltaTime);// 감속하는 코드
-				MoveDirVector = FVector::Right * 10;
+				MoveDirVector += FVector::Right;
+				AddMoveVector((MoveDirVector)*_DeltaTime);	// 감속하는 코드
 			}
 			else
 			{
-				MoveVector = FVector::Right * 200.0f;
+				//MoveVector = FVector::Right * 200.0f;
+				MoveVector = FVector::Right * 20.f;
 				return;
 			}
 
@@ -878,7 +879,7 @@ void APlayer::SkateMove(float _DeltaTime)
 
 		if (UEngineInput::IsPress(VK_RIGHT))
 		{
-			AddMoveVector(FVector::Right * _DeltaTime);
+			AddMoveVector((FVector::Right * 2) * _DeltaTime);
 			FVector CPos = GetWorld()->GetCameraPos();
 			int a = 0;
 		}
@@ -1036,6 +1037,13 @@ void APlayer::Tick(float _DeltaTime)
 		IsSpring = true;
 		AActor* SCol = Result[0]->GetOwner();
 		StateChange(EPlayState::Jump);
+		return;
+	}
+
+	Color8Bit Color = UContentsHelper::ColMapImage->GetColor(UContentsHelper::GetMousePos().iX(), UContentsHelper::GetMousePos().iY(), Color8Bit::MagentaA);
+	if (Color == Color8Bit::MagentaA && nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Bridge, Result))
+	{
+		AActor* SCol = Result[0]->GetOwner();
 		return;
 	}
 
