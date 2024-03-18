@@ -189,10 +189,6 @@ void UPlayLevel::BeginPlay()
 	Stage->SetActorLocation({ 326, 830 });
 	Stage->Destroy(2.0f);
 
-//	AUIEX* UIEX = SpawnActor<AUIEX>();
-//	UIEX->SetName("UIEX");
-//	UIEX->SetActorLocation({ 256,55 });
-
 	AUI_Back* UIBack = SpawnActor<AUI_Back>();
 	UIBack->SetName("UI_Back");
 	UIBack->SetActorLocation({ 350,40 });

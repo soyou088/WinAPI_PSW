@@ -17,7 +17,7 @@ void ATitleLogo::BeginPlay()
 	Renderer->SetImage("menu1.png");
 	// 이미지가 나올 위치
 	SetActorLocation({ 50, 50 });
-	Renderer->SetTransform({ {205,200}, {520, 500} });
+	Renderer->SetTransform({ {300,240}, {700, 640} });
 	Renderer->SetImageCuttingTransform({ {0,0}, {200, 200} });
 	
 	Renderer->CreateAnimation("Title", "Title", 0, 3, 0.3f, true);

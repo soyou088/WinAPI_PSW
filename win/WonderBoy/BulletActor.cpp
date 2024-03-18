@@ -18,8 +18,6 @@ ABulletActor::~ABulletActor()
 
 void ABulletActor::BeginPlay()
 {
-	{
-		// Bullet Collision
 		Render = CreateImageRenderer(WonderRenderOrder::PlayerBullet);
 		Render->SetImage("Bullet_C.png");
 		Render->SetTransform({ {0,0}, {130, 130} });
@@ -31,7 +29,6 @@ void ABulletActor::BeginPlay()
 		BCollision->SetColType(ECollisionType::Rect);
 
 		Render->ChangeAnimation("Bullet");
-	}
 
 		Sound = UEngineSound::SoundPlay("BulletSound.wav");
 		Sound.On();

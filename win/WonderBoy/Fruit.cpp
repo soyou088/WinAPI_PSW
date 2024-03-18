@@ -82,19 +82,17 @@ void AFruit::Collision()
 		Score();
 		break;
 	case 4:
-	/*	Apple = CreateImageRenderer(WonderRenderOrder::Object);
-		Apple->SetImage("Melon.png");
-		Apple->SetTransform({ {0, -28 }, {30, 35} });
-		Score();*/
+
 		Apple = CreateImageRenderer(WonderRenderOrder::Object);
 		Apple->SetImage("Apple.png");
 		Apple->SetTransform({ {0, -28 }, {30, 35} });
-
 		Score();
-
 		break;
 	case 5:
-
+		Apple = CreateImageRenderer(WonderRenderOrder::Object);
+		Apple->SetImage("Melon.png");
+		Apple->SetTransform({ {0, -28 }, {30, 35} });
+		Score();
 		break;
 	}
 }
