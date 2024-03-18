@@ -27,6 +27,8 @@ void UTitleLevel::Tick(float _DeltaTime)
 	if (UEngineInput::IsPress('P'))
 	{
 		GEngine->ChangeLevel("Player");
+		BGMSound = UEngineSound::SoundPlay("BGMSound.mp3");
+		BGMSound.Loop();
 	}
 
 }

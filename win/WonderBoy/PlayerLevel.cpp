@@ -269,6 +269,12 @@ void UPlayLevel::BeginPlay()
 	Player->SetName("Player");
 	Player->SetActorLocation({ 227, 873 });
 
+
+
+
+
+
+
 }
 
 void UPlayLevel::Tick(float _DeltaTime)

@@ -40,6 +40,7 @@ void UWonderCore::BeginPlay()
 	// 사운드 파일을 로드한다
 	std::list<UEngineFile> NewSoundList = NewDir.AllFile({ ".wav", ".mp3" }, true);
 
+
 	for (UEngineFile& File : NewSoundList)
 	{
 		UEngineSound::Load(File.GetFullPath());

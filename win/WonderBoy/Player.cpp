@@ -6,6 +6,7 @@
 #include <EngineCore/EngineDebug.h>
 #include "ContentsHelper.h"
 #include <EngineBase/EngineDebug.h>
+#include <EnginePlatform/EngineSound.h>
 
 
 
@@ -69,6 +70,7 @@ void APlayer::BeginPlay()
 		Collision->SetScale({ 50, 90 });
 		Collision->SetColType(ECollisionType::Rect);
 	}
+
 
 
 	StateChange(EPlayState::Idle);
@@ -1020,6 +1022,15 @@ void APlayer::Tick(float _DeltaTime)
 		AActor* SCol = Result[0]->GetOwner();
 		return;
 	}
+
+
+	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Jumpping, Result))
+	{
+		AActor* SCol = Result[0]->GetOwner();
+		StateChange(EPlayState::Jump);
+		return;
+	}
+
 
 	if (nullptr != Collision && true == Collision->CollisionCheck(WonderCollisionOrder::Board, Result))
 	{

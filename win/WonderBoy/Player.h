@@ -73,6 +73,7 @@ protected:
 private:
 	UCollision* Collision = nullptr;
 
+
 	UImageRenderer* Renderer = nullptr;
 	float AnimationTime = 0.0f;
 	int AnimationFrame = 0;
@@ -92,12 +93,15 @@ private:
 	FVector GravityAcc = FVector::Down * 2000.0f;
 	FVector GravityVector = FVector::Zero;
 
-	FVector JumpPower = FVector::Up * 800;
+	FVector JumpPower = FVector::Up * 800.0f;
 	FVector JumpVector = FVector::Zero;
 	float JumpMax = 800.0f;
 
+	FVector JumppingPower = FVector::Up * 1000.0f;
+
 	// 내가 나갈 모든 방향의 합
 	FVector LastMoveVector = FVector::Zero;
+
 	FVector MovePos = FVector::Zero;
 
 

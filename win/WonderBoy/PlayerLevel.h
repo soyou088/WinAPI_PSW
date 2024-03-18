@@ -2,6 +2,8 @@
 #include <EngineCore\Level.h>
 #include <EngineCore\Actor.h>
 #include "Stage.h"
+#include <EnginePlatform/EngineSound.h>
+
 
 // Ό³Έν :
 class UPlayLevel : public ULevel, public AActor
@@ -28,5 +30,8 @@ protected:
 
 private:
 	AStage* Stage = nullptr;
+
+	UEngineSoundPlayer BGMSound;
+
 };
 
