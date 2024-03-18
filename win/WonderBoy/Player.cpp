@@ -402,6 +402,7 @@ void APlayer::StateChange(EPlayState _State)
 		}
 	}
 
+
 	State = _State;
 }
 
@@ -895,7 +896,8 @@ void APlayer::SkateMove(float _DeltaTime)
 			Bullet();
 			return;
 		}
-
+		
+	
 		FVector CheckPos = GetActorLocation();
 		switch (DirState)
 		{
